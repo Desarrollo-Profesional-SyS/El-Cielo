@@ -1,0 +1,51 @@
+# ---- Nunca subir al repositorio ----
+
+# Credenciales y configuración con datos sensibles
+.env
+.env.*
+**/wp-config.php
+**/configuracion.php
+**/config.php
+**/conexion.php
+**/credentials*
+**/*.pem
+**/*.key
+
+# Respaldos y volcados de base de datos
+*.sql
+*.sql.gz
+*.sql.zip
+*.bak
+*.dump
+**/backup*/
+**/respaldo*/
+**/*backup*.zip
+**/*backup*.tar.gz
+
+# Registros del servidor
+error_log
+**/error_log
+*.log
+**/logs/
+
+# Basura de WordPress: pesa mucho y se reinstala solo
+**/wp-admin/
+**/wp-includes/
+**/wp-content/cache/
+**/wp-content/uploads/
+**/wp-content/upgrade/
+**/wp-content/updraft/
+
+# Caché y temporales
+**/cache/
+**/tmp/
+**/.cache/
+**/node_modules/
+
+# Basura del sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Archivos de estado del deploy por FTP
+.ftp-deploy-sync-state.json
