@@ -1,0 +1,55 @@
+name: Publicar en Hostinger
+
+# Cada vez que algo llega a main, se sube solo a public_html por FTP.
+# Requiere tres secrets en Settings -> Secrets and variables -> Actions:
+#   FTP_SERVER    el host FTP que te da hPanel (ej. ftp.elcielotamaulipas.org)
+#   FTP_USERNAME  el usuario de la cuenta FTP
+#   FTP_PASSWORD  su contraseña
+# Mientras no existan, el flujo termina en verde sin hacer nada.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-hostinger
+  cancel-in-progress: false
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ¿Ya está configurado el FTP?
+        id: revisa
+        env:
+          SERVIDOR: ${{ secrets.FTP_SERVER }}
+        run: |
+          if [ -z "$SERVIDOR" ]; then
+            echo "configurado=no" >> "$GITHUB_OUTPUT"
+            echo "Faltan los secrets de FTP, no se publica nada todavía."
+          else
+            echo "configurado=si" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Traer el repositorio
+        if: steps.revisa.outputs.configurado == 'si'
+        uses: actions/checkout@v4
+
+      - name: Subir public_html por FTP
+        if: steps.revisa.outputs.configurado == 'si'
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: ./public_html/
+          server-dir: ${{ vars.FTP_SERVER_DIR || '/public_html/' }}
+          # Nunca borra de golpe lo que hay en el servidor.
+          dangerous-clean-slate: false
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.DS_Store
+            **/node_modules/**
