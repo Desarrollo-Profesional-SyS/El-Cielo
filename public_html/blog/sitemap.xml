@@ -21,4 +21,24 @@
       <image:title>Flora y fauna de la Reserva de la Biosfera El Cielo, Tamaulipas</image:title>
     </image:image>
   </url>
+  <url>
+    <loc>https://elcielotamaulipas.org/blog/guia-completa-visitar-el-cielo-tamaulipas/</loc>
+    <lastmod>2026-09-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://elcielotamaulipas.org/blog/img/valle-alta-cima-reserva-el-cielo-tamaulipas.jpg</image:loc>
+      <image:title>Valle de Alta Cima, Reserva de la Biosfera El Cielo</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://elcielotamaulipas.org/blog/donde-esta-como-llegar-el-cielo-tamaulipas/</loc>
+    <lastmod>2026-09-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://elcielotamaulipas.org/blog/img/vista-aerea-cabanas-san-jose-el-cielo.jpg</image:loc>
+      <image:title>San José, dentro de la Reserva de la Biosfera El Cielo</image:title>
+    </image:image>
+  </url>
 </urlset>
