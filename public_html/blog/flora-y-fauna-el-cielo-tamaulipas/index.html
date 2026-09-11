@@ -5,6 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Flora y fauna de El Cielo Tamaulipas | Guía de campo — Glamping El Cielo Adventures</title>
 <meta name="description" content="Conoce la flora y fauna de El Cielo Tamaulipas: aves, mamíferos, flores, árboles y especies únicas que habitan una de las reservas naturales más importantes de México.">
+<link rel="canonical" href="https://elcielotamaulipas.org/blog/flora-y-fauna-el-cielo-tamaulipas/">
+<link rel="icon" type="image/png" href="/blog/img/favicon.png">
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="es_MX">
+<meta property="og:site_name" content="El Cielo Adventures">
+<meta property="og:title" content="Flora y fauna de El Cielo Tamaulipas: animales y plantas de la Reserva de la Biosfera">
+<meta property="og:description" content="Guía de campo de la flora y fauna de El Cielo: qué especies vas a ver, dónde buscarlas y en qué temporada aparecen.">
+<meta property="og:image" content="https://elcielotamaulipas.org/blog/img/panoramica-sierra-madre-oriental-el-cielo.jpg">
+<meta property="og:image:alt" content="Bosque y sierra de la Reserva de la Biosfera El Cielo, Tamaulipas">
+<meta property="og:url" content="https://elcielotamaulipas.org/blog/flora-y-fauna-el-cielo-tamaulipas/">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Flora y fauna de El Cielo Tamaulipas: guía de campo">
+<meta name="twitter:description" content="Qué especies vas a ver, dónde buscarlas y en qué temporada aparecen en la Reserva de la Biosfera El Cielo.">
+<meta name="twitter:image" content="https://elcielotamaulipas.org/blog/img/panoramica-sierra-madre-oriental-el-cielo.jpg">
+
+<!-- Tipografías que usan el header y el footer del sitio -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body style="margin:0">
 
@@ -308,6 +329,128 @@
   .ec-bar__fill{width:var(--w)}
 }
 </style>
+
+<!-- ===================== HEADER DEL SITIO ===================== -->
+<style>
+/* Chrome del sitio (header + footer de El Cielo Adventures).
+   Todo va bajo .site-* para NO tocar ni pisar ninguna regla .ec- del articulo. */
+.site-top,.site-ticker,.site-foot{
+  font-family:'Space Grotesk',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+  color:#131A11;line-height:1.5;-webkit-font-smoothing:antialiased;
+}
+.site-top *,.site-ticker *,.site-foot *{box-sizing:border-box}
+.site-top a,.site-foot a{text-decoration:none;color:inherit}
+
+.site-top{position:sticky;top:0;z-index:80;background:rgba(255,255,255,.86);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(90,140,0,.22)}
+.site-nav-inner{display:flex;align-items:center;justify-content:space-between;gap:14px;
+  padding:14px 28px;max-width:1200px;margin:0 auto}
+.site-brand{display:flex;align-items:center;gap:10px;flex:none}
+.site-brand img{height:40px;width:auto;max-width:none;display:block}
+.site-brand-name{font-family:'Fraunces',Georgia,'Times New Roman',serif;font-weight:700;font-size:16px;line-height:1.15}
+.site-brand-name span{display:block;font-family:'Space Grotesk',sans-serif;font-weight:500;
+  font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:#6FA300}
+.site-links{display:flex;gap:30px;font-size:14px;font-weight:500;color:#5C6857}
+.site-links a{position:relative;padding-bottom:4px}
+.site-links a:hover{color:#131A11}
+.site-links a::after{content:"";position:absolute;bottom:0;left:0;width:0;height:2px;
+  background:#6FA300;transition:width .25s ease}
+.site-links a:hover::after{width:100%}
+.site-links a[aria-current="page"]{color:#6FA300}
+.site-btn{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:999px;
+  font-weight:700;font-size:13.5px;border:1px solid transparent;background:#6FA300;color:#FFFFFF;
+  box-shadow:0 6px 18px -8px rgba(90,140,0,.55);flex:none;
+  transition:transform .2s ease,box-shadow .2s ease,background .2s ease}
+.site-btn:hover{background:#5C8B00;box-shadow:0 12px 26px -10px rgba(90,140,0,.6);transform:translateY(-3px)}
+
+.site-ticker{overflow:hidden;background:#F8FBF3;border-bottom:1px solid rgba(90,140,0,.22);
+  padding:16px 0;white-space:nowrap}
+.site-ticker-track{display:inline-block;animation:siteScrollLeft 28s linear infinite}
+.site-ticker span{display:inline-block;font-family:'Fraunces',Georgia,serif;font-weight:700;
+  font-size:20px;color:#6FA300;margin:0 34px;letter-spacing:.02em}
+.site-ticker span.o{color:#5C6857}
+@keyframes siteScrollLeft{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+.site-foot{background:#F3F7EB;border-top:1px solid rgba(90,140,0,.22);padding:50px 0 24px;color:#5C6857}
+.site-foot-wrap{max-width:1200px;margin:0 auto;padding:0 28px}
+.site-foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:36px}
+.site-foot h4{font-family:'Fraunces',Georgia,serif;color:#131A11;font-size:12.5px;
+  letter-spacing:.06em;text-transform:uppercase;margin:0 0 14px}
+.site-foot a{display:block;font-size:13.5px;padding:4px 0;color:#5C6857}
+.site-foot a:hover{color:#6FA300}
+.site-foot p{font-size:13px;line-height:1.6;max-width:260px;margin:0}
+.site-foot-bottom{border-top:1px solid rgba(19,26,17,.10);margin-top:30px;padding-top:20px;
+  font-size:12px;text-align:center;color:#7B8574}
+
+@media (max-width:900px){
+  .site-links{display:none}
+  .site-foot-grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:720px){
+  .site-nav-inner{padding:12px 18px}
+  .site-foot-wrap{padding:0 18px}
+  .site-ticker{padding:12px 0}
+  .site-ticker span{font-size:16px;margin:0 22px}
+}
+
+/* ---- Convivencia con el articulo (sin editar ninguna regla .ec-) ----
+   1) .ec-blog trae overflow-x:hidden. Eso hace que el bloque cuente como
+      contenedor de scroll y anula position:sticky de sus hijos, por lo que
+      HOY la barra de progreso y el indice no se quedan pegados. overflow-x:clip
+      recorta igual pero sin crear contenedor de scroll, y sticky vuelve a servir.
+      En navegadores sin soporte de clip se ignora y todo queda como estaba.
+   2) Se recorren hacia abajo el alto del header para que no los tape.
+      --sitenav-h la mide el script de abajo; 69px es el valor de respaldo. */
+.ec-blog{overflow-x:clip}
+.ec-blog .ec-progress{top:var(--sitenav-h,69px)}
+.ec-blog .ec-toc{top:calc(var(--sitenav-h,69px) + 3px)}
+.ec-blog section[id]{scroll-margin-top:calc(var(--sitenav-h,69px) + 46px)}
+</style>
+
+<nav class="site-top" aria-label="Navegación principal">
+  <div class="site-nav-inner">
+    <a class="site-brand" href="/glamping/index.html">
+      <img src="/blog/img/favicon.png" alt="El Cielo Adventures" width="40" height="40">
+      <div class="site-brand-name">El Cielo Adventures<span>Diversión Xtrema</span></div>
+    </a>
+    <div class="site-links">
+      <a href="/glamping/index.html">Inicio</a>
+      <a href="/glamping/sobre-nosotros.html">Sobre nosotros</a>
+      <a href="/glamping/tours.html">Tours</a>
+      <a href="/glamping/reservas.html">Reservas</a>
+      <a href="/glamping/blog.html" aria-current="page">Blog</a>
+      <a href="/glamping/comunidad.html">Comunidad</a>
+      <a href="/glamping/clima-y-cielo.html">Clima y Cielo</a>
+    </div>
+    <a class="site-btn" href="https://wa.link/t4wh0h" target="_blank" rel="noopener">Reservar</a>
+  </div>
+</nav>
+
+<div class="site-ticker" aria-hidden="true"><div class="site-ticker-track">
+<span>DIVERSIÓN XTREMA</span><span class="o">·</span><span>AVENTURA REAL</span><span class="o">·</span>
+<span>GÓMEZ FARÍAS</span><span class="o">·</span><span>SAN JOSÉ</span><span class="o">·</span>
+<span>144,500 HECTÁREAS</span><span class="o">·</span><span>2,000+ ESTRELLAS</span><span class="o">·</span>
+<span>DIVERSIÓN XTREMA</span><span class="o">·</span><span>AVENTURA REAL</span><span class="o">·</span>
+<span>GÓMEZ FARÍAS</span><span class="o">·</span><span>SAN JOSÉ</span><span class="o">·</span>
+<span>144,500 HECTÁREAS</span><span class="o">·</span><span>2,000+ ESTRELLAS</span><span class="o">·</span>
+</div></div>
+
+<script>
+/* Mide el alto real del header sticky y lo publica como --sitenav-h, para que
+   la barra de progreso y el indice pegajoso se recorran justo debajo de el. */
+(function(){
+  var nav = document.querySelector('.site-top');
+  if(!nav) return;
+  function medir(){
+    document.documentElement.style.setProperty('--sitenav-h', nav.offsetHeight + 'px');
+  }
+  medir();
+  window.addEventListener('resize', medir);
+  if(window.ResizeObserver){ new ResizeObserver(medir).observe(nav); }
+})();
+</script>
+<!-- =================== FIN HEADER DEL SITIO =================== -->
 
 <div class="ec-progress"><i id="ec-bar"></i></div>
 
@@ -688,11 +831,45 @@
     <p>El Cielo es de los segundos. Reserva tu cabaña y descubre la biodiversidad de Tamaulipas desde adentro del bosque.</p>
     <div class="ec-btns">
       <a class="ec-btn ec-btn--full" href="https://wa.me/528311550702?text=Hola,%20vi%20el%20blog%20de%20flora%20y%20fauna%20y%20quiero%20información%20de%20cabañas" target="_blank" rel="noopener">Reservar por WhatsApp</a>
-      <a class="ec-btn ec-btn--line" href="/glamping/">Ver cabañas y experiencias</a>
+      <a class="ec-btn ec-btn--line" href="/glamping/index.html">Ver cabañas y experiencias</a>
     </div>
     <p class="ec-firma">Glamping El Cielo Adventures · Gómez Farías y San José, Tamaulipas · 831 155 0702</p>
   </div>
 </section>
+
+<!-- ===================== FOOTER DEL SITIO ===================== -->
+<footer class="site-foot">
+  <div class="site-foot-wrap">
+    <div class="site-foot-grid">
+      <div>
+        <div class="site-brand" style="margin-bottom:14px">
+          <img src="/blog/img/favicon.png" alt="El Cielo Adventures" width="36" height="36" style="height:36px">
+          <div class="site-brand-name">El Cielo Adventures</div>
+        </div>
+        <p>Glamping y cabañas en la Reserva de la Biosfera El Cielo, Tamaulipas.</p>
+      </div>
+      <div>
+        <h4>Ubicaciones</h4>
+        <a href="/glamping/sobre-nosotros.html">Gómez Farías</a>
+        <a href="/glamping/sobre-nosotros.html">San José</a>
+      </div>
+      <div>
+        <h4>Enlaces</h4>
+        <a href="/glamping/sobre-nosotros.html">Sobre nosotros</a>
+        <a href="/glamping/tours.html">Tours</a>
+        <a href="/glamping/blog.html">Blog</a>
+        <a href="/glamping/reservas.html">Reservas</a>
+      </div>
+      <div>
+        <h4>Contacto</h4>
+        <a href="tel:+528992182139">+52 1 899 218 2139</a>
+        <a href="mailto:glampingelcieloadventures@gmail.com">Correo</a>
+      </div>
+    </div>
+    <div class="site-foot-bottom">© 2026 El Cielo Adventures — Diversión Xtrema</div>
+  </div>
+</footer>
+<!-- =================== FIN FOOTER DEL SITIO =================== -->
 
 <script>
 (function(){
