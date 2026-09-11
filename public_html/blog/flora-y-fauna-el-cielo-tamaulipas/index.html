@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flora y fauna de El Cielo Tamaulipas | Guía de campo — Glamping El Cielo Adventures</title>
+<meta name="description" content="Conoce la flora y fauna de El Cielo Tamaulipas: aves, mamíferos, flores, árboles y especies únicas que habitan una de las reservas naturales más importantes de México.">
+</head>
+<body style="margin:0">
+
+<!-- ================================================================
+     GLAMPING EL CIELO ADVENTURES — Artículo: Flora y fauna de El Cielo
+     Todo el bloque va dentro de .ec-blog para no chocar con tu plantilla.
+     ================================================================ -->
+<div class="ec-blog">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,500&family=Karla:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+.ec-blog{
+  --niebla:#E3E8E2;
+  --niebla-2:#F2F5F1;
+  --musgo:#16281D;
+  --musgo-2:#1E3626;
+  --helecho:#3F6247;
+  --corteza:#6E7B6A;
+  --orquidea:#7A4E86;
+  --liquidambar:#C98A2E;
+  --linea:rgba(22,40,29,.14);
+
+  --display:'Newsreader',Georgia,'Times New Roman',serif;
+  --texto:'Karla',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,'Courier New',monospace;
+
+  background:var(--niebla);
+  color:var(--musgo);
+  font-family:var(--texto);
+  font-size:17px;
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+.ec-blog *,.ec-blog *::before,.ec-blog *::after{box-sizing:border-box}
+.ec-blog img{max-width:100%;display:block}
+.ec-blog p{margin:0 0 1.1em}
+.ec-blog a{color:var(--orquidea);text-decoration:underline;text-underline-offset:3px}
+.ec-blog :focus-visible{outline:3px solid var(--orquidea);outline-offset:3px;border-radius:4px}
+
+/* ---------- contenedores ---------- */
+.ec-wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+.ec-narrow{max-width:720px;margin:0 auto;padding:0 22px}
+.ec-sec{padding:72px 0}
+.ec-sec--dark{background:var(--musgo);color:var(--niebla)}
+.ec-sec--dark .ec-h2{color:var(--niebla)}
+.ec-sec--dark .ec-eyebrow{color:var(--liquidambar)}
+
+/* ---------- tipografía ---------- */
+.ec-eyebrow{
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--helecho);margin:0 0 14px;display:flex;align-items:center;gap:10px;
+}
+.ec-eyebrow::before{content:"";width:26px;height:1px;background:currentColor;flex:none}
+.ec-h2{
+  font-family:var(--display);font-weight:500;font-size:clamp(1.85rem,4.2vw,2.9rem);
+  line-height:1.12;letter-spacing:-.015em;margin:0 0 18px;
+}
+.ec-h3{font-family:var(--display);font-weight:500;font-size:1.35rem;line-height:1.25;margin:0 0 10px}
+.ec-lead{font-size:1.12rem;color:#2C4032;max-width:62ch}
+.ec-sec--dark .ec-lead{color:#C3D0C4}
+
+/* ---------- barra de progreso ---------- */
+.ec-progress{position:sticky;top:0;height:3px;background:transparent;z-index:60}
+.ec-progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--helecho),var(--liquidambar));transition:width .1s linear}
+
+/* ---------- HERO ---------- */
+.ec-hero{
+  position:relative;background:var(--musgo);color:var(--niebla);
+  padding:96px 0 84px;overflow:hidden;isolation:isolate;
+}
+.ec-hero::after{
+  content:"";position:absolute;inset:0;z-index:-2;
+  background:
+    radial-gradient(120% 80% at 20% 0%, #24422D 0%, transparent 60%),
+    radial-gradient(90% 70% at 90% 100%, #2A4B34 0%, transparent 55%),
+    var(--musgo);
+}
+.ec-fog{
+  position:absolute;inset:-20% -30%;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(45% 30% at 25% 40%, rgba(227,232,226,.16), transparent 70%),
+    radial-gradient(38% 26% at 70% 65%, rgba(227,232,226,.12), transparent 70%),
+    radial-gradient(50% 24% at 50% 20%, rgba(227,232,226,.09), transparent 70%);
+  animation:ec-drift 34s ease-in-out infinite alternate;
+}
+@keyframes ec-drift{
+  0%{transform:translate3d(-4%,0,0) scale(1)}
+  100%{transform:translate3d(6%,-3%,0) scale(1.12)}
+}
+.ec-hero__kicker{
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--liquidambar);margin:0 0 22px;
+}
+.ec-hero h1{
+  font-family:var(--display);font-weight:500;
+  font-size:clamp(2.4rem,6.4vw,4.6rem);line-height:1.04;letter-spacing:-.025em;
+  margin:0 0 20px;max-width:16ch;
+}
+.ec-hero h1 em{font-style:italic;color:var(--liquidambar)}
+.ec-hero__sub{font-size:1.15rem;color:#C6D3C7;max-width:56ch;margin:0 0 34px}
+.ec-meta{
+  display:flex;flex-wrap:wrap;gap:10px 28px;font-family:var(--mono);
+  font-size:.75rem;letter-spacing:.06em;color:#93A594;
+  border-top:1px solid rgba(227,232,226,.18);padding-top:20px;
+}
+.ec-meta b{color:var(--niebla);font-weight:500}
+
+/* contador del hero */
+.ec-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:44px;background:rgba(227,232,226,.14)}
+.ec-stat{background:var(--musgo);padding:22px 18px}
+.ec-stat b{display:block;font-family:var(--display);font-size:2.3rem;line-height:1;font-weight:500;color:var(--niebla)}
+.ec-stat span{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:#93A594}
+
+/* ---------- índice pegajoso ---------- */
+.ec-toc{
+  position:sticky;top:3px;z-index:50;background:rgba(227,232,226,.93);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--linea);
+}
+.ec-toc ul{
+  display:flex;gap:6px;list-style:none;margin:0;padding:10px 22px;max-width:1080px;
+  margin-inline:auto;overflow-x:auto;scrollbar-width:none;
+}
+.ec-toc ul::-webkit-scrollbar{display:none}
+.ec-toc a{
+  display:block;white-space:nowrap;font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;
+  text-transform:uppercase;text-decoration:none;color:var(--helecho);
+  padding:8px 13px;border:1px solid var(--linea);border-radius:100px;transition:.2s;
+}
+.ec-toc a:hover{background:var(--musgo);color:var(--niebla);border-color:var(--musgo)}
+
+/* ---------- tabs / filtros (CSS puro) ---------- */
+.ec-radios input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.ec-chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 30px}
+.ec-chips label{
+  cursor:pointer;font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;
+  padding:9px 15px;border:1px solid var(--linea);border-radius:100px;transition:.2s;user-select:none;
+  display:inline-flex;align-items:center;gap:8px;
+}
+.ec-chips label:hover{border-color:var(--helecho)}
+.ec-chips label i{font-style:normal;opacity:.5;font-size:.68rem}
+.ec-sec--dark .ec-chips label{border-color:rgba(227,232,226,.22);color:#C3D0C4}
+.ec-sec--dark .ec-chips label:hover{border-color:var(--liquidambar)}
+
+/* ---------- panel de ecosistemas ---------- */
+.ec-eco{display:grid;grid-template-columns:1fr;gap:0}
+.ec-eco__panel{display:none;border-top:1px solid var(--linea);padding-top:28px}
+.ec-eco__grid{display:grid;grid-template-columns:1.15fr .85fr;gap:34px;align-items:start}
+.ec-eco__data{list-style:none;margin:0;padding:0;border-top:1px solid var(--linea)}
+.ec-eco__data li{display:flex;justify-content:space-between;gap:18px;padding:11px 0;border-bottom:1px solid var(--linea);font-size:.94rem}
+.ec-eco__data b{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--corteza);font-weight:400;flex:none}
+.ec-eco__data span{text-align:right}
+.ec-alt{
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;color:var(--helecho);
+  display:inline-block;padding:6px 12px;border:1px dashed var(--helecho);border-radius:4px;margin-bottom:16px;
+}
+#ec-e1:checked ~ .ec-eco .ec-eco__panel[data-eco="1"],
+#ec-e2:checked ~ .ec-eco .ec-eco__panel[data-eco="2"],
+#ec-e3:checked ~ .ec-eco .ec-eco__panel[data-eco="3"],
+#ec-e4:checked ~ .ec-eco .ec-eco__panel[data-eco="4"]{display:block}
+#ec-e1:checked ~ .ec-chips label[for="ec-e1"],
+#ec-e2:checked ~ .ec-chips label[for="ec-e2"],
+#ec-e3:checked ~ .ec-chips label[for="ec-e3"],
+#ec-e4:checked ~ .ec-chips label[for="ec-e4"]{background:var(--musgo);color:var(--niebla);border-color:var(--musgo)}
+
+/* ---------- fichas de campo ---------- */
+.ec-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+.ec-card{
+  background:var(--niebla-2);border:1px solid var(--linea);border-radius:3px;
+  padding:20px 20px 18px;position:relative;transition:transform .25s ease,box-shadow .25s ease;
+}
+.ec-card:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(22,40,29,.11)}
+.ec-card__id{
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;color:var(--corteza);
+  display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;
+}
+.ec-card__glyph{font-size:1.5rem;line-height:1}
+.ec-card h4{font-family:var(--display);font-weight:500;font-size:1.22rem;margin:0 0 6px;line-height:1.2}
+.ec-card p{font-size:.92rem;color:#3A4E3F;margin:0 0 14px}
+.ec-tag{
+  font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;
+  padding:4px 9px;border-radius:100px;background:rgba(122,78,134,.1);color:var(--orquidea);display:inline-block;
+}
+.ec-tag--alta{background:rgba(63,98,71,.12);color:var(--helecho)}
+.ec-tag--baja{background:rgba(201,138,46,.16);color:#8A5C13}
+/* contraste dentro de secciones oscuras */
+.ec-sec--dark .ec-tag{background:rgba(168,139,180,.18);color:#CBB4D6}
+.ec-sec--dark .ec-tag--alta{background:rgba(127,182,140,.18);color:#9FD3AB}
+.ec-sec--dark .ec-tag--baja{background:rgba(201,138,46,.2);color:#E4B972}
+.ec-sec--dark .ec-eco__data b{color:#93A594}
+.ec-sec--dark .ec-bar__label{color:#93A594}
+
+/* medidor de avistamiento */
+.ec-bar{margin-top:12px}
+.ec-bar__label{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--corteza);display:flex;justify-content:space-between;margin-bottom:5px}
+.ec-bar__track{height:4px;background:rgba(22,40,29,.1);border-radius:100px;overflow:hidden}
+.ec-bar__fill{height:100%;background:var(--helecho);border-radius:100px;width:0;transition:width 1.1s cubic-bezier(.2,.8,.25,1)}
+.ec-card.ec-in .ec-bar__fill{width:var(--w)}
+.ec-blog:not(.ec-js) .ec-bar__fill{width:var(--w)}
+
+/* filtros fauna */
+#ec-fa:checked ~ .ec-chips label[for="ec-fa"],
+#ec-fm:checked ~ .ec-chips label[for="ec-fm"],
+#ec-fv:checked ~ .ec-chips label[for="ec-fv"],
+#ec-fr:checked ~ .ec-chips label[for="ec-fr"]{background:var(--liquidambar);color:var(--musgo);border-color:var(--liquidambar)}
+#ec-fm:checked ~ .ec-grid .ec-card:not(.mam){display:none}
+#ec-fv:checked ~ .ec-grid .ec-card:not(.ave){display:none}
+#ec-fr:checked ~ .ec-grid .ec-card:not(.rep){display:none}
+
+/* filtros flora */
+#ec-la:checked ~ .ec-chips label[for="ec-la"],
+#ec-lt:checked ~ .ec-chips label[for="ec-lt"],
+#ec-lf:checked ~ .ec-chips label[for="ec-lf"]{background:var(--orquidea);color:#fff;border-color:var(--orquidea)}
+#ec-lt:checked ~ .ec-grid .ec-card:not(.arb){display:none}
+#ec-lf:checked ~ .ec-grid .ec-card:not(.flo){display:none}
+
+/* ---------- dos zonas ---------- */
+.ec-zonas{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--linea);border:1px solid var(--linea)}
+.ec-zona{background:var(--niebla-2);padding:34px 30px}
+.ec-zona--alta{background:var(--musgo);color:var(--niebla)}
+.ec-zona--alta .ec-h3{color:var(--niebla)}
+.ec-zona--alta li{border-color:rgba(227,232,226,.15)}
+.ec-zona__num{font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;color:var(--liquidambar);margin-bottom:12px}
+.ec-zona ul{list-style:none;margin:20px 0 0;padding:0}
+.ec-zona li{padding:9px 0 9px 22px;border-bottom:1px solid var(--linea);font-size:.95rem;position:relative}
+.ec-zona li::before{content:"→";position:absolute;left:0;color:var(--liquidambar);font-size:.85rem}
+
+/* ---------- temporadas ---------- */
+.ec-temp__panel{display:none}
+#ec-t1:checked ~ .ec-temp .ec-temp__panel[data-t="1"],
+#ec-t2:checked ~ .ec-temp .ec-temp__panel[data-t="2"],
+#ec-t3:checked ~ .ec-temp .ec-temp__panel[data-t="3"],
+#ec-t4:checked ~ .ec-temp .ec-temp__panel[data-t="4"]{display:grid}
+#ec-t1:checked ~ .ec-chips label[for="ec-t1"],
+#ec-t2:checked ~ .ec-chips label[for="ec-t2"],
+#ec-t3:checked ~ .ec-chips label[for="ec-t3"],
+#ec-t4:checked ~ .ec-chips label[for="ec-t4"]{background:var(--liquidambar);color:var(--musgo);border-color:var(--liquidambar)}
+.ec-temp__panel{grid-template-columns:1fr 1fr;gap:34px;align-items:start;border-top:1px solid rgba(227,232,226,.2);padding-top:28px}
+.ec-temp__big{font-family:var(--display);font-size:clamp(2rem,5vw,3.2rem);line-height:1.05;font-weight:500;margin:0 0 12px}
+
+/* ---------- experiencias ---------- */
+.ec-exp{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:2px;background:var(--linea);border:1px solid var(--linea)}
+.ec-exp article{background:var(--niebla);padding:26px 22px;transition:background .25s}
+.ec-exp article:hover{background:var(--niebla-2)}
+.ec-exp b{display:block;font-family:var(--display);font-size:1.15rem;font-weight:500;margin:12px 0 6px}
+.ec-exp p{font-size:.9rem;color:#3A4E3F;margin:0}
+.ec-exp span{font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;color:var(--orquidea)}
+
+/* ---------- nota destacada ---------- */
+.ec-nota{
+  border-left:3px solid var(--liquidambar);padding:6px 0 6px 24px;margin:34px 0;
+  font-family:var(--display);font-size:1.25rem;line-height:1.45;font-style:italic;color:#2C4032;
+}
+
+/* ---------- FAQ ---------- */
+.ec-faq details{border-bottom:1px solid var(--linea)}
+.ec-faq summary{
+  cursor:pointer;list-style:none;padding:22px 40px 22px 0;position:relative;
+  font-family:var(--display);font-size:1.18rem;font-weight:500;line-height:1.3;
+}
+.ec-faq summary::-webkit-details-marker{display:none}
+.ec-faq summary::after{
+  content:"+";position:absolute;right:6px;top:20px;font-family:var(--mono);font-size:1.4rem;
+  color:var(--liquidambar);transition:transform .25s;
+}
+.ec-faq details[open] summary::after{transform:rotate(45deg)}
+.ec-faq .ec-faq__a{padding:0 0 22px;color:#3A4E3F;font-size:.98rem;max-width:66ch}
+
+/* ---------- CTA ---------- */
+.ec-cta{background:var(--musgo);color:var(--niebla);padding:84px 0;text-align:center;position:relative;overflow:hidden}
+.ec-cta h2{font-family:var(--display);font-weight:500;font-size:clamp(2rem,5.5vw,3.4rem);line-height:1.08;margin:0 auto 18px;max-width:18ch}
+.ec-cta p{color:#C6D3C7;max-width:52ch;margin:0 auto 32px}
+.ec-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.ec-btn{
+  display:inline-block;text-decoration:none;font-family:var(--mono);font-size:.76rem;letter-spacing:.12em;
+  text-transform:uppercase;padding:16px 30px;border-radius:100px;transition:.22s;border:1px solid transparent;
+}
+.ec-btn--full{background:var(--liquidambar);color:var(--musgo);font-weight:500}
+.ec-btn--full:hover{background:#E0A448;transform:translateY(-2px)}
+.ec-btn--line{border-color:rgba(227,232,226,.35);color:var(--niebla)}
+.ec-btn--line:hover{border-color:var(--niebla);background:rgba(227,232,226,.08)}
+.ec-firma{margin-top:44px;font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;color:#93A594;text-transform:uppercase}
+
+/* ---------- reveal ---------- */
+.ec-js .ec-rv{opacity:0;transform:translateY(20px)}
+.ec-js .ec-rv.ec-in{opacity:1;transform:none;transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.25,1)}
+
+/* ---------- responsive ---------- */
+@media(max-width:840px){
+  .ec-eco__grid,.ec-zonas,.ec-temp__panel{grid-template-columns:1fr}
+  .ec-hero{padding:70px 0 60px}
+  .ec-sec{padding:56px 0}
+  .ec-stats{grid-template-columns:1fr;gap:1px}
+  .ec-stat{padding:18px}
+  .ec-stat b{font-size:1.9rem}
+}
+@media(prefers-reduced-motion:reduce){
+  .ec-blog *{animation:none!important;transition:none!important}
+  .ec-js .ec-rv{opacity:1;transform:none}
+  .ec-bar__fill{width:var(--w)}
+}
+</style>
+
+<div class="ec-progress"><i id="ec-bar"></i></div>
+
+<!-- ============ HERO ============ -->
+<header class="ec-hero">
+  <div class="ec-fog"></div>
+  <div class="ec-wrap">
+    <p class="ec-hero__kicker">Cuaderno de campo · Reserva de la Biosfera El Cielo</p>
+    <h1>La reserva donde caben <em>cuatro bosques</em> en una sola montaña</h1>
+    <p class="ec-hero__sub">Guía de la flora y fauna de El Cielo, Tamaulipas: qué vas a ver, dónde buscarlo y en qué temporada aparece. Escrito desde los senderos, no desde un escritorio.</p>
+
+    <div class="ec-meta">
+      <span>Por <b>Glamping El Cielo Adventures</b></span>
+      <span>Lectura <b>9 min</b></span>
+      <span>Zona <b>Gómez Farías · San José</b></span>
+    </div>
+
+    <div class="ec-stats">
+      <div class="ec-stat"><b>4</b><span>Ecosistemas en un mismo territorio</span></div>
+      <div class="ec-stat"><b>200+</b><span>Especies migratorias registradas</span></div>
+      <div class="ec-stat"><b>1985</b><span>Año en que la UNESCO la reconoce</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ ÍNDICE ============ -->
+<nav class="ec-toc" aria-label="Índice del artículo">
+  <ul>
+    <li><a href="#ec-ecosistemas">Ecosistemas</a></li>
+    <li><a href="#ec-flora">Flora</a></li>
+    <li><a href="#ec-fauna">Fauna</a></li>
+    <li><a href="#ec-zonas">Dónde observar</a></li>
+    <li><a href="#ec-temporada">Temporada</a></li>
+    <li><a href="#ec-experiencias">Experiencias</a></li>
+    <li><a href="#ec-faq">Preguntas</a></li>
+  </ul>
+</nav>
+
+<!-- ============ INTRO ============ -->
+<section class="ec-sec">
+  <div class="ec-narrow ec-rv">
+    <p class="ec-eyebrow">Antes de subir</p>
+    <h2 class="ec-h2">¿Qué flora y fauna hay en El Cielo Tamaulipas?</h2>
+    <p class="ec-lead">La Reserva de la Biosfera El Cielo es uno de los ecosistemas más importantes de México, y lo que la hace rara es la altura: en pocos kilómetros pasas de un bosque tropical caliente y húmedo a un bosque de niebla donde los árboles cargan musgo y la temperatura baja diez grados.</p>
+    <p>Esa diferencia de altitud es la que multiplica la vida. En un mismo día puedes fotografiar orquídeas silvestres sobre la corteza de un liquidámbar, escuchar chachalacas en la parte baja y cruzarte con huellas de venado en un sendero de montaña.</p>
+    <p>Esta guía está ordenada como la usamos nosotros en los recorridos: primero los ecosistemas, luego las plantas, luego los animales y al final dónde y cuándo buscarlos.</p>
+    <p class="ec-nota">El bosque de niebla de El Cielo conserva condiciones parecidas a las de hace millones de años. Caminar ahí es lo más cerca que vas a estar de ver el noreste de México antes de que existiera el noreste de México.</p>
+  </div>
+</section>
+
+<!-- ============ ECOSISTEMAS ============ -->
+<section class="ec-sec" id="ec-ecosistemas" style="background:var(--niebla-2);border-block:1px solid var(--linea)">
+  <div class="ec-wrap">
+    <div class="ec-rv">
+      <p class="ec-eyebrow">01 · Los cuatro pisos</p>
+      <h2 class="ec-h2">Un ecosistema donde conviven varios mundos naturales</h2>
+      <p class="ec-lead" style="margin-bottom:32px">Conforme subes la sierra, el bosque cambia por completo. Toca cada piso para ver qué encontrarás en él.</p>
+    </div>
+
+    <div class="ec-radios ec-rv">
+      <input type="radio" name="ec-eco" id="ec-e1" checked>
+      <input type="radio" name="ec-eco" id="ec-e2">
+      <input type="radio" name="ec-eco" id="ec-e3">
+      <input type="radio" name="ec-eco" id="ec-e4">
+
+      <div class="ec-chips">
+        <label for="ec-e1">Bosque tropical <i>200 m</i></label>
+        <label for="ec-e2">Selva baja <i>400 m</i></label>
+        <label for="ec-e3">Bosque de niebla <i>1 200 m</i></label>
+        <label for="ec-e4">Pino-encino <i>1 800 m</i></label>
+      </div>
+
+      <div class="ec-eco">
+        <div class="ec-eco__panel" data-eco="1">
+          <div class="ec-eco__grid">
+            <div>
+              <span class="ec-alt">Parte baja · Gómez Farías</span>
+              <h3 class="ec-h3">Bosque tropical</h3>
+              <p>Calor, humedad y vegetación encimada. Es la puerta de entrada a la reserva y el piso más generoso para quien viene por primera vez: los ríos están cerca, los senderos son planos y la actividad de aves empieza desde el amanecer.</p>
+              <p>Aquí el verde no es un color, son treinta colores. Helechos, lianas, palmas y árboles que se pelean por la luz.</p>
+            </div>
+            <ul class="ec-eco__data">
+              <li><b>Clima</b><span>Cálido húmedo</span></li>
+              <li><b>Dificultad</b><span>Baja — apto para familias</span></li>
+              <li><b>Estrella</b><span>Chachalacas y tucaneta</span></li>
+              <li><b>Mejor hora</b><span>6:30 – 9:00 a.m.</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="ec-eco__panel" data-eco="2">
+          <div class="ec-eco__grid">
+            <div>
+              <span class="ec-alt">Áreas inferiores de la reserva</span>
+              <h3 class="ec-h3">Selva baja</h3>
+              <p>Vegetación adaptada a temporadas más secas. Muchos árboles tiran la hoja y el bosque se abre: paradójicamente, es cuando mejor se ven los animales, porque hay menos follaje donde esconderse.</p>
+              <p>Es el piso menos fotografiado de El Cielo y uno de los más interesantes para entender cómo la reserva sobrevive a la sequía.</p>
+            </div>
+            <ul class="ec-eco__data">
+              <li><b>Clima</b><span>Cálido con época seca marcada</span></li>
+              <li><b>Dificultad</b><span>Baja a media</span></li>
+              <li><b>Estrella</b><span>Reptiles y aves rapaces</span></li>
+              <li><b>Mejor hora</b><span>Tarde, antes del ocaso</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="ec-eco__panel" data-eco="3">
+          <div class="ec-eco__grid">
+            <div>
+              <span class="ec-alt">Parte alta · San José</span>
+              <h3 class="ec-h3">Bosque de niebla</h3>
+              <p>El corazón de la reserva. Árboles cubiertos de musgo, humedad constante y una neblina que entra y sale del sendero como si respirara. Aquí viven las especies que no podrían sobrevivir en ningún otro piso.</p>
+              <p>Si sólo vas a caminar un bosque en tu vida, que sea este.</p>
+            </div>
+            <ul class="ec-eco__data">
+              <li><b>Clima</b><span>Fresco y húmedo todo el año</span></li>
+              <li><b>Dificultad</b><span>Media — camino de terracería</span></li>
+              <li><b>Estrella</b><span>Orquídeas, bromelias, liquidámbar</span></li>
+              <li><b>Mejor hora</b><span>Amanecer, con niebla baja</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="ec-eco__panel" data-eco="4">
+          <div class="ec-eco__grid">
+            <div>
+              <span class="ec-alt">Zonas elevadas</span>
+              <h3 class="ec-h3">Bosque de pino-encino</h3>
+              <p>Lo más alto y lo más abierto. Árboles grandes, suelo de hojarasca crujiente y miradores donde de golpe entiendes el tamaño de la Sierra Madre Oriental.</p>
+              <p>Las temperaturas bajan de verdad: aquí es donde los visitantes se arrepienten de no haber traído chamarra.</p>
+            </div>
+            <ul class="ec-eco__data">
+              <li><b>Clima</b><span>Templado a frío</span></li>
+              <li><b>Dificultad</b><span>Media a alta</span></li>
+              <li><b>Estrella</b><span>Halcones y paisaje de montaña</span></li>
+              <li><b>Mejor hora</b><span>Mediodía despejado</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FLORA ============ -->
+<section class="ec-sec" id="ec-flora">
+  <div class="ec-wrap">
+    <div class="ec-rv">
+      <p class="ec-eyebrow">02 · Flora</p>
+      <h2 class="ec-h2">Árboles, plantas y flores que puedes encontrar</h2>
+      <p class="ec-lead" style="margin-bottom:30px">La vegetación cambia con cada curva del camino. Estas son las especies que más se repiten en nuestros recorridos.</p>
+    </div>
+
+    <div class="ec-radios ec-rv">
+      <input type="radio" name="ec-flora" id="ec-la" checked>
+      <input type="radio" name="ec-flora" id="ec-lt">
+      <input type="radio" name="ec-flora" id="ec-lf">
+      <div class="ec-chips">
+        <label for="ec-la">Todo <i>12</i></label>
+        <label for="ec-lt">Árboles <i>6</i></label>
+        <label for="ec-lf">Flores y plantas <i>6</i></label>
+      </div>
+
+      <div class="ec-grid">
+        <article class="ec-card arb"><div class="ec-card__id"><span>FLO·01</span><span class="ec-card__glyph">🌳</span></div><h4>Encino</h4><p>Uno de los árboles más comunes de las zonas altas. Su copa ancha sostiene bromelias, musgos y buena parte de la vida del bosque.</p><span class="ec-tag">Zona alta</span></article>
+        <article class="ec-card arb"><div class="ec-card__id"><span>FLO·02</span><span class="ec-card__glyph">🌲</span></div><h4>Pino</h4><p>Marca el paisaje de los bosques montañosos. Cuando el viento entra entre los pinos, el sonido es la mejor parte del sendero.</p><span class="ec-tag">Zona alta</span></article>
+        <article class="ec-card arb"><div class="ec-card__id"><span>FLO·03</span><span class="ec-card__glyph">🍂</span></div><h4>Liquidámbar</h4><p>El árbol firma del bosque de niebla. En otoño su hoja cambia de color y transforma por completo la fotografía del bosque.</p><span class="ec-tag">Bosque de niebla</span></article>
+        <article class="ec-card arb"><div class="ec-card__id"><span>FLO·04</span><span class="ec-card__glyph">🤍</span></div><h4>Magnolia</h4><p>Especie emblemática por sus flores grandes y su aroma. Encontrarla en flor es cuestión de suerte y de temporada.</p><span class="ec-tag">Bosque de niebla</span></article>
+        <article class="ec-card arb"><div class="ec-card__id"><span>FLO·05</span><span class="ec-card__glyph">🪵</span></div><h4>Cedro rojo</h4><p>Árbol tropical de gran tamaño y madera aromática. Uno de los gigantes de la parte baja de la reserva.</p><span class="ec-tag">Zona baja</span></article>
+        <article class="ec-card arb"><div class="ec-card__id"><span>FLO·06</span><span class="ec-card__glyph">🌰</span></div><h4>Nogal</h4><p>Presente en algunas zonas de la reserva, generalmente cerca de arroyos y suelos profundos.</p><span class="ec-tag">Zonas húmedas</span></article>
+
+        <article class="ec-card flo"><div class="ec-card__id"><span>FLO·07</span><span class="ec-card__glyph">🌸</span></div><h4>Orquídeas silvestres</h4><p>La joya natural de El Cielo. Crecen sobre troncos y ramas, no en el suelo: hay que aprender a mirar hacia arriba.</p><span class="ec-tag">Bosque de niebla</span></article>
+        <article class="ec-card flo"><div class="ec-card__id"><span>FLO·08</span><span class="ec-card__glyph">🌺</span></div><h4>Bromelias</h4><p>Viven sobre los árboles y guardan agua de lluvia entre sus hojas. Cada una es un pequeño estanque con vida propia.</p><span class="ec-tag">Bosque de niebla</span></article>
+        <article class="ec-card flo"><div class="ec-card__id"><span>FLO·09</span><span class="ec-card__glyph">🌿</span></div><h4>Helechos</h4><p>Muy comunes en la zona de niebla, algunos alcanzan tamaños que parecen de otra era geológica.</p><span class="ec-tag">Zonas húmedas</span></article>
+        <article class="ec-card flo"><div class="ec-card__id"><span>FLO·10</span><span class="ec-card__glyph">🌷</span></div><h4>Begonias silvestres</h4><p>Flores pequeñas de colores llamativos que aparecen entre las rocas y los bordes sombreados del sendero.</p><span class="ec-tag">Sombra y humedad</span></article>
+        <article class="ec-card flo"><div class="ec-card__id"><span>FLO·11</span><span class="ec-card__glyph">🌴</span></div><h4>Palmas de montaña</h4><p>Características de las zonas húmedas, dan al bosque ese aire prehistórico que sorprende a todos los visitantes.</p><span class="ec-tag">Zonas húmedas</span></article>
+        <article class="ec-card flo"><div class="ec-card__id"><span>FLO·12</span><span class="ec-card__glyph">🍃</span></div><h4>Musgos</h4><p>Cubren troncos y rocas. Son el termómetro del bosque: donde hay musgo abundante, hay humedad constante.</p><span class="ec-tag">Bosque de niebla</span></article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAUNA ============ -->
+<section class="ec-sec ec-sec--dark" id="ec-fauna">
+  <div class="ec-wrap">
+    <div class="ec-rv">
+      <p class="ec-eyebrow">03 · Fauna</p>
+      <h2 class="ec-h2">Animales que puedes observar en El Cielo</h2>
+      <p class="ec-lead" style="margin-bottom:14px">Los animales de la reserva viven en libertad: nadie garantiza un avistamiento. Lo que sí podemos darte es una idea honesta de qué tan probable es encontrarte a cada especie durante un recorrido guiado.</p>
+      <p style="font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;color:#93A594;margin-bottom:28px">La barra indica probabilidad estimada según nuestra experiencia guiando en la reserva.</p>
+    </div>
+
+    <div class="ec-radios ec-rv">
+      <input type="radio" name="ec-fauna" id="ec-fa" checked>
+      <input type="radio" name="ec-fauna" id="ec-fm">
+      <input type="radio" name="ec-fauna" id="ec-fv">
+      <input type="radio" name="ec-fauna" id="ec-fr">
+      <div class="ec-chips">
+        <label for="ec-fa">Todos <i>19</i></label>
+        <label for="ec-fm">Mamíferos <i>8</i></label>
+        <label for="ec-fv">Aves <i>7</i></label>
+        <label for="ec-fr">Reptiles y anfibios <i>4</i></label>
+      </div>
+
+      <div class="ec-grid" style="--cardbg:#1E3626">
+        <!-- MAMÍFEROS -->
+        <article class="ec-card mam" style="background:#1E3626;border-color:rgba(227,232,226,.14)"><div class="ec-card__id" style="color:#93A594"><span>FAU·01</span><span class="ec-card__glyph">🐆</span></div><h4 style="color:#E3E8E2">Jaguar</h4><p style="color:#B4C3B6">Uno de los grandes felinos más importantes de México. Está registrado en la región, pero es solitario, nocturno y evita a las personas.</p><span class="ec-tag ec-tag--baja">Muy raro</span><div class="ec-bar" style="--w:4%"><div class="ec-bar__label"><span>Avistamiento</span><span>4%</span></div><div class="ec-bar__track" style="background:rgba(227,232,226,.14)"><div class="ec-bar__fill" style="background:#C98A2E"></div></div></div></article>
+        <article class="ec-card mam" style="background:#1E3626;border-color:rgba(227,232,226,.14)"><div class="ec-card__id" style="color:#93A594"><span>FAU·02</span><span class="ec-card__glyph">🦁</span></div><h4 style="color:#E3E8E2">Puma</h4><p style="color:#B4C3B6">Depredador de zonas montañosas. Lo normal es encontrar sus huellas, no al animal.</p><span class="ec-tag ec-tag--baja">Muy raro</span><div class="ec-bar" style="--w:6%"><div class="ec-bar__label"><span>Avistamiento</span><span>6%</span></div><div class="ec-bar__track" style="background:rgba(227,232,226,.14)"><div class="ec-bar__fill" style="background:#C98A2E"></div></div></div></article>
+        <article class="ec-card mam" style="background:#1E3626;border-color:rgba(227,232,226,.14)"><div class="ec-card__id" style="color:#93A594"><span>FAU·03</span><span class="ec-card__glyph">🐻</span></div><h4 style="color:#E3E8E2">Oso negro americano</h4><p style="color:#B4C3B6">Una de las especies más emblemáticas de la región. Cada temporada hay reportes de avistamientos en zonas altas.</p><span class="ec-tag ec-tag--baja">Poco común</span><div class="ec-bar" style="--w:12%"><div class="ec-bar__label"><span>Avistamiento</span><span>12%</span></div><div class="ec-bar__track" style="background:rgba(227,232,226,.14)"><div class="ec-bar__fill" style="background:#C98A2E"></div></div></div></article>
+        <article class="ec-card mam" style="background:#1E3626;border-color:rgba(227,232,226,.14)"><div class="ec-card__id" style="color:#93A594"><span>FAU·04</span><span class="ec-card__glyph">🦌</span></div><h4 style="color:#E3E8E2">Venado cola blanca</h4><p style="color:#B4C3B6">Frecuente en zonas boscosas, sobre todo al amanecer y al atardecer cerca de los claros.</p><span class="ec-tag ec-tag--alta">Frecuente</span><div class="ec-bar" style="--w:55%"><div class="ec-bar__label"><span>Avistamiento</span><span>55%</span></div><div class="ec-bar__track" style="background:rgba(227,232,226,.14)"><div class="ec-bar__fill" style="background:#7FB68C"></div></div></div></article>
+        <article class="ec-card mam" style="background:#1E3626;border-color:rgba(227,232,226,.14)"><div class="ec-card__id" style="color:#93A594"><span>FAU·05</span><span class="ec-card__glyph">🐀</span></div><h4 style="color:#E3E8E2">Tlacuache</h4><p style="color:#B4C3B6">Mamífero nocturno muy común. Si te quedas a dormir en cabaña, es de los primeros que aparece.</p><span class="ec-tag ec-tag--alta">Frecuente</span><div class="ec-bar" style="--w:60%"><div class="ec-bar__label"><span>Avistamiento</span><span>60%</span></div><div class="ec-bar__track" style="background:rgba(227,232,226,.14)"><div class="ec-bar__fill" style="background:#7FB68C"></div></div></div></article>
+        <article class="ec-card mam" style="background:#1E3626;border-color:rgba(227,232,226,.14)"><div class="ec-card__id" style="color:#93A594"><span>FAU·06</span><span class="ec-card__glyph">🦝</span></div><h4 style="color:#E3E8E2">Mapache</h4><p style="color:#B4C3B6">Habita zonas con alimento abundante, especialmente cerca de ríos y arroyos.</p><span class="ec-tag ec-tag--alta">Frecuente</span><div class="ec-bar" style="--w:50%"><div class="ec-bar__label"><span>Avistamiento</span><span>50%</span></div><div class="ec-bar__track" style="background:rgba(227,232,226,.14)"><div class="ec-bar__fill" style="background:#7FB68C"></div></div></div></article>
+        <article class="ec-card mam" style="background:#1E3626;border-color:rgba(227,232,226,.14)"><div class="ec-card__id" style="color:#93A594"><span>FAU·07</span><span class="ec-card__glyph">🦡</span></div><h4 style="color:#E3E8E2">Armadillo</h4><p style="color:#B4C3B6">Especie característica de la región. Se escucha antes de verse: hace mucho ruido entre la hojarasca.</p><span class="ec-tag">Ocasional</span><div class="ec-bar" style="--w:35%"><div class="ec-bar__label"><span>Avistamiento</span><span>35%</span></div><div class="ec-bar__track" style="background:rgba(227,232,226,.14)"><div class="ec-bar__fill" style="background:#A88BB4"></div></div></div></article>
+        <article class="ec-card mam" style="background:#1E3626;border-color:rgba(227,232,226,.14)"><div class="ec-card__id" style="color:#93A594"><span>FAU·08</span><span class="ec-card__glyph">🐗</span></div><h4 style="color:#E3E8E2">Jabalí de collar</h4><p style="color:#B4C3B6">Se mueve en grupo por distintas áreas naturales. Conviene mantener distancia y no acercarse.</p><span class="ec-tag">Ocasional</span><div class="ec-bar" style="--w:30%"><div class="ec-bar__label"><span>Avistamiento</span><span>30%</span></div><div class="ec-bar__track" style="background:rgba(227,232,226,.14)"><div class="ec-bar__fill" style="background:#A88BB4"></div></div></div></article>
+
+        <!-- AVES -->
+        <article class="ec-card ave" style="background:#1E3626;border-color:rgba(227,232,226,.14)"><div class="ec-card__id" style="color:#93A594"><span>FAU·09</span><span class="ec-card__glyph">🦜</span></div><h4 style="color:#E3E8E2">Guacamaya verde</h4><p style="color:#B4C3B6">Una de las aves más llamativas de México. Se le detecta primero por el sonido y luego por el vuelo en pareja.</p><span class="ec-tag">Ocasional</span><div class="ec-bar" style="--w:28%"><div class="ec-bar__label"><span>Avistamiento</span><span>28%</span></div><div class="ec-bar__track" style="background:rgba(227,232,226,.14)"><div class="ec-bar__fill" style="background:#A88BB4"></div></div></div></article>
+        <article class="ec-card ave" style="background:#1E3626;border-color:rgba(227,232,226,.14)"><div class="ec-card__id" style="color:#93A594"><span>FAU·10</span><span class="ec-card__glyph">🐦</span></div><h4 style="color:#E3E8E2">Tucaneta</h4><p style="color:#B4C3B6">Ave tropical de colores intensos, una de las favoritas de los fotógrafos que suben a la reserva.</p><span class="ec-tag">Ocasional</span><div class="ec-bar" style="--w:38%"><div class="ec-bar__label"><span>Avistamiento</span><span>38%</span></div><div class="ec-bar__track" style="background:rgba(227,232,226,.14)"><div class="ec-bar__fill" style="background:#A88BB4"></div></div></div></article>
+        <article class="ec-card ave" style="background:#1E3626;border-color:rgba(227,232,226,.14)"><div class="ec-card__id" style="color:#93A594"><span>FAU·11</span><span class="ec-card__glyph">🌺</span></div><h4 style="color:#E3E8E2">Colibríes</h4><p style="color:#B4C3B6">Polinizadores clave del ecosistema. Donde hay flores abiertas, hay colibrí: es la apuesta más segura del recorrido.</p><span class="ec-tag ec-tag--alta">Muy frecuente</span><div class="ec-bar" style="--w:85%"><div class="ec-bar__label"><span>Avistamiento</span><span>85%</span></div><div class="ec-bar__track" style="background:rgba(227,232,226,.14)"><div class="ec-bar__fill" style="background:#7FB68C"></div></div></div></article>
+        <article class="ec-card ave" style="background:#1E3626;border-color:rgba(227,232,226,.14)"><div class="ec-card__id" style="color:#93A594"><span>FAU·12</span><span class="ec-card__glyph">🦉</span></div><h4 style="color:#E3E8E2">Búhos</h4><p style="color:#B4C3B6">Habitantes nocturnos del bosque. Se escuchan casi todas las noches desde las cabañas de la parte alta.</p><span class="ec-tag">Se escucha más de lo que se ve</span><div class="ec-bar" style="--w:25%"><div class="ec-bar__label"><span>Avistamiento</span><span>25%</span></div><div class="ec-bar__track" style="background:rgba(227,232,226,.14)"><div class="ec-bar__fill" style="background:#A88BB4"></div></div></div></article>
+        <article class="ec-card ave" style="background:#1E3626;border-color:rgba(227,232,226,.14)"><div class="ec-card__id" style="color:#93A594"><span>FAU·13</span><span class="ec-card__glyph">🪶</span></div><h4 style="color:#E3E8E2">Carpinteros</h4><p style="color:#B4C3B6">Fáciles de identificar por el golpeteo contra el tronco, incluso antes de localizarlos con la vista.</p><span class="ec-tag ec-tag--alta">Frecuente</span><div class="ec-bar" style="--w:65%"><div class="ec-bar__label"><span>Avistamiento</span><span>65%</span></div><div class="ec-bar__track" style="background:rgba(227,232,226,.14)"><div class="ec-bar__fill" style="background:#7FB68C"></div></div></div></article>
+        <article class="ec-card ave" style="background:#1E3626;border-color:rgba(227,232,226,.14)"><div class="ec-card__id" style="color:#93A594"><span>FAU·14</span><span class="ec-card__glyph">🦅</span></div><h4 style="color:#E3E8E2">Halcones</h4><p style="color:#B4C3B6">Aves rapaces de zonas montañosas. Los miradores de la parte alta son el mejor punto para verlos planear.</p><span class="ec-tag">Ocasional</span><div class="ec-bar" style="--w:40%"><div class="ec-bar__label"><span>Avistamiento</span><span>40%</span></div><div class="ec-bar__track" style="background:rgba(227,232,226,.14)"><div class="ec-bar__fill" style="background:#A88BB4"></div></div></div></article>
+        <article class="ec-card ave" style="background:#1E3626;border-color:rgba(227,232,226,.14)"><div class="ec-card__id" style="color:#93A594"><span>FAU·15</span><span class="ec-card__glyph">🐓</span></div><h4 style="color:#E3E8E2">Chachalacas</h4><p style="color:#B4C3B6">Aves comunes de zonas tropicales y el despertador natural de Gómez Farías. Escandalosas al amanecer.</p><span class="ec-tag ec-tag--alta">Muy frecuente</span><div class="ec-bar" style="--w:80%"><div class="ec-bar__label"><span>Avistamiento</span><span>80%</span></div><div class="ec-bar__track" style="background:rgba(227,232,226,.14)"><div class="ec-bar__fill" style="background:#7FB68C"></div></div></div></article>
+
+        <!-- REPTILES Y ANFIBIOS -->
+        <article class="ec-card rep" style="background:#1E3626;border-color:rgba(227,232,226,.14)"><div class="ec-card__id" style="color:#93A594"><span>FAU·16</span><span class="ec-card__glyph">🦎</span></div><h4 style="color:#E3E8E2">Lagartijas</h4><p style="color:#B4C3B6">Muy comunes en zonas cálidas y sobre las rocas expuestas al sol de la mañana.</p><span class="ec-tag ec-tag--alta">Muy frecuente</span><div class="ec-bar" style="--w:90%"><div class="ec-bar__label"><span>Avistamiento</span><span>90%</span></div><div class="ec-bar__track" style="background:rgba(227,232,226,.14)"><div class="ec-bar__fill" style="background:#7FB68C"></div></div></div></article>
+        <article class="ec-card rep" style="background:#1E3626;border-color:rgba(227,232,226,.14)"><div class="ec-card__id" style="color:#93A594"><span>FAU·17</span><span class="ec-card__glyph">🐢</span></div><h4 style="color:#E3E8E2">Tortugas</h4><p style="color:#B4C3B6">Habitan algunos cuerpos de agua de la reserva, sobre todo en la parte baja.</p><span class="ec-tag">Ocasional</span><div class="ec-bar" style="--w:22%"><div class="ec-bar__label"><span>Avistamiento</span><span>22%</span></div><div class="ec-bar__track" style="background:rgba(227,232,226,.14)"><div class="ec-bar__fill" style="background:#A88BB4"></div></div></div></article>
+        <article class="ec-card rep" style="background:#1E3626;border-color:rgba(227,232,226,.14)"><div class="ec-card__id" style="color:#93A594"><span>FAU·18</span><span class="ec-card__glyph">🐍</span></div><h4 style="color:#E3E8E2">Serpientes</h4><p style="color:#B4C3B6">Parte importante del equilibrio natural. La regla del sendero es simple: se observan, no se tocan ni se molestan.</p><span class="ec-tag">Ocasional</span><div class="ec-bar" style="--w:20%"><div class="ec-bar__label"><span>Avistamiento</span><span>20%</span></div><div class="ec-bar__track" style="background:rgba(227,232,226,.14)"><div class="ec-bar__fill" style="background:#A88BB4"></div></div></div></article>
+        <article class="ec-card rep" style="background:#1E3626;border-color:rgba(227,232,226,.14)"><div class="ec-card__id" style="color:#93A594"><span>FAU·19</span><span class="ec-card__glyph">🐸</span></div><h4 style="color:#E3E8E2">Anfibios</h4><p style="color:#B4C3B6">Indicadores de la salud del ecosistema: cuando hay ranas cantando, el bosque está bien.</p><span class="ec-tag ec-tag--alta">Frecuente en lluvias</span><div class="ec-bar" style="--w:70%"><div class="ec-bar__label"><span>Avistamiento</span><span>70%</span></div><div class="ec-bar__track" style="background:rgba(227,232,226,.14)"><div class="ec-bar__fill" style="background:#7FB68C"></div></div></div></article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DOS ZONAS ============ -->
+<section class="ec-sec" id="ec-zonas">
+  <div class="ec-wrap">
+    <div class="ec-rv">
+      <p class="ec-eyebrow">04 · Dónde observar</p>
+      <h2 class="ec-h2">Gómez Farías o San José: son dos viajes distintos</h2>
+      <p class="ec-lead" style="margin-bottom:30px">La mayoría de los visitantes escoge una zona sin saber qué le ofrece cada una. Esta es la diferencia real.</p>
+    </div>
+
+    <div class="ec-zonas ec-rv">
+      <div class="ec-zona">
+        <p class="ec-zona__num">PARTE BAJA</p>
+        <h3 class="ec-h3">Gómez Farías — la entrada a la aventura</h3>
+        <p>Ambiente tropical, ríos, cascadas y senderos accesibles. Es la zona ideal si viajas con familia, si vas por primera vez o si te interesa la observación de aves sin caminatas exigentes.</p>
+        <ul>
+          <li>Observación de aves al amanecer</li>
+          <li>Caminatas naturales de baja dificultad</li>
+          <li>Fotografía de flora tropical</li>
+          <li>Recorridos familiares</li>
+          <li>Nuestra cabaña alpina para 2 personas y el rancho de eventos</li>
+        </ul>
+      </div>
+
+      <div class="ec-zona ec-zona--alta">
+        <p class="ec-zona__num">PARTE ALTA</p>
+        <h3 class="ec-h3">San José — el bosque de niebla y la montaña</h3>
+        <p>Otra temperatura, otro bosque, otra experiencia. Se llega por camino de terracería y eso mismo es lo que mantiene la zona tan conservada.</p>
+        <ul>
+          <li>Bosques cubiertos de neblina</li>
+          <li>Árboles enormes y musgo por todos lados</li>
+          <li>Temperaturas frescas todo el año</li>
+          <li>Senderos de montaña y miradores</li>
+          <li>Cabaña para 7 personas y hospedaje para grupos grandes</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="ec-narrow ec-rv" style="padding:0;margin:30px auto 0;font-size:.95rem;color:var(--corteza)">Recomendación honesta: si tienes tres días, haz las dos. Un día abajo, dos arriba. Es la única forma de ver la reserva completa.</p>
+  </div>
+</section>
+
+<!-- ============ TEMPORADA ============ -->
+<section class="ec-sec ec-sec--dark" id="ec-temporada">
+  <div class="ec-wrap">
+    <div class="ec-rv">
+      <p class="ec-eyebrow">05 · Calendario</p>
+      <h2 class="ec-h2">¿Cuál es la mejor época para venir?</h2>
+      <p class="ec-lead" style="margin-bottom:30px">No hay mala temporada, hay temporadas distintas. Elige la tuya.</p>
+    </div>
+
+    <div class="ec-radios ec-rv">
+      <input type="radio" name="ec-temp" id="ec-t1" checked>
+      <input type="radio" name="ec-temp" id="ec-t2">
+      <input type="radio" name="ec-temp" id="ec-t3">
+      <input type="radio" name="ec-temp" id="ec-t4">
+      <div class="ec-chips">
+        <label for="ec-t1">Primavera</label>
+        <label for="ec-t2">Verano</label>
+        <label for="ec-t3">Otoño</label>
+        <label for="ec-t4">Invierno</label>
+      </div>
+
+      <div class="ec-temp">
+        <div class="ec-temp__panel" data-t="1">
+          <div><h3 class="ec-temp__big">Primavera</h3><p class="ec-lead">Mayor presencia de flores y vegetación nueva. El bosque se llena de color y los polinizadores salen en masa.</p></div>
+          <ul class="ec-eco__data" style="border-color:rgba(227,232,226,.2)">
+            <li style="border-color:rgba(227,232,226,.2)"><b>Ideal para</b><span>Fotografía de flora</span></li>
+            <li style="border-color:rgba(227,232,226,.2)"><b>Estrella</b><span>Orquídeas y colibríes</span></li>
+            <li style="border-color:rgba(227,232,226,.2)"><b>Clima</b><span>Templado, cómodo</span></li>
+          </ul>
+        </div>
+        <div class="ec-temp__panel" data-t="2">
+          <div><h3 class="ec-temp__big">Verano</h3><p class="ec-lead">Bosques intensamente verdes y cascadas con mayor flujo de agua. La temporada de los ríos.</p></div>
+          <ul class="ec-eco__data" style="border-color:rgba(227,232,226,.2)">
+            <li style="border-color:rgba(227,232,226,.2)"><b>Ideal para</b><span>Ríos, cascadas y pozas</span></li>
+            <li style="border-color:rgba(227,232,226,.2)"><b>Estrella</b><span>Anfibios y bosque en pleno</span></li>
+            <li style="border-color:rgba(227,232,226,.2)"><b>Clima</b><span>Cálido abajo, fresco arriba</span></li>
+          </ul>
+        </div>
+        <div class="ec-temp__panel" data-t="3">
+          <div><h3 class="ec-temp__big">Otoño</h3><p class="ec-lead">Cambios de color en el liquidámbar y otras especies. La niebla se vuelve más densa y el bosque, más cinematográfico.</p></div>
+          <ul class="ec-eco__data" style="border-color:rgba(227,232,226,.2)">
+            <li style="border-color:rgba(227,232,226,.2)"><b>Ideal para</b><span>Fotografía de paisaje</span></li>
+            <li style="border-color:rgba(227,232,226,.2)"><b>Estrella</b><span>Liquidámbar en color</span></li>
+            <li style="border-color:rgba(227,232,226,.2)"><b>Clima</b><span>Fresco y húmedo</span></li>
+          </ul>
+        </div>
+        <div class="ec-temp__panel" data-t="4">
+          <div><h3 class="ec-temp__big">Invierno</h3><p class="ec-lead">La mejor temporada para observación de aves migratorias y para quien busca frío de verdad en la parte alta.</p></div>
+          <ul class="ec-eco__data" style="border-color:rgba(227,232,226,.2)">
+            <li style="border-color:rgba(227,232,226,.2)"><b>Ideal para</b><span>Observación de aves</span></li>
+            <li style="border-color:rgba(227,232,226,.2)"><b>Estrella</b><span>Especies migratorias</span></li>
+            <li style="border-color:rgba(227,232,226,.2)"><b>Clima</b><span>Frío en San José — trae chamarra</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXPERIENCIAS ============ -->
+<section class="ec-sec" id="ec-experiencias">
+  <div class="ec-wrap">
+    <div class="ec-rv">
+      <p class="ec-eyebrow">06 · Con nosotros</p>
+      <h2 class="ec-h2">Formas de vivir la naturaleza de El Cielo</h2>
+      <p class="ec-lead" style="margin-bottom:30px">Todo lo que organizamos sucede dentro de la reserva, con guías de la zona y grupos reducidos.</p>
+    </div>
+
+    <div class="ec-exp ec-rv">
+      <article><span>01</span><b>Hospedaje en cabaña</b><p>Cabaña alpina para 2 en Gómez Farías y cabaña para 7 en San José, además de la red de cabañas de la parte alta.</p></article>
+      <article><span>02</span><b>Senderismo guiado</b><p>Rutas de baja, media y alta dificultad según la zona y el tiempo que tengas.</p></article>
+      <article><span>03</span><b>Observación de flora y fauna</b><p>Recorridos a paso lento y en silencio, que es como realmente se ven los animales.</p></article>
+      <article><span>04</span><b>Fotografía de naturaleza</b><p>Salidas en las horas de mejor luz: amanecer con niebla y última hora de la tarde.</p></article>
+      <article><span>05</span><b>Yoga en el bosque</b><p>Sesiones al aire libre rodeadas de montaña, ideales para retiros y grupos.</p></article>
+      <article><span>06</span><b>Eventos y música en el bosque</b><p>Desde eventos privados hasta noches de música electrónica en el rancho, siempre con respeto al entorno.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="ec-sec" id="ec-faq" style="background:var(--niebla-2);border-block:1px solid var(--linea)">
+  <div class="ec-narrow">
+    <div class="ec-rv">
+      <p class="ec-eyebrow">07 · Preguntas frecuentes</p>
+      <h2 class="ec-h2">Lo que más nos preguntan</h2>
+    </div>
+    <div class="ec-faq ec-rv" style="margin-top:24px">
+      <details open><summary>¿Qué animales puedo ver en El Cielo Tamaulipas?</summary><div class="ec-faq__a">Puedes encontrar aves, venados, mamíferos pequeños y reptiles con relativa facilidad y, con mucha suerte, especies más grandes como felinos y osos negros. Lo más común en un recorrido guiado son colibríes, chachalacas, carpinteros, lagartijas y venado cola blanca.</div></details>
+      <details><summary>¿Hay jaguares en El Cielo Tamaulipas?</summary><div class="ec-faq__a">Sí, el jaguar forma parte de las especies registradas dentro de la región. Observar uno directamente es poco común porque son animales solitarios, de hábitos nocturnos y están protegidos.</div></details>
+      <details><summary>¿Qué flores hay en El Cielo?</summary><div class="ec-faq__a">Entre las plantas más representativas están las orquídeas silvestres, las bromelias, las magnolias, los helechos y distintas flores silvestres como las begonias. La floración cambia según la temporada del año.</div></details>
+      <details><summary>¿Por qué El Cielo es tan importante?</summary><div class="ec-faq__a">Porque protege uno de los ecosistemas más importantes del noreste de México y conserva una gran diversidad de especies animales y vegetales, incluyendo un bosque de niebla con condiciones que ya casi no existen en el país.</div></details>
+      <details><summary>¿Necesito guía para recorrer la reserva?</summary><div class="ec-faq__a">Para la parte baja puedes hacer recorridos sencillos por tu cuenta. Para la parte alta y los senderos de montaña sí recomendamos guía: el camino es de terracería, la señal es limitada y un guía local multiplica lo que alcanzas a ver.</div></details>
+      <details><summary>¿Cuántos días necesito para conocer El Cielo?</summary><div class="ec-faq__a">Con un día alcanzas para la parte baja. Para conocer la reserva de verdad, lo ideal son tres días: uno en Gómez Farías y dos en San José, incluyendo al menos un amanecer en el bosque de niebla.</div></details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="ec-cta">
+  <div class="ec-wrap">
+    <h2>Hay lugares que se visitan y otros que se sienten</h2>
+    <p>El Cielo es de los segundos. Reserva tu cabaña y descubre la biodiversidad de Tamaulipas desde adentro del bosque.</p>
+    <div class="ec-btns">
+      <a class="ec-btn ec-btn--full" href="https://wa.me/528311550702?text=Hola,%20vi%20el%20blog%20de%20flora%20y%20fauna%20y%20quiero%20información%20de%20cabañas" target="_blank" rel="noopener">Reservar por WhatsApp</a>
+      <a class="ec-btn ec-btn--line" href="/glamping/">Ver cabañas y experiencias</a>
+    </div>
+    <p class="ec-firma">Glamping El Cielo Adventures · Gómez Farías y San José, Tamaulipas · 831 155 0702</p>
+  </div>
+</section>
+
+<script>
+(function(){
+  var root = document.querySelector('.ec-blog');
+  if(!root) return;
+  root.classList.add('ec-js');
+
+  // Barra de progreso de lectura
+  var bar = document.getElementById('ec-bar');
+  function progreso(){
+    var r = root.getBoundingClientRect();
+    var total = r.height - window.innerHeight;
+    var avance = total > 0 ? Math.min(Math.max(-r.top / total, 0), 1) : 0;
+    if(bar) bar.style.width = (avance * 100) + '%';
+  }
+  window.addEventListener('scroll', progreso, {passive:true});
+  window.addEventListener('resize', progreso);
+  progreso();
+
+  // Aparición al hacer scroll
+  var objetivos = root.querySelectorAll('.ec-rv, .ec-card');
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entradas){
+      entradas.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('ec-in'); io.unobserve(e.target); }
+      });
+    }, {threshold:.12, rootMargin:'0px 0px -40px 0px'});
+    objetivos.forEach(function(el){ io.observe(el); });
+  } else {
+    objetivos.forEach(function(el){ el.classList.add('ec-in'); });
+  }
+
+  // Desplazamiento suave del índice
+  root.querySelectorAll('.ec-toc a').forEach(function(a){
+    a.addEventListener('click', function(ev){
+      var destino = document.querySelector(a.getAttribute('href'));
+      if(destino){ ev.preventDefault(); destino.scrollIntoView({behavior:'smooth', block:'start'}); }
+    });
+  });
+})();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {
+      "@type":"Article",
+      "headline":"Flora y fauna de El Cielo Tamaulipas: descubre los animales y plantas de la Reserva de la Biosfera",
+      "description":"Conoce la flora y fauna de El Cielo Tamaulipas: aves, mamíferos, flores, árboles y especies únicas que habitan una de las reservas naturales más importantes de México.",
+      "inLanguage":"es-MX",
+      "author":{"@type":"Organization","name":"Glamping El Cielo Adventures"},
+      "publisher":{"@type":"Organization","name":"Glamping El Cielo Adventures","url":"https://www.elcielotamaulipas.org"},
+      "about":{"@type":"Place","name":"Reserva de la Biosfera El Cielo","address":{"@type":"PostalAddress","addressRegion":"Tamaulipas","addressCountry":"MX"}}
+    },
+    {
+      "@type":"FAQPage",
+      "mainEntity":[
+        {"@type":"Question","name":"¿Qué animales puedo ver en El Cielo Tamaulipas?","acceptedAnswer":{"@type":"Answer","text":"Puedes encontrar aves, venados, mamíferos pequeños y reptiles con relativa facilidad y, con mucha suerte, especies más grandes como felinos y osos negros."}},
+        {"@type":"Question","name":"¿Hay jaguares en El Cielo Tamaulipas?","acceptedAnswer":{"@type":"Answer","text":"Sí, el jaguar forma parte de las especies registradas dentro de la región, aunque observar uno es poco común porque son animales solitarios, nocturnos y protegidos."}},
+        {"@type":"Question","name":"¿Qué flores hay en El Cielo?","acceptedAnswer":{"@type":"Answer","text":"Orquídeas silvestres, bromelias, magnolias, helechos y diferentes flores silvestres como las begonias."}},
+        {"@type":"Question","name":"¿Por qué El Cielo es tan importante?","acceptedAnswer":{"@type":"Answer","text":"Porque protege uno de los ecosistemas más importantes del noreste de México y conserva una gran diversidad de especies animales y vegetales."}},
+        {"@type":"Question","name":"¿Necesito guía para recorrer la reserva?","acceptedAnswer":{"@type":"Answer","text":"Para la parte baja puedes hacer recorridos sencillos por tu cuenta. Para la parte alta y los senderos de montaña se recomienda guía local."}},
+        {"@type":"Question","name":"¿Cuántos días necesito para conocer El Cielo?","acceptedAnswer":{"@type":"Answer","text":"Con un día alcanzas para la parte baja. Lo ideal son tres días: uno en Gómez Farías y dos en San José."}}
+      ]
+    }
+  ]
+}
+</script>
+
+</div>
+<!-- ===== fin del bloque Glamping El Cielo Adventures ===== -->
+
+</body>
+</html>

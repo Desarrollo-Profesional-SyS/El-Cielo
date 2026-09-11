@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://elcielotamaulipas.org/blog/fauna-y-flora-el-cielo-tamaulipas.html</loc>
+    <lastmod>2026-08-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://elcielotamaulipas.org/blog/img/panoramica-sierra-madre-oriental-el-cielo.jpg</image:loc>
+      <image:title>Reserva de la Biosfera El Cielo, Tamaulipas</image:title>
+    </image:image>
+  </url>
+</urlset>
