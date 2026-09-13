@@ -1,0 +1,718 @@
+<title>Embudo El Cielo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Space+Grotesk:wght@400;500;600;700&display=swap">
+<style>
+  :root {
+    color-scheme: light;
+    --bg: #FFFFFF; --panel: #F8FBF3; --panel-2: #EEF4E4; --ink: #131A11; --ink-2: #5C6857;
+    --line: #DCE5D2; --line-2: #C9D6BC; --accent: #6FA300; --accent-ink: #4C7300; --accent-soft: #E9F3D3;
+    --sun: #B58900; --sun-ink: #7A6400; --sun-soft: #FBF1D6; --rojo: #B3261E; --rojo-soft: #F9E3E1;
+    --wa: #1B9E4B; --wa-ink: #FFFFFF; --bar: #4C7300; --grid: #E6ECDD; --shadow: 0 12px 32px rgba(19,26,17,.12);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --bg: #131A11; --panel: #1B241A; --panel-2: #243024; --ink: #F3F7EB; --ink-2: #A9B59F;
+      --line: #2E3B2B; --line-2: #3B4B38; --accent: #8CC61F; --accent-ink: #B9E45A; --accent-soft: #263A16;
+      --sun: #D9A521; --sun-ink: #F0C858; --sun-soft: #3A2E10; --rojo: #F08A83; --rojo-soft: #3D1F1D;
+      --wa: #2ED070; --wa-ink: #0B1A0F; --bar: #8CC61F; --grid: #26322A; --shadow: 0 12px 32px rgba(0,0,0,.45);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --bg: #131A11; --panel: #1B241A; --panel-2: #243024; --ink: #F3F7EB; --ink-2: #A9B59F;
+    --line: #2E3B2B; --line-2: #3B4B38; --accent: #8CC61F; --accent-ink: #B9E45A; --accent-soft: #263A16;
+    --sun: #D9A521; --sun-ink: #F0C858; --sun-soft: #3A2E10; --rojo: #F08A83; --rojo-soft: #3D1F1D;
+    --wa: #2ED070; --wa-ink: #0B1A0F; --bar: #8CC61F; --grid: #26322A; --shadow: 0 12px 32px rgba(0,0,0,.45);
+  }
+
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.45 'Space Grotesk', system-ui, sans-serif; }
+  button, input, select, textarea { font: inherit; color: inherit; }
+  h1, h2, h3 { margin: 0; text-wrap: balance; }
+  .num { font-variant-numeric: tabular-nums; }
+  :focus-visible { outline: 2px solid var(--accent-ink); outline-offset: 2px; }
+
+  /* ---- cabecera ---- */
+  .top { position: sticky; top: 0; z-index: 20; background: var(--bg); border-bottom: 1px solid var(--line); }
+  .top-in { max-width: 1120px; margin: 0 auto; padding: 10px 20px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+  .brand { display: flex; flex-direction: column; line-height: 1.1; }
+  .brand .eyebrow { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); font-weight: 600; }
+  .brand .name { font-family: 'Fraunces', Georgia, serif; font-size: 22px; font-weight: 700; }
+  nav.tabs { display: flex; gap: 4px; flex-wrap: wrap; }
+  nav.tabs button { border: 0; background: transparent; padding: 8px 12px; border-radius: 999px; cursor: pointer; font-weight: 500; color: var(--ink-2); }
+  nav.tabs button[aria-selected="true"] { background: var(--accent-soft); color: var(--accent-ink); font-weight: 600; }
+  nav.tabs button .cnt { display: inline-block; min-width: 20px; padding: 0 6px; margin-left: 6px; border-radius: 999px; background: var(--sun-soft); color: var(--sun-ink); font-size: 12px; font-weight: 700; text-align: center; }
+  .top .right { margin-left: auto; display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--ink-2); }
+  .demo { border: 1px dashed var(--line-2); border-radius: 999px; padding: 3px 10px; }
+  .user { display: inline-flex; align-items: center; gap: 6px; }
+  .user b { width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: #fff; display: inline-grid; place-items: center; font-size: 12px; }
+
+  main { max-width: 1120px; margin: 0 auto; padding-block: 22px 60px; padding-inline: 20px; }
+  .vista > .head { display: flex; align-items: end; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 18px; }
+  .vista h2 { font-family: 'Fraunces', Georgia, serif; font-size: 28px; font-weight: 600; }
+  .vista .sub { color: var(--ink-2); margin-top: 4px; }
+
+  /* ---- botones ---- */
+  .btn { border: 1px solid var(--line-2); background: var(--panel); border-radius: 8px; padding: 7px 12px; cursor: pointer; font-weight: 600; display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; line-height: 1.2; }
+  .btn:hover { border-color: var(--accent-ink); }
+  .btn.primary { background: var(--accent-ink); border-color: var(--accent-ink); color: #fff; }
+  .btn.wa { background: var(--wa); border-color: var(--wa); color: var(--wa-ink); }
+  .btn.wa svg { width: 16px; height: 16px; fill: currentColor; }
+  .btn.ghost { background: transparent; }
+  .btn.small { padding: 5px 9px; font-size: 13px; }
+  .btn.danger { color: var(--rojo); }
+  .btn .arrow { color: inherit; opacity: .75; font-weight: 500; }
+
+  /* ---- registrar ---- */
+  .registro { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px; margin-bottom: 22px; }
+  .registro form { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px 12px; align-items: end; }
+  .registro label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--ink-2); font-weight: 600; }
+  .registro input, .registro select { padding: 8px 10px; border: 1px solid var(--line-2); border-radius: 8px; background: var(--bg); }
+
+  /* ---- grupos y leads ---- */
+  .grupo { margin-bottom: 22px; }
+  .grupo > header { display: flex; align-items: baseline; gap: 10px; padding: 0 4px 8px; border-bottom: 1px solid var(--line); margin-bottom: 8px; }
+  .grupo h3 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-2); }
+  .grupo h3 b { color: var(--ink); }
+  .grupo .n { margin-left: auto; font-size: 12px; color: var(--ink-2); }
+  .lead { display: grid; grid-template-columns: 1.3fr 1.5fr 1fr auto; gap: 12px 16px; align-items: center; padding: 12px 8px; border-bottom: 1px solid var(--line); }
+  .lead:last-child { border-bottom: 0; }
+  .lead .name { border: 0; background: none; padding: 0; text-align: left; font-weight: 600; font-size: 15px; cursor: pointer; color: var(--ink); }
+  .lead .name:hover { color: var(--accent-ink); text-decoration: underline; }
+  .lead .tel { color: var(--ink-2); font-size: 13px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { font-size: 12px; padding: 2px 8px; border-radius: 999px; background: var(--panel-2); color: var(--ink); }
+  .chip.dest { background: var(--accent-soft); color: var(--accent-ink); font-weight: 600; }
+  .chip.muted { color: var(--ink-2); background: transparent; border: 1px solid var(--line); }
+  .state { display: flex; flex-direction: column; gap: 3px; font-size: 12px; color: var(--ink-2); }
+  .badge { display: inline-flex; align-items: center; gap: 5px; padding: 2px 8px; border-radius: 999px; font-weight: 600; font-size: 12px; width: fit-content; }
+  .badge.hoy { background: var(--accent-soft); color: var(--accent-ink); }
+  .badge.late { background: var(--sun-soft); color: var(--sun-ink); }
+  .badge.muy { background: var(--rojo-soft); color: var(--rojo); }
+  .badge.nuevo { background: var(--panel-2); color: var(--ink); }
+  .badge::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+  .actions { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+  .vacio { padding: 40px; text-align: center; color: var(--ink-2); border: 1px dashed var(--line-2); border-radius: 12px; }
+
+  /* ---- tabla ---- */
+  .filtros { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+  .filtros input, .filtros select { padding: 8px 10px; border: 1px solid var(--line-2); border-radius: 8px; background: var(--bg); }
+  .tabla-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; }
+  table { border-collapse: collapse; width: 100%; min-width: 640px; }
+  th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--ink-2); background: var(--panel); }
+  tr:last-child td { border-bottom: 0; }
+  td.r, th.r { text-align: right; }
+  .est { font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 999px; }
+  .est.activo { background: var(--accent-soft); color: var(--accent-ink); }
+  .est.reservo { background: var(--sun-soft); color: var(--sun-ink); }
+  .est.cancelado { background: var(--rojo-soft); color: var(--rojo); }
+  .est.archivado { background: var(--panel-2); color: var(--ink-2); }
+
+  /* ---- embudo ---- */
+  .paso-row details { border: 1px solid var(--line); border-radius: 10px; margin-bottom: 8px; background: var(--panel); }
+  .paso-row summary { display: grid; grid-template-columns: 52px 1.4fr 1fr 1fr 1fr auto; gap: 12px; align-items: center; padding: 10px 14px; cursor: pointer; list-style: none; }
+  .paso-row summary::-webkit-details-marker { display: none; }
+  .paso-row .cod { font-family: 'Fraunces', Georgia, serif; font-size: 20px; font-weight: 700; color: var(--accent-ink); }
+  .paso-row .lbl { font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: var(--ink-2); display: block; }
+  .paso-row pre { margin: 0; padding: 12px 14px 14px; border-top: 1px solid var(--line); white-space: pre-wrap; font: 13px/1.5 'Space Grotesk', system-ui, sans-serif; color: var(--ink); background: var(--bg); border-radius: 0 0 10px 10px; }
+  .leyenda { color: var(--ink-2); font-size: 13px; margin-bottom: 14px; }
+
+  /* ---- tablero ---- */
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-bottom: 22px; }
+  .tile { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+  .tile .lbl { font-size: 12px; color: var(--ink-2); font-weight: 600; }
+  .tile .val { font-family: 'Fraunces', Georgia, serif; font-size: 34px; font-weight: 600; line-height: 1.1; margin-top: 4px; }
+  .tile .sub { font-size: 12px; color: var(--ink-2); margin-top: 2px; }
+  .charts { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 800px) { .charts { grid-template-columns: 1fr; } }
+  .chart { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px; }
+  .chart header { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin-bottom: 4px; }
+  .chart h3 { font-size: 15px; font-weight: 600; }
+  .chart .fuente { font-size: 12px; color: var(--ink-2); margin-bottom: 12px; }
+  .barras { position: relative; height: 190px; display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 6px; align-items: end; padding-left: 28px; }
+  .barras .grid { position: absolute; inset: 0 0 0 28px; pointer-events: none; }
+  .barras .grid i { position: absolute; left: 0; right: 0; border-top: 1px solid var(--grid); font-style: normal; font-size: 11px; color: var(--ink-2); transform: translateY(-50%); }
+  .barras .grid i span { position: absolute; left: -28px; top: -7px; width: 24px; text-align: right; }
+  .bar { position: relative; height: 100%; display: flex; align-items: flex-end; }
+  .bar b { display: block; width: 100%; background: var(--bar); border-radius: 4px 4px 0 0; min-height: 2px; transition: opacity .15s; }
+  .bar:hover b, .bar:focus-within b { opacity: .8; }
+  .bar .tip { position: absolute; bottom: calc(100% + 4px); left: 50%; transform: translateX(-50%); background: var(--ink); color: var(--bg); font-size: 12px; padding: 4px 8px; border-radius: 6px; white-space: nowrap; opacity: 0; pointer-events: none; z-index: 2; }
+  .bar:hover .tip, .bar.ultimo .tip { opacity: 1; }
+  .bar.ultimo .tip { background: transparent; color: var(--ink); font-weight: 700; padding: 0; }
+  .ejex { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 6px; padding-left: 28px; margin-top: 6px; font-size: 11px; color: var(--ink-2); text-align: center; }
+  .hbars { display: grid; grid-template-columns: minmax(150px, 190px) 1fr 36px; gap: 6px 10px; align-items: center; }
+  .hbars .lab { font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .hbars .lab small { color: var(--ink-2); }
+  .hbars .track { height: 18px; background: var(--grid); border-radius: 4px; overflow: hidden; }
+  .hbars .track b { display: block; height: 100%; background: var(--bar); border-radius: 0 4px 4px 0; }
+  .hbars .v { text-align: right; font-weight: 600; }
+  .chart table { min-width: 0; margin-top: 10px; }
+  .chart .tabla-wrap { margin-top: 10px; }
+
+  /* ---- ficha lateral ---- */
+  .sheet { position: fixed; top: 0; right: 0; bottom: 0; width: min(440px, 100%); background: var(--bg); border-left: 1px solid var(--line); box-shadow: var(--shadow); z-index: 30; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 16px; }
+  .sheet .close { position: absolute; top: 12px; right: 12px; }
+  .sheet h2 { font-family: 'Fraunces', Georgia, serif; font-size: 24px; font-weight: 600; padding-right: 40px; }
+  .datos { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 14px; font-size: 13px; }
+  .datos div span { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: var(--ink-2); }
+  .sheet section h3 { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-2); margin-bottom: 8px; }
+  .hist { list-style: none; margin: 0; padding: 0; border-left: 2px solid var(--line-2); }
+  .hist li { position: relative; padding: 2px 0 10px 14px; font-size: 13px; }
+  .hist li::before { content: ""; position: absolute; left: -6px; top: 8px; width: 10px; height: 10px; border-radius: 50%; background: var(--line-2); }
+  .hist li.respuesta.si::before { background: var(--accent); }
+  .hist li.respuesta.no::before { background: var(--sun); }
+  .hist li.cambio::before { background: var(--ink-2); }
+  .hist li small { display: block; color: var(--ink-2); }
+  .acciones-ficha { display: flex; flex-wrap: wrap; gap: 8px; }
+  .acciones-ficha select { padding: 6px 8px; border: 1px solid var(--line-2); border-radius: 8px; background: var(--bg); }
+  .reservar { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px; }
+  .reservar form { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .reservar label { font-size: 12px; color: var(--ink-2); font-weight: 600; display: flex; flex-direction: column; gap: 3px; }
+  .reservar input, .reservar select { padding: 7px 9px; border: 1px solid var(--line-2); border-radius: 8px; background: var(--bg); }
+  .reservar .full { grid-column: 1 / -1; }
+  .check { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+  .check li { display: flex; gap: 8px; align-items: flex-start; font-size: 13px; }
+  .check li.hecho { color: var(--ink-2); text-decoration: line-through; }
+  .check li span.m { font-size: 10px; text-transform: uppercase; letter-spacing: .05em; color: var(--ink-2); min-width: 54px; padding-top: 3px; }
+  .plantilla-prev { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; font-size: 13px; white-space: pre-wrap; max-height: 160px; overflow: auto; }
+  .backdrop { position: fixed; inset: 0; background: rgba(19,26,17,.35); z-index: 25; }
+
+  #toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 10px 16px; border-radius: 10px; font-weight: 500; z-index: 40; box-shadow: var(--shadow); max-width: calc(100% - 32px); }
+  footer.pie { max-width: 1120px; margin: 0 auto; padding: 0 20px 30px; font-size: 12px; color: var(--ink-2); display: flex; gap: 14px; flex-wrap: wrap; }
+  footer.pie button { border: 0; background: none; color: var(--accent-ink); cursor: pointer; padding: 0; font-weight: 600; }
+
+  @media (max-width: 720px) {
+    .lead { grid-template-columns: 1fr; gap: 8px; }
+    .actions { justify-content: flex-start; }
+    .paso-row summary { grid-template-columns: 44px 1fr; }
+    .paso-row summary .oc { display: none; }
+    .datos { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<header class="top">
+  <div class="top-in">
+    <div class="brand"><span class="eyebrow">El Cielo Adventures</span><span class="name">Embudo</span></div>
+    <nav class="tabs" role="tablist" aria-label="Secciones">
+      <button role="tab" aria-selected="true" data-vista="hoy" id="tab-hoy">Hoy <span class="cnt" id="cnt-hoy">0</span></button>
+      <button role="tab" aria-selected="false" data-vista="leads" id="tab-leads">Leads</button>
+      <button role="tab" aria-selected="false" data-vista="embudo" id="tab-embudo">Embudo</button>
+      <button role="tab" aria-selected="false" data-vista="tablero" id="tab-tablero">Tablero</button>
+    </nav>
+    <div class="right">
+      <span class="demo">Demo · nombres y celulares ficticios</span>
+      <span class="user"><b>A</b> Andrés</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- ================= HOY ================= -->
+  <section class="vista" id="vista-hoy" role="tabpanel" aria-labelledby="tab-hoy">
+    <div class="head">
+      <div><h2 id="hoy-titulo">Hoy</h2><div class="sub" id="hoy-sub"></div></div>
+      <button class="btn primary" id="btn-nuevo" type="button">+ Registrar lead</button>
+    </div>
+
+    <div class="registro" id="registro" hidden>
+      <form id="form-lead" autocomplete="off">
+        <label>Celular (WhatsApp)<input id="f-cel" required placeholder="834 123 4567" inputmode="tel"></label>
+        <label>Nombre<input id="f-nombre" placeholder="Si ya lo dio"></label>
+        <label>Destino<select id="f-destino">
+          <option>Sin definir</option><option>San José</option><option>Gómez Farías</option><option>Camping</option><option>Tours</option>
+        </select></label>
+        <label>Personas<input id="f-personas" type="number" min="1" placeholder="4"></label>
+        <label>Noches<input id="f-noches" type="number" min="1" placeholder="1"></label>
+        <label>Mes del viaje<input id="f-mes" placeholder="Octubre"></label>
+        <label>Origen<select id="f-origen">
+          <option>Anuncio Meta</option><option>Facebook / Instagram</option><option>Sitio web</option><option>Google</option><option>Recomendación</option><option>Airbnb</option><option>Otro</option>
+        </select></label>
+        <div style="display:flex;gap:8px"><button class="btn primary" type="submit">Registrar</button><button class="btn ghost" type="button" id="btn-cancelar-reg">Cerrar</button></div>
+      </form>
+    </div>
+
+    <div id="hoy-lista"></div>
+  </section>
+
+  <!-- ================= LEADS ================= -->
+  <section class="vista" id="vista-leads" role="tabpanel" aria-labelledby="tab-leads" hidden>
+    <div class="head"><div><h2>Leads</h2><div class="sub" id="leads-sub"></div></div></div>
+    <div class="filtros">
+      <input id="buscar" placeholder="Buscar por nombre o celular" aria-label="Buscar">
+      <select id="filtro-estado" aria-label="Estado">
+        <option value="">Todos los estados</option><option value="activo">Activos</option><option value="reservo">Reservaron</option><option value="cancelado">Cancelados</option><option value="archivado">Archivados</option>
+      </select>
+      <select id="filtro-destino" aria-label="Destino">
+        <option value="">Todos los destinos</option><option>San José</option><option>Gómez Farías</option><option>Camping</option><option>Tours</option><option>Sin definir</option>
+      </select>
+    </div>
+    <div class="tabla-wrap"><table id="tabla-leads">
+      <thead><tr><th>Lead</th><th>Destino</th><th>Viaje</th><th class="r">Monto</th><th>Paso</th><th>Estado</th><th>Próxima</th><th>Origen</th></tr></thead>
+      <tbody></tbody>
+    </table></div>
+  </section>
+
+  <!-- ================= EMBUDO ================= -->
+  <section class="vista" id="vista-embudo" role="tabpanel" aria-labelledby="tab-embudo" hidden>
+    <div class="head"><div><h2>Pasos del embudo</h2><div class="sub">Cada paso define su mensaje, cuánto esperar y a dónde mover al lead. Se edita como datos; el sistema hace el resto.</div></div></div>
+    <p class="leyenda">"2 ó 3" significa: 2 si el lead va a Gómez Farías, 3 si va a San José. Toca un paso para ver la plantilla que abre WhatsApp.</p>
+    <div class="paso-row" id="embudo-lista"></div>
+  </section>
+
+  <!-- ================= TABLERO ================= -->
+  <section class="vista" id="vista-tablero" role="tabpanel" aria-labelledby="tab-tablero" hidden>
+    <div class="head"><div><h2>Tablero</h2><div class="sub">Lo que antes se tecleaba en "Feedback Diario de Leads" sale solo del historial.</div></div></div>
+    <div class="tiles" id="tiles"></div>
+    <div class="charts">
+      <div class="chart">
+        <header><h3>Leads nuevos por semana</h3><button class="btn small ghost" type="button" data-toggle="tabla-semanas">Ver tabla</button></header>
+        <div class="fuente">Conteo real del registro del Excel, junio a agosto de 2026</div>
+        <div class="barras" id="barras-semanas" role="img" aria-label="Leads nuevos por semana"></div>
+        <div class="ejex" id="ejex-semanas"></div>
+        <div class="tabla-wrap" id="tabla-semanas" hidden><table><thead><tr><th>Semana del</th><th class="r">Leads nuevos</th></tr></thead><tbody></tbody></table></div>
+      </div>
+      <div class="chart">
+        <header><h3>Leads activos por paso</h3><button class="btn small ghost" type="button" data-toggle="tabla-pasos">Ver tabla</button></header>
+        <div class="fuente">Con los leads de esta demo; cambia al mover leads en "Hoy"</div>
+        <div class="hbars" id="hbars-pasos"></div>
+        <div class="tabla-wrap" id="tabla-pasos" hidden><table><thead><tr><th>Paso</th><th class="r">Activos</th></tr></thead><tbody></tbody></table></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="pie">
+  <span>Prototipo de la fase 1. Los datos viven en este navegador.</span>
+  <button type="button" id="reiniciar">Reiniciar la demo</button>
+</footer>
+
+<div class="backdrop" id="backdrop" hidden></div>
+<aside class="sheet" id="ficha" hidden aria-label="Ficha del lead"></aside>
+<div id="toast" hidden></div>
+
+<script>
+(function () {
+  'use strict';
+  const PASOS = [{"codigo": "1", "nombre": "Mensaje Inicial", "plantilla": "Te gustaría dormir entre árboles, con el sonido del bosque y el agua bajando desde la montaña? 🌲💧\n¡Bienvenido a El Cielo, Tamaulipas!\n\n✨ Tenemos dos opciones mágicas para ti:\n\n1️⃣ Cabaña en la parte baja, Gómez Farías – Para un máximo de 2 personas, ideal para una escapada romántica o una desconexión íntima.\n\n2️⃣ Cabañas en San José – Para más de 50 personas, perfectas para grupos, familias o amigos que buscan una experiencia única en la naturaleza.\n\n¿Cuál te interesa más? 🙌", "dias_espera": 1, "dias_habiles": false, "si": "2|3", "no": "2.1", "es_final": false, "cierra_como": null, "orden": 1}, {"codigo": "2", "nombre": "Gómez Farías", "plantilla": "💚 ¡Te va a encantar! Aquí te cuento más:\n\n👉Gómez Farías\n✔ Agua que baja directo de la montaña\n✔ Energía solar (cero ruido, 100% naturaleza)\n✔ Pet friendly 🐾\n✔ Área de Asadores\n✔ Área de fogata\n✔ Cabañas privadas, cómodas y seguras\n✔ Estás rodeado de bosque, neblina y paz total 🌫️\n\n¡Para cotizar te agradecería si me dices cuantas personas son y cuantos días nos visitan!\n¿Te gustaría ver fotos y saber el precio por noche?", "dias_espera": 1, "dias_habiles": false, "si": "5", "no": "2.1", "es_final": false, "cierra_como": null, "orden": 2}, {"codigo": "3", "nombre": "San José", "plantilla": "💚 ¡Te va a encantar! Aquí te cuento más:\n\n👉Ej. San José (Corazón de El Cielo)🫀\n✔ Agua directa de la montaña\n✔ Energía solar (cero ruido, 100% naturaleza)\n✔ Pet friendly 🐾\n✔ Área de Asadores\n✔ Área de fogatas\n✔ Cabañas privadas, cómodas y seguras\n✔ Estás rodeado de bosque, neblina y paz total 🌫️\n\nPara cotizar te agradecería si me dices cuantas personas son y cuantos días nos visitan!\n¿Te gustaría ver fotos y saber el precio por noche?", "dias_espera": 1, "dias_habiles": false, "si": "6", "no": "2.1", "es_final": false, "cierra_como": null, "orden": 3}, {"codigo": "4", "nombre": "Preguntar", "plantilla": "Dime, ¿Cuántas personas son y cuando nos estaría visitando? 😊🏕️", "dias_espera": 1, "dias_habiles": false, "si": "5|6", "no": "2.1", "es_final": false, "cierra_como": null, "orden": 4}, {"codigo": "5", "nombre": "Cotización Gómez Farías", "plantilla": "¡Claro! Aquí van fotos reales tomadas por nuestros huéspedes 📸👇\n\n\n📍**Cabaña Alpina en Gómez Farías**\n💵 Precio: $2500 pesos\n🚶‍♂ Personas: 2 a 4 personas\n🌞 Noches: 1 noche, 2 días\n\n🔶*¡El viaje incluye!* 🔶\nAlojamiento en nuestra cabaña alpina y nuestro tepee, agua natural, área de asador, zona de fogata con bombones, acceso a áreas verdes, guía básica de la zona y hielera. Además contamos con un Vívero para que pueda llevarte un poco de El Cielo a tu casa!\n\n\n*Actividades que puedes hacer sin costo*\nSenderismo 🏃📸\nObservación de aves🦅 \nComprar Artesanías🌲\ny más...\n\n🎁* BONO: Si reservas hoy, te incluimos las bicicletas🚴🏻 para que conozcas Gómez Farías*\n\n¿Te gustaría apartarla ya o tienes alguna duda para ayudarte? 😊", "dias_espera": 1, "dias_habiles": false, "si": "7", "no": "3.1", "es_final": false, "cierra_como": null, "orden": 5}, {"codigo": "6", "nombre": "Cotización San José", "plantilla": "¡Claro! Aquí van fotos reales tomadas por ¡Claro! Aquí van fotos reales tomadas por nuestros huéspedes 📸👇\n\n📍**Cabaña en San José**\n💵 Precio: $8,299 pesos\n🚶‍♂ Personas: 6 personas\n\n🔶*¡El viaje incluye!* 🔶\nTransporte, alojamiento, área de asador, zona de fogata con bombones, acceso a áreas verdes y guía básica de la zona.\n\n*Paradas en camino a San José:*\n-Mirador del Cielo 🌅\n-Ejido Alta Cima: Artesanías, licores, mermeladas y souvenirs 🛍\n-Bosque de Niebla 🌫 (opcional)\n-Valle del Ovni 👽 (opcional)\n-Ejido San José\n\n*Actividades adicionales en Ejido San José:*\nSenderismo 🏃📸\nPaseos en caballo🐴\nObservación de aves🦅 \nComprar Artesanías🌲\ny más...\n\n🎁* BONO: Si reservas hoy, te incluimos la leña para tu fogata*\n\n¿Te gustaría apartarla ya?", "dias_espera": 1, "dias_habiles": false, "si": "7", "no": "3.1", "es_final": false, "cierra_como": null, "orden": 6}, {"codigo": "7", "nombre": "Recomendación", "plantilla": "Por la temporada te recomiendo tengas precaución por que  las fechas se van rápido 🚨\nPuedes apartar tu fecha con solo la mitad del monto total vía transferencia o depósito.\n\nEl resto lo pagas 3 días antes del viaje, sin complicaciones.\n¿Te paso los datos para reservar ahora?", "dias_espera": 1, "dias_habiles": false, "si": "8", "no": "4.1", "es_final": false, "cierra_como": null, "orden": 7}, {"codigo": "8", "nombre": "Métodos de pago + Imágen", "plantilla": "¡Perfecto! 😄\nTe voy a acompañar en todo el proceso, desde la reserva hasta tu llegada.\n📅 Cuando confirmes, tu cabaña queda bloqueada y lista para ti.\n\nEnseguida te envío los métodos de pago🙌🏽", "dias_espera": 1, "dias_habiles": false, "si": "9", "no": "4.1", "es_final": false, "cierra_como": null, "orden": 8}, {"codigo": "9", "nombre": "Instrucciones", "plantilla": "¡Hola! 😄\nGracias por elegir nuestras cabañas en El Cielo para tu próxima escapada. Nos da mucho gusto poder recibirte y queremos contarte algunos detalles importantes para que disfrutes al máximo tu estancia 🌿✨\nSabemos que los pequeños gestos hacen la diferencia, así que además de darte la bienvenida, queremos asegurarnos de que todo esté claro y cómodo para ti:\n\n🔸 Encontrarás un Lockbox con combinación: Tiene un código numérico manual: *1951*\n\n🔸 Agua caliente temporalmente fuera de servicio: Por mantenimiento preventivo, el calentador no estará disponible durante tu visita. Pero no te preocupes, para compensarlo te vamos a dejar algunos extras que sabemos que te van a gustar: una hielera con agua purificada, bolsas extras, una bolsa de carbón para el asador y un repelente ecológico para que puedas relajarte sin molestias.\n\n🔸 Somos Pet Friendly 🐾: Si vienes con tu perrito o mascota, ¡aquí será bienvenido! Solo te pedimos que esté supervisado y que entre todos ayudemos a mantener el entorno limpio y en armonía.\n\n🔸 Comprometidos con el medio ambiente 🌎: Fumigamos la cabaña de manera regular con productos orgánicos, cuidando tu bienestar y el del entorno natural que nos rodea (Sé consciente que estamos rodeados de naturaleza y es posible ver algún tipo de insecto o animal alrededor).\n\n🔸 Cuidado con la energía 💡: Por la ubicación y para evitar sobrecargas eléctricas, te recomendamos desconectar las luces pequeñas por la noche. Así cuidamos el equipo y contribuimos con el planeta 💚.\n\n🔸 Extras incluidos para que disfrutes al máximo:\nAgua purificada para el día\nBolsa de carbón para el asador\nHielera disponible\nBolsas extra de basura\nRepelente ecológico\nKit básico de primeros auxilios\nPapel higiénico \n\nCafetera y café para despertar con aroma a bosque ☕🌲\n\nAdemás, si planeas hacer carne asada o una noche de fogata, te sugerimos traer tus bebidas favoritas, carne y algo para botear. ¡El cielo estrellado de la zona hace que todo sepa mejor!\nSi necesitas algo antes o durante tu estancia, no dudes en escribirnos. Queremos que esta experiencia sea especial, relajante y llena de buenos recuerdos.\n¡Nos vemos pronto en El Cielo! 🌌", "dias_espera": 0, "dias_habiles": false, "si": null, "no": null, "es_final": true, "cierra_como": "reservo", "orden": 9}, {"codigo": "2.1", "nombre": "San José ó Gómez Farías", "plantilla": "¡Hola! ¿Cómo estás?😊\n\nOye, ¿todavía te interesa saber más sobre nuestras cabañas? Es un lugar donde realmente puedes desconectar, está rodeado de naturaleza, con agua de la montaña y energía solar. \n\nEs súper tranquilo, ideal para relajarte y disfrutar del paisaje. Ah, y también es pet friendly, por si viajas con tu mascota. 🐾\n\nSi te gustaría ver fotos o saber más detalles, solo dime. \n¡Aquí estoy para lo que necesites!", "dias_espera": 1, "dias_habiles": false, "si": "5|6", "no": "3.1", "es_final": false, "cierra_como": null, "orden": 10}, {"codigo": "3.1", "nombre": "Contenido de Valor", "plantilla": "¡Hola! 😊\n\nSolo quería recordarte un poquito sobre El Cielo y lo que lo hace especial:\n\n🌲 Naturaleza pura: Aire fresco de montaña, rodeado de bosque y neblina. Es el lugar perfecto para desconectar.\n🔥 Fogata bajo las estrellas: Imagina una noche tranquila, con tus seres queridos, haciendo malvaviscos o simplemente disfrutando del momento.\n🚴‍♂️ Actividades al aire libre: Senderismo, observación de aves y bicicletas… ¡Hay mucho para explorar!\n\nSi te interesa, dime cuántas personas vendrán y te paso los métodos de pago. ¡Te va a encantar la experiencia! 😊", "dias_espera": 2, "dias_habiles": false, "si": "8", "no": "4.1", "es_final": false, "cierra_como": null, "orden": 11}, {"codigo": "4.1", "nombre": "Leña + Biciletas", "plantilla": "/", "dias_espera": 3, "dias_habiles": false, "si": "8", "no": "5.1", "es_final": false, "cierra_como": null, "orden": 12}, {"codigo": "5.1", "nombre": "Oferta", "plantilla": "Te cuento que si reservas el día de hoy, te damos un 10% de descuento en tu estancia. Lo único es que necesitas reservar con el mínimo hoy mismo para asegurar tu lugar. \n\nLas cabañas se están llenando rápido por la temporada, así que si te interesa dime para reservar tu lugar!\n\n¿Te gustaría apartar tu lugar ahora? 🏞️", "dias_espera": 3, "dias_habiles": false, "si": "8", "no": "6.1", "es_final": false, "cierra_como": null, "orden": 13}, {"codigo": "6.1", "nombre": "Cancelado", "plantilla": "¡Hola! 😊\n\nEntendemos que tal vez no es el momento perfecto para tu escapada, así que no te molestaremos más. Si alguna vez te interesa conocer más sobre El Cielo, nuestra comunidad de WhatsApp es el lugar donde compartimos información de valor, eventos, promociones exclusivas y todo lo que necesitas saber para disfrutar de esta hermosa zona. 🌿✨\n\nhttps://chat.whatsapp.com/GFr4d2hqC4v4gfBtCqdxcV\n\nSi en algún momento te gustaría unirte y mantenerte al tanto, serás siempre bienvenido. ¡Te deseamos lo mejor y que tengas un excelente día! 😊", "dias_espera": 0, "dias_habiles": false, "si": null, "no": null, "es_final": true, "cierra_como": "cancelado", "orden": 14}];
+  const SEMANAS = [{"semana": "2026-06-01", "leads": 23}, {"semana": "2026-06-08", "leads": 32}, {"semana": "2026-06-15", "leads": 18}, {"semana": "2026-06-22", "leads": 24}, {"semana": "2026-06-29", "leads": 30}, {"semana": "2026-07-06", "leads": 36}, {"semana": "2026-07-13", "leads": 44}, {"semana": "2026-07-20", "leads": 48}, {"semana": "2026-07-27", "leads": 57}, {"semana": "2026-08-03", "leads": 58}, {"semana": "2026-08-10", "leads": 34}, {"semana": "2026-08-17", "leads": 29}, {"semana": "2026-08-24", "leads": 29}, {"semana": "2026-08-31", "leads": 38}];
+  const P = Object.fromEntries(PASOS.map(p => [p.codigo, p]));
+  const ORDEN = Object.fromEntries(PASOS.map(p => [p.codigo, p.orden]));
+  const CABANAS = [
+    { id: 1, nombre: 'Cabaña San José', precio: 8299 },
+    { id: 2, nombre: 'Cabaña Alpina Gómez Farías', precio: 2500 },
+    { id: 3, nombre: 'Cabaña Yussef', precio: 5599 },
+    { id: 4, nombre: 'Camping', precio: 1500 }
+  ];
+  const CHECKLIST = [
+    ['antes', 'Mensaje de bienvenida con detalles de check-in'], ['antes', 'Preparar la cabaña'],
+    ['antes', 'Confirmar transporte, tours y actividades'], ['antes', 'Recordatorio de llegada'],
+    ['durante', 'Verificar check-in y pago completo'], ['durante', 'Recibir al huésped'],
+    ['durante', 'Mensaje de cortesía el primer día'], ['durante', 'Atender solicitudes'],
+    ['después', 'Agradecer y pedir reseña en Google'], ['después', 'Revisar la cabaña tras el check-out'],
+    ['después', 'Registrar el feedback'], ['después', 'Limpiar para la próxima renta']
+  ];
+  const USUARIO = 'Andrés';
+  const CLAVE = 'cielo-embudo-demo-v1';
+
+  // ---------- fechas ----------
+  const hoy = () => { const d = new Date(); d.setHours(12, 0, 0, 0); return d; };
+  const iso = d => d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+  const parse = s => { const [y, m, d] = s.split('-').map(Number); return new Date(y, m - 1, d, 12); };
+  const addDays = (d, n) => { const x = new Date(d.getTime()); x.setDate(x.getDate() + n); return x; };
+  const dias = (a, b) => Math.round((parse(a) - parse(b)) / 864e5);
+  const HOY = iso(hoy());
+  function sumarDias(d, n, habiles) {
+    if (!habiles) return addDays(d, n);
+    let x = new Date(d.getTime()), k = 0;
+    while (k < n) { x = addDays(x, 1); if (x.getDay() !== 0 && x.getDay() !== 6) k++; }
+    return x;
+  }
+  const fmtFecha = s => parse(s).toLocaleDateString('es-MX', { day: 'numeric', month: 'short' });
+  const fmtLargo = d => d.toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric', month: 'long' });
+  const fmtMonto = n => n == null ? '' : '$' + Number(n).toLocaleString('es-MX');
+  const fmtTel = (lada, cel) => (lada === '52' ? '' : '+' + lada + ' ') + cel.replace(/(\d{3})(\d{3})(\d{4})/, '$1 $2 $3');
+
+  // ---------- reglas del embudo (idénticas a schema.sql) ----------
+  function resolver(codigo, destino) {
+    if (!codigo) return null;
+    if (codigo.indexOf('|') < 0) return codigo;
+    const [a, b] = codigo.split('|');
+    return destino === 'San José' ? b : a;
+  }
+  const siguiente = (lead, contesto) => resolver(contesto ? P[lead.paso].si : P[lead.paso].no, lead.destino);
+
+  // ---------- estado ----------
+  let S = null;
+  function semilla() {
+    const L = [
+      ['Mariana Treviño', '8345550101', '52', 'San José', 4, 2, 'Octubre', 8299, 'Anuncio Meta', '6', true, 2, 1],
+      ['Luis Garza', '8345550102', '52', 'Gómez Farías', 2, 1, 'Septiembre', 2500, 'Facebook / Instagram', '5', true, 1, 0],
+      ['Karla Ibarra', '8345550103', '52', 'San José', 6, 1, 'Noviembre', null, 'Anuncio Meta', '3', true, 1, 0],
+      ['', '8345550104', '52', 'Sin definir', null, null, '', null, 'Anuncio Meta', '1', false, 0, 0],
+      ['', '8345550105', '52', 'San José', null, null, '', null, 'Sitio web', '1', false, 0, 0],
+      ['Pedro Villarreal', '8345550106', '52', 'San José', 5, 2, 'Octubre', 9750, 'Recomendación', '7', true, 1, 0],
+      ['Ana Sofía Cantú', '8345550107', '52', 'San José', 2, 1, 'Septiembre', 5000, 'Anuncio Meta', '8', true, 3, 2],
+      ['Rodrigo Elizondo', '8345550108', '52', 'Gómez Farías', 4, 1, 'Octubre', 2500, 'Anuncio Meta', '2.1', true, 2, 1],
+      ['Fernanda Salinas', '8345550109', '52', 'San José', 8, 2, 'Diciembre', 14950, 'Google', '3.1', true, 4, 2],
+      ['Jorge Martínez', '8345550110', '52', 'San José', 3, 1, 'Octubre', 7150, 'Anuncio Meta', '3.1', true, 5, 3],
+      ['Daniela Ochoa', '8345550111', '52', 'San José', 4, 2, 'Noviembre', 9750, 'Facebook / Instagram', '4.1', true, 6, 3],
+      ['Miguel Ángel Ruiz', '8345550112', '52', 'Sin definir', 2, null, '', null, 'Anuncio Meta', '2.1', true, 1, 0],
+      ['Valeria Montemayor', '8345550113', '52', 'San José', 6, 1, 'Octubre', 8299, 'Anuncio Meta', '6', true, 1, 0],
+      ['Héctor Cavazos', '8345550114', '52', 'Gómez Farías', 3, 2, 'Septiembre', 5000, 'Recomendación', '5', true, 2, 1],
+      ['Brenda Lozano', '9565550115', '1', 'San José', 5, 2, 'Diciembre', 9750, 'Anuncio Meta', '5.1', true, 4, 1],
+      ['Paola Zúñiga', '8345550116', '52', 'San José', 4, 1, 'Octubre', 8299, 'Anuncio Meta', '6', true, 0, -1],
+      ['', '8345550117', '52', 'Gómez Farías', null, null, '', null, 'Anuncio Meta', '2', true, 0, -1],
+      ['Alejandra Cárdenas', '8345550118', '52', 'San José', 4, 2, 'Octubre', 8299, 'Anuncio Meta', '9', true, 5, null, 'reservo'],
+      ['Ricardo Peña', '8345550119', '52', 'Gómez Farías', 2, 1, 'Septiembre', 2500, 'Google', '9', true, 12, null, 'reservo'],
+      ['', '8345550120', '52', 'San José', 4, 1, 'Agosto', 8299, 'Anuncio Meta', '6.1', true, 8, null, 'cancelado'],
+      ['', '8345550121', '52', 'Sin definir', null, null, '', null, 'Facebook / Instagram', '6.1', true, 15, null, 'cancelado'],
+      ['', '8345550122', '52', 'San José', 2, 1, 'Julio', 5000, 'Anuncio Meta', '3.1', true, 40, null, 'archivado'],
+      ['Laura Benavides', '8345550123', '52', 'San José', 3, 1, 'Agosto', 5599, 'Airbnb', '9', true, 20, null, 'reservo'],
+      ['', '8345550124', '52', 'Gómez Farías', 2, 1, 'Septiembre', 2500, 'Anuncio Meta', '6.1', true, 3, null, 'cancelado']
+    ];
+    const leads = L.map((r, i) => {
+      const [nombre, cel, lada, destino, personas, noches, mes, monto, origen, paso, enviado, hace, retraso, estado] = r;
+      const fechaPaso = iso(addDays(hoy(), -hace));
+      const creado = iso(addDays(hoy(), -(hace + Math.max(1, ORDEN[paso] - 1))));
+      const seg = [{ fecha: creado, tipo: 'cambio', paso: '1', nota: 'Lead registrado', usuario: USUARIO }];
+      if (paso !== '1') seg.push({ fecha: fechaPaso, tipo: 'cambio', paso, nota: 'Llegó al paso ' + paso, usuario: USUARIO });
+      if (enviado && !P[paso].es_final) seg.push({ fecha: fechaPaso, tipo: 'envio', paso, usuario: USUARIO });
+      if (estado === 'reservo') seg.push({ fecha: fechaPaso, tipo: 'cambio', paso: '9', nota: 'Reservó', usuario: USUARIO });
+      if (estado === 'cancelado') seg.push({ fecha: fechaPaso, tipo: 'cambio', paso: '6.1', nota: 'Cerrado como cancelado', usuario: USUARIO });
+      return {
+        id: 'l' + (i + 1), nombre, celular: cel, lada, destino, personas, noches, mes, monto, origen, paso, enviado,
+        fechaPaso, proxima: retraso == null ? null : iso(addDays(hoy(), -retraso)),
+        estado: estado || 'activo', creado, seguimientos: seg, reserva: null
+      };
+    });
+    const res = (idx, cab, ll, sa, total, pagado) => {
+      leads[idx].reserva = { cabana: cab, llegada: ll, salida: sa, total, pagado, checklist: CHECKLIST.map(() => false) };
+    };
+    res(17, 1, '2026-10-03', '2026-10-05', 8299, 4150);
+    res(18, 2, '2026-09-19', '2026-09-20', 2500, 2500);
+    res(22, 3, '2026-08-29', '2026-08-30', 5599, 5599);
+    leads[22].reserva.checklist = CHECKLIST.map(() => true);
+    return { leads, sig: leads.length + 1 };
+  }
+  function cargar() {
+    try { const s = localStorage.getItem(CLAVE); if (s) { const o = JSON.parse(s); if (o && o.leads) return o; } } catch (e) { /* sin almacenamiento */ }
+    return semilla();
+  }
+  function guardar() { try { localStorage.setItem(CLAVE, JSON.stringify(S)); } catch (e) { /* sin almacenamiento */ } }
+  const porId = id => S.leads.find(l => l.id === id);
+
+  // ---------- acciones (espejo de las funciones SQL) ----------
+  function log(lead, s) { lead.seguimientos.push(Object.assign({ fecha: HOY, usuario: USUARIO }, s)); }
+  function waLink(lead, texto) {
+    return 'https://wa.me/' + lead.lada + lead.celular + (texto ? '?text=' + encodeURIComponent(texto) : '');
+  }
+  function abrirWA(lead, codigo) {
+    const p = P[codigo];
+    if (p && p.plantilla && p.plantilla.trim() !== '/') window.open(waLink(lead, p.plantilla), '_blank', 'noopener');
+    else window.open(waLink(lead, ''), '_blank', 'noopener');
+  }
+  function enviar(lead) {
+    const p = P[lead.paso];
+    abrirWA(lead, lead.paso);
+    log(lead, { tipo: 'envio', paso: lead.paso });
+    lead.enviado = true; lead.fechaPaso = HOY;
+    lead.proxima = iso(sumarDias(hoy(), p.dias_espera, p.dias_habiles));
+    guardar(); render();
+    toast('Paso ' + lead.paso + ' enviado. Vuelve a aparecer el ' + fmtFecha(lead.proxima) + '.');
+  }
+  function responder(lead, contesto) {
+    const sig = siguiente(lead, contesto);
+    if (!sig || !P[sig]) { toast('El paso ' + lead.paso + ' no define a dónde ir.'); return; }
+    log(lead, { tipo: 'respuesta', paso: lead.paso, contesto });
+    const sp = P[sig];
+    abrirWA(lead, sig);
+    lead.paso = sig; lead.enviado = true; lead.fechaPaso = HOY;
+    if (sp.es_final) {
+      lead.estado = sp.cierra_como; lead.proxima = null;
+      log(lead, { tipo: 'cambio', paso: sig, nota: 'Cerrado como ' + (sp.cierra_como === 'reservo' ? 'reservó' : sp.cierra_como) });
+      toast((contesto ? 'Contestó' : 'No contestó') + '. Lead cerrado como ' + (sp.cierra_como === 'reservo' ? 'reservó' : 'cancelado') + '.');
+    } else {
+      lead.proxima = iso(sumarDias(hoy(), sp.dias_espera, sp.dias_habiles));
+      log(lead, { tipo: 'envio', paso: sig });
+      toast((contesto ? 'Contestó' : 'No contestó') + ' → paso ' + sig + ' · ' + sp.nombre + '. Próxima revisión: ' + fmtFecha(lead.proxima) + '.');
+    }
+    guardar(); render();
+  }
+  function registrar(datos) {
+    const d = datos.celular.replace(/\D/g, '');
+    let lada = '52', cel = null;
+    if (d.length === 13 && d.startsWith('521')) cel = d.slice(3);
+    else if (d.length === 12 && d.startsWith('52')) cel = d.slice(2);
+    else if (d.length === 11 && d.startsWith('1')) { lada = '1'; cel = d.slice(1); }
+    else if (d.length === 10) cel = d;
+    if (!cel) { toast('El celular debe tener 10 dígitos.'); return null; }
+    let lead = S.leads.find(l => l.celular === cel && l.lada === lada);
+    if (lead) {
+      if (lead.estado === 'archivado' || lead.estado === 'cancelado') {
+        Object.assign(lead, { estado: 'activo', paso: '1', enviado: false, fechaPaso: HOY, proxima: HOY });
+        if (datos.destino !== 'Sin definir') lead.destino = datos.destino;
+        log(lead, { tipo: 'cambio', paso: '1', nota: 'Lead reactivado' });
+        toast('Ese celular ya existía: se reactivó en el paso 1.');
+      } else {
+        log(lead, { tipo: 'nota', nota: 'Volvió a escribir' });
+        toast('Ese celular ya está en el embudo (paso ' + lead.paso + ').');
+      }
+    } else {
+      lead = { id: 'l' + (S.sig++), nombre: datos.nombre, celular: cel, lada, destino: datos.destino, personas: datos.personas, noches: datos.noches,
+        mes: datos.mes, monto: null, origen: datos.origen, paso: '1', enviado: false, fechaPaso: HOY, proxima: HOY, estado: 'activo', creado: HOY,
+        seguimientos: [{ fecha: HOY, tipo: 'cambio', paso: '1', nota: 'Lead registrado', usuario: USUARIO }], reserva: null };
+      S.leads.unshift(lead);
+      toast('Lead registrado en el paso 1. Ya aparece en la lista de hoy.');
+    }
+    guardar(); render();
+    return lead;
+  }
+  function mover(lead, codigo) {
+    const sp = P[codigo];
+    Object.assign(lead, { paso: codigo, enviado: false, fechaPaso: HOY, proxima: sp.es_final ? null : HOY, estado: sp.es_final ? sp.cierra_como : 'activo' });
+    log(lead, { tipo: 'cambio', paso: codigo, nota: 'Movido a mano al paso ' + codigo });
+    guardar(); render(); toast('Movido al paso ' + codigo + ' · ' + sp.nombre + '.');
+  }
+  function cerrar(lead, estado) {
+    lead.estado = estado; lead.proxima = null;
+    log(lead, { tipo: 'cambio', paso: lead.paso, nota: 'Cerrado como ' + estado });
+    guardar(); render(); toast('Lead ' + estado + '.');
+  }
+  function reservar(lead, r) {
+    const choque = S.leads.some(o => o.reserva && o !== lead && o.reserva.cabana === r.cabana && o.reserva.llegada < r.salida && r.llegada < o.reserva.salida);
+    if (choque) { toast('Esa cabaña ya está reservada en esas fechas.'); return false; }
+    lead.reserva = { cabana: r.cabana, llegada: r.llegada, salida: r.salida, total: r.total, pagado: r.anticipo || 0, checklist: CHECKLIST.map(() => false) };
+    Object.assign(lead, { estado: 'reservo', paso: '9', enviado: false, fechaPaso: HOY, proxima: null, monto: lead.monto || r.total });
+    log(lead, { tipo: 'cambio', paso: '9', nota: 'Reservó ' + fmtFecha(r.llegada) + ' al ' + fmtFecha(r.salida) });
+    guardar(); render(); toast('Reservación creada con su checklist de 12 tareas.');
+    return true;
+  }
+
+  // ---------- render ----------
+  const $ = s => document.querySelector(s);
+  const h = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const WA_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 12 12 0 0 0 4.6 4 5.3 5.3 0 0 0 3.2.7 2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg>';
+  const nombreDe = l => l.nombre || 'Sin nombre aún';
+  const pendientesHoy = () => S.leads.filter(l => l.estado === 'activo' && l.proxima && l.proxima <= HOY);
+
+  function chips(l) {
+    const c = [];
+    c.push('<span class="chip dest">' + h(l.destino) + '</span>');
+    if (l.personas || l.noches) c.push('<span class="chip">' + (l.personas ? l.personas + ' pers' : '') + (l.personas && l.noches ? ' · ' : '') + (l.noches ? l.noches + (l.noches === 1 ? ' noche' : ' noches') : '') + '</span>');
+    if (l.mes) c.push('<span class="chip">' + h(l.mes) + '</span>');
+    if (l.monto) c.push('<span class="chip num">' + fmtMonto(l.monto) + '</span>');
+    c.push('<span class="chip muted">' + h(l.origen) + '</span>');
+    return c.join('');
+  }
+  function retrasoBadge(l) {
+    const r = dias(HOY, l.proxima);
+    if (!l.enviado) return '<span class="badge nuevo">Sin enviar</span>';
+    if (r <= 0) return '<span class="badge hoy">Toca hoy</span>';
+    if (r < 3) return '<span class="badge late">' + r + (r === 1 ? ' día' : ' días') + ' de retraso</span>';
+    return '<span class="badge muy">' + r + ' días de retraso</span>';
+  }
+  function acciones(l) {
+    const p = P[l.paso];
+    if (!l.enviado) return '<button class="btn wa" data-act="enviar" data-id="' + l.id + '">' + WA_SVG + 'Enviar paso ' + h(l.paso) + '</button>';
+    const si = resolver(p.si, l.destino), no = resolver(p.no, l.destino);
+    let s = '';
+    if (si) s += '<button class="btn" data-act="si" data-id="' + l.id + '" title="' + h(P[si].nombre) + '">Contestó <span class="arrow">→ ' + h(si) + '</span></button>';
+    if (no) s += '<button class="btn ghost" data-act="no" data-id="' + l.id + '" title="' + h(P[no].nombre) + '">No contestó <span class="arrow">→ ' + h(no) + '</span></button>';
+    return s;
+  }
+  function renderHoy() {
+    const lista = pendientesHoy().sort((a, b) => a.proxima.localeCompare(b.proxima) || ORDEN[a.paso] - ORDEN[b.paso]);
+    const nuevos = lista.filter(l => !l.enviado).length;
+    const retrasados = lista.filter(l => l.enviado && dias(HOY, l.proxima) > 0).length;
+    $('#hoy-titulo').textContent = 'Hoy, ' + fmtLargo(hoy());
+    $('#hoy-sub').textContent = lista.length
+      ? lista.length + (lista.length === 1 ? ' lead por atender' : ' leads por atender') + (nuevos ? ' · ' + nuevos + ' sin enviar' : '') + (retrasados ? ' · ' + retrasados + ' con retraso' : '')
+      : 'Nada pendiente. Todo el embudo está al día.';
+    $('#cnt-hoy').textContent = lista.length;
+    if (!lista.length) { $('#hoy-lista').innerHTML = '<div class="vacio">Sin pendientes por hoy. Registra un lead o revisa mañana.</div>'; return; }
+    const grupos = new Map();
+    lista.forEach(l => { if (!grupos.has(l.paso)) grupos.set(l.paso, []); grupos.get(l.paso).push(l); });
+    const codigos = [...grupos.keys()].sort((a, b) => ORDEN[a] - ORDEN[b]);
+    $('#hoy-lista').innerHTML = codigos.map(c => {
+      const p = P[c], ls = grupos.get(c);
+      return '<section class="grupo"><header><h3>Paso <b>' + h(c) + '</b> · ' + h(p.nombre) + '</h3><span class="n">' + ls.length + '</span></header>' +
+        ls.map(l => '<article class="lead">' +
+          '<div class="who"><button class="name" data-act="ficha" data-id="' + l.id + '">' + h(nombreDe(l)) + '</button><div class="tel num">' + fmtTel(l.lada, l.celular) + '</div></div>' +
+          '<div class="chips">' + chips(l) + '</div>' +
+          '<div class="state">' + retrasoBadge(l) + (l.enviado ? '<span>enviado el ' + fmtFecha(l.fechaPaso) + '</span>' : '<span>registrado el ' + fmtFecha(l.creado) + '</span>') + '</div>' +
+          '<div class="actions">' + acciones(l) + '</div></article>').join('') + '</section>';
+    }).join('');
+  }
+  function renderLeads() {
+    const q = ($('#buscar').value || '').toLowerCase().replace(/\s/g, '');
+    const fe = $('#filtro-estado').value, fd = $('#filtro-destino').value;
+    const ls = S.leads.filter(l => (!fe || l.estado === fe) && (!fd || l.destino === fd) &&
+      (!q || l.celular.includes(q) || (l.nombre || '').toLowerCase().replace(/\s/g, '').includes(q)));
+    $('#leads-sub').textContent = ls.length + ' de ' + S.leads.length + ' leads';
+    const est = { activo: 'Activo', reservo: 'Reservó', cancelado: 'Cancelado', archivado: 'Archivado' };
+    $('#tabla-leads tbody').innerHTML = ls.map(l => '<tr>' +
+      '<td><button class="name" data-act="ficha" data-id="' + l.id + '" style="border:0;background:none;padding:0;font-weight:600;cursor:pointer;color:inherit">' + h(nombreDe(l)) + '</button><div class="tel num">' + fmtTel(l.lada, l.celular) + '</div></td>' +
+      '<td>' + h(l.destino) + '</td><td>' + (l.personas ? l.personas + ' pers' : '') + (l.noches ? ' · ' + l.noches + ' n' : '') + (l.mes ? '<br><small>' + h(l.mes) + '</small>' : '') + '</td>' +
+      '<td class="r num">' + fmtMonto(l.monto) + '</td><td>' + h(l.paso) + ' · ' + h(P[l.paso].nombre) + '</td>' +
+      '<td><span class="est ' + l.estado + '">' + est[l.estado] + '</span></td><td>' + (l.proxima ? fmtFecha(l.proxima) : '') + '</td><td>' + h(l.origen) + '</td></tr>').join('') ||
+      '<tr><td colspan="8">Ningún lead coincide.</td></tr>';
+  }
+  function renderEmbudo() {
+    const activos = {};
+    S.leads.forEach(l => { if (l.estado === 'activo') activos[l.paso] = (activos[l.paso] || 0) + 1; });
+    const nom = c => c ? (c.indexOf('|') >= 0 ? c.split('|').join(' ó ') : c) : '—';
+    $('#embudo-lista').innerHTML = PASOS.map(p => '<details><summary>' +
+      '<span class="cod">' + h(p.codigo) + '</span>' +
+      '<span><span class="lbl">Mensaje</span>' + h(p.nombre) + '</span>' +
+      '<span class="oc"><span class="lbl">Espera</span>' + (p.es_final ? 'cierra como ' + (p.cierra_como === 'reservo' ? 'reservó' : p.cierra_como) : p.dias_espera + (p.dias_espera === 1 ? ' día' : ' días') + (p.dias_habiles ? ' hábiles' : '')) + '</span>' +
+      '<span class="oc"><span class="lbl">Contesta →</span>' + h(nom(p.si)) + '</span>' +
+      '<span class="oc"><span class="lbl">No contesta →</span>' + h(nom(p.no)) + '</span>' +
+      '<span class="num" style="text-align:right"><span class="lbl">Activos</span>' + (activos[p.codigo] || 0) + '</span>' +
+      '</summary><pre>' + (p.plantilla && p.plantilla.trim() !== '/' ? h(p.plantilla) : '(sin plantilla todavía: hay que escribirla)') + '</pre></details>').join('');
+  }
+  function renderTablero() {
+    const activos = S.leads.filter(l => l.estado === 'activo');
+    const desde = iso(addDays(hoy(), -30));
+    const reservaron = S.leads.filter(l => l.estado === 'reservo' && l.fechaPaso >= desde).length;
+    const cancelados = S.leads.filter(l => l.estado === 'cancelado' && l.fechaPaso >= desde).length;
+    const cerrados = reservaron + cancelados;
+    const conv = cerrados ? Math.round(100 * reservaron / cerrados) : 0;
+    const montoRes = S.leads.filter(l => l.reserva && l.reserva.llegada >= desde).reduce((a, l) => a + l.reserva.total, 0);
+    $('#tiles').innerHTML = [
+      ['Por atender hoy', pendientesHoy().length, 'en la lista de hoy'],
+      ['Activos en el embudo', activos.length, 'sin cerrar'],
+      ['Reservaron', reservaron, 'últimos 30 días · ' + fmtMonto(montoRes)],
+      ['Conversión', conv + ' %', 'reservó entre los cerrados, 30 días']
+    ].map(t => '<div class="tile"><div class="lbl">' + t[0] + '</div><div class="val num">' + t[1] + '</div><div class="sub">' + t[2] + '</div></div>').join('');
+
+    // semanas (reales)
+    const max = 60, ticks = [0, 20, 40, 60];
+    $('#barras-semanas').innerHTML = '<div class="grid">' + ticks.map(t => '<i style="bottom:' + (100 * t / max) + '%"><span>' + t + '</span></i>').join('') + '</div>' +
+      SEMANAS.map((s, i) => '<div class="bar' + (i === SEMANAS.length - 1 ? ' ultimo' : '') + '" tabindex="0"><span class="tip">' + s.leads + '</span><b style="height:' + (100 * s.leads / max) + '%"></b></div>').join('');
+    $('#ejex-semanas').innerHTML = SEMANAS.map((s, i) => '<span>' + (i % 2 === 0 ? fmtFecha(s.semana) : '') + '</span>').join('');
+    $('#tabla-semanas tbody').innerHTML = SEMANAS.map(s => '<tr><td>' + fmtFecha(s.semana) + '</td><td class="r num">' + s.leads + '</td></tr>').join('');
+
+    // pasos (demo)
+    const porPaso = PASOS.filter(p => !p.es_final).map(p => ({ p, n: activos.filter(l => l.paso === p.codigo).length }));
+    const mx = Math.max(1, ...porPaso.map(x => x.n));
+    $('#hbars-pasos').innerHTML = porPaso.map(x => '<div class="lab"><b>' + h(x.p.codigo) + '</b> <small>' + h(x.p.nombre) + '</small></div><div class="track" title="' + x.n + '"><b style="width:' + (100 * x.n / mx) + '%"></b></div><div class="v num">' + x.n + '</div>').join('');
+    $('#tabla-pasos tbody').innerHTML = porPaso.map(x => '<tr><td>' + h(x.p.codigo) + ' · ' + h(x.p.nombre) + '</td><td class="r num">' + x.n + '</td></tr>').join('');
+  }
+  function renderFicha(id) {
+    const l = porId(id); if (!l) return;
+    const p = P[l.paso];
+    const hist = [...l.seguimientos].reverse().map(s => {
+      const cls = s.tipo + (s.tipo === 'respuesta' ? (s.contesto ? ' si' : ' no') : '');
+      let t = '';
+      if (s.tipo === 'envio') t = 'Se envió el paso ' + s.paso + ' · ' + (P[s.paso] ? P[s.paso].nombre : '');
+      else if (s.tipo === 'respuesta') t = (s.contesto ? 'Contestó' : 'No contestó') + ' al paso ' + s.paso;
+      else t = s.nota || 'Nota';
+      return '<li class="' + cls + '">' + h(t) + '<small>' + fmtFecha(s.fecha) + ' · ' + h(s.usuario || '') + '</small></li>';
+    }).join('');
+    const opciones = PASOS.map(x => '<option value="' + x.codigo + '"' + (x.codigo === l.paso ? ' selected' : '') + '>' + x.codigo + ' · ' + h(x.nombre) + '</option>').join('');
+    let reserva = '';
+    if (l.reserva) {
+      const r = l.reserva, cab = CABANAS.find(c => c.id === r.cabana);
+      reserva = '<section><h3>Reservación</h3><div class="datos">' +
+        '<div><span>Cabaña</span>' + h(cab ? cab.nombre : '') + '</div><div><span>Fechas</span>' + fmtFecha(r.llegada) + ' → ' + fmtFecha(r.salida) + '</div>' +
+        '<div><span>Total</span><span class="num" style="all:unset">' + fmtMonto(r.total) + '</span></div><div><span>Pagado / saldo</span>' + fmtMonto(r.pagado) + ' / ' + fmtMonto(r.total - r.pagado) + '</div></div>' +
+        (r.pagado < r.total ? '<p style="margin:10px 0 0"><button class="btn small" data-act="liquidar" data-id="' + l.id + '">Registrar liquidación de ' + fmtMonto(r.total - r.pagado) + '</button></p>' : '') +
+        '<h3 style="margin-top:14px">Checklist de estancia · ' + r.checklist.filter(Boolean).length + ' de ' + r.checklist.length + '</h3><ul class="check">' +
+        CHECKLIST.map((c, i) => '<li class="' + (r.checklist[i] ? 'hecho' : '') + '"><input type="checkbox" id="chk-' + l.id + '-' + i + '" data-act="chk" data-id="' + l.id + '" data-i="' + i + '"' + (r.checklist[i] ? ' checked' : '') + '><span class="m">' + c[0] + '</span><label for="chk-' + l.id + '-' + i + '">' + h(c[1]) + '</label></li>').join('') + '</ul></section>';
+    } else if (l.estado === 'activo') {
+      reserva = '<section class="reservar"><h3>Convertir en reservación</h3><form id="form-reserva" data-id="' + l.id + '">' +
+        '<label class="full">Cabaña<select id="r-cabana">' + CABANAS.map(c => '<option value="' + c.id + '"' + ((l.destino === 'Gómez Farías' ? 2 : 1) === c.id ? ' selected' : '') + '>' + h(c.nombre) + '</option>').join('') + '</select></label>' +
+        '<label>Llegada<input type="date" id="r-llegada" required value="' + iso(addDays(hoy(), 7)) + '"></label><label>Salida<input type="date" id="r-salida" required value="' + iso(addDays(hoy(), 8)) + '"></label>' +
+        '<label>Total<input type="number" id="r-total" required min="1" value="' + (l.monto || (l.destino === 'Gómez Farías' ? 2500 : 8299)) + '"></label><label>Anticipo (50 %)<input type="number" id="r-anticipo" min="0" value="' + Math.round((l.monto || (l.destino === 'Gómez Farías' ? 2500 : 8299)) / 2) + '"></label>' +
+        '<div class="full"><button class="btn primary" type="submit">Reservar</button></div></form></section>';
+    }
+    const est = { activo: 'Activo', reservo: 'Reservó', cancelado: 'Cancelado', archivado: 'Archivado' };
+    $('#ficha').innerHTML = '<button class="btn small ghost close" data-act="cerrar-ficha" aria-label="Cerrar">✕</button>' +
+      '<div><h2>' + h(nombreDe(l)) + '</h2><div class="tel num">' + fmtTel(l.lada, l.celular) + ' · <a href="' + waLink(l, '') + '" target="_blank" rel="noopener">abrir WhatsApp</a></div></div>' +
+      '<div class="datos">' +
+      '<div><span>Estado</span><span class="est ' + l.estado + '" style="display:inline-block">' + est[l.estado] + '</span></div>' +
+      '<div><span>Paso actual</span>' + h(l.paso) + ' · ' + h(p.nombre) + '</div>' +
+      '<div><span>Destino</span>' + h(l.destino) + '</div><div><span>Origen</span>' + h(l.origen) + '</div>' +
+      '<div><span>Viaje</span>' + (l.personas ? l.personas + ' personas' : '—') + (l.noches ? ', ' + l.noches + ' noches' : '') + (l.mes ? ', ' + h(l.mes) : '') + '</div>' +
+      '<div><span>Cotizado</span>' + (fmtMonto(l.monto) || '—') + '</div>' +
+      '<div><span>Próxima acción</span>' + (l.proxima ? fmtFecha(l.proxima) : '—') + '</div><div><span>Registrado</span>' + fmtFecha(l.creado) + '</div>' +
+      '</div>' +
+      (l.estado === 'activo' ? '<section><h3>Mensaje del paso ' + h(l.paso) + '</h3><div class="plantilla-prev">' + h(p.plantilla && p.plantilla.trim() !== '/' ? p.plantilla : '(sin plantilla todavía)') + '</div></section>' : '') +
+      '<section><h3>Acciones</h3><div class="acciones-ficha">' +
+      (l.estado === 'activo' ? acciones(l) : '') +
+      '<select id="mover-sel" aria-label="Mover a paso">' + opciones + '</select><button class="btn" data-act="mover" data-id="' + l.id + '">Mover</button>' +
+      (l.estado === 'activo' ? '<button class="btn ghost danger" data-act="cancelar" data-id="' + l.id + '">Cancelar</button><button class="btn ghost" data-act="archivar" data-id="' + l.id + '">Archivar</button>' : '') +
+      '</div></section>' + reserva +
+      '<section><h3>Historial</h3><ul class="hist">' + hist + '</ul></section>';
+    $('#ficha').hidden = false; $('#backdrop').hidden = false;
+    $('#ficha').dataset.id = id;
+  }
+  function cerrarFicha() { $('#ficha').hidden = true; $('#backdrop').hidden = true; delete $('#ficha').dataset.id; }
+  function render() {
+    renderHoy(); renderLeads(); renderEmbudo(); renderTablero();
+    if (!$('#ficha').hidden && $('#ficha').dataset.id) renderFicha($('#ficha').dataset.id);
+  }
+
+  // ---------- interacción ----------
+  let toastT;
+  function toast(msg) { const t = $('#toast'); t.textContent = msg; t.hidden = false; clearTimeout(toastT); toastT = setTimeout(() => { t.hidden = true; }, 3600); }
+  function verVista(v) {
+    document.querySelectorAll('.vista').forEach(s => { s.hidden = s.id !== 'vista-' + v; });
+    document.querySelectorAll('nav.tabs button').forEach(b => b.setAttribute('aria-selected', b.dataset.vista === v ? 'true' : 'false'));
+    try { localStorage.setItem(CLAVE + '-vista', v); } catch (e) { /* nada */ }
+  }
+  document.querySelector('nav.tabs').addEventListener('click', e => { const b = e.target.closest('button[data-vista]'); if (b) verVista(b.dataset.vista); });
+  document.addEventListener('click', e => {
+    const b = e.target.closest('[data-act]'); if (!b) return;
+    const act = b.dataset.act, l = b.dataset.id ? porId(b.dataset.id) : null;
+    if (act === 'enviar') enviar(l);
+    else if (act === 'si') responder(l, true);
+    else if (act === 'no') responder(l, false);
+    else if (act === 'ficha') renderFicha(b.dataset.id);
+    else if (act === 'cerrar-ficha') cerrarFicha();
+    else if (act === 'mover') mover(l, $('#mover-sel').value);
+    else if (act === 'cancelar') cerrar(l, 'cancelado');
+    else if (act === 'archivar') cerrar(l, 'archivado');
+    else if (act === 'liquidar') { l.reserva.pagado = l.reserva.total; log(l, { tipo: 'nota', nota: 'Liquidó ' + fmtMonto(l.reserva.total) }); guardar(); render(); toast('Reservación liquidada.'); }
+    else if (act === 'chk') { l.reserva.checklist[+b.dataset.i] = b.checked; guardar(); render(); }
+  });
+  document.querySelectorAll('[data-toggle]').forEach(b => b.addEventListener('click', () => {
+    const t = document.getElementById(b.dataset.toggle); t.hidden = !t.hidden; b.textContent = t.hidden ? 'Ver tabla' : 'Ocultar tabla';
+  }));
+  $('#backdrop').addEventListener('click', cerrarFicha);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarFicha(); });
+  $('#btn-nuevo').addEventListener('click', () => { $('#registro').hidden = !$('#registro').hidden; if (!$('#registro').hidden) $('#f-cel').focus(); });
+  $('#btn-cancelar-reg').addEventListener('click', () => { $('#registro').hidden = true; });
+  $('#form-lead').addEventListener('submit', e => {
+    e.preventDefault();
+    const lead = registrar({ celular: $('#f-cel').value, nombre: $('#f-nombre').value.trim(), destino: $('#f-destino').value,
+      personas: +$('#f-personas').value || null, noches: +$('#f-noches').value || null, mes: $('#f-mes').value.trim(), origen: $('#f-origen').value });
+    if (lead) { e.target.reset(); $('#registro').hidden = true; }
+  });
+  document.addEventListener('submit', e => {
+    if (e.target.id !== 'form-reserva') return;
+    e.preventDefault();
+    const l = porId(e.target.dataset.id);
+    const ll = $('#r-llegada').value, sa = $('#r-salida').value;
+    if (!ll || !sa || sa <= ll) { toast('La salida debe ser después de la llegada.'); return; }
+    reservar(l, { cabana: +$('#r-cabana').value, llegada: ll, salida: sa, total: +$('#r-total').value, anticipo: +$('#r-anticipo').value });
+  });
+  ['buscar', 'filtro-estado', 'filtro-destino'].forEach(id => $('#' + id).addEventListener('input', renderLeads));
+  $('#reiniciar').addEventListener('click', () => { S = semilla(); guardar(); render(); toast('Demo reiniciada.'); });
+
+  function start(data) {
+    S = (data && data.leads) ? data : cargar();
+    render();
+    let v = 'hoy'; try { v = localStorage.getItem(CLAVE + '-vista') || 'hoy'; } catch (e) { /* nada */ }
+    verVista(v);
+  }
+  if (window.claude && window.claude.hot) {
+    window.claude.hot.snapshot(() => S);
+    window.claude.hot.ready ? window.claude.hot.ready(start) : start(window.claude.hot.data);
+  } else start(null);
+})();
+</script>

@@ -49,3 +49,7 @@ desktop.ini
 
 # Archivos de estado del deploy por FTP
 .ftp-deploy-sync-state.json
+
+# Sistema de leads: datos de clientes que nunca se suben
+sistema/migracion/salida/
+*.xlsx
