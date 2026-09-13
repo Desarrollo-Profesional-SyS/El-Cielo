@@ -197,22 +197,37 @@
     <div class="cuerpo">
       <p>Con estos dos conecto la aplicación a tu base. Los dos son públicos: van dentro del código de la página y no abren nada por sí solos, porque los candados del paso 5 son los que mandan.</p>
       <div class="aviso"><b>Ojo: hay dos configuraciones distintas</b>
-        Si en el menú ves <strong>Organization Settings</strong> con opciones como Security, SSO, OAuth Apps o Audit Logs, estás en la de la <strong>organización</strong> y ahí no existe API. Necesitas la del <strong>proyecto</strong>. Para llegar: clic en el nombre de tu proyecto arriba a la izquierda para entrar en él, y ya adentro busca Settings.</div>
+        Si en el menú ves <strong>Organization Settings</strong> con Security, SSO o Audit Logs, estás en la de la <strong>organización</strong> y ahí no hay llaves. Necesitas la del <strong>proyecto</strong>: clic en el nombre de tu proyecto arriba, junto al de la organización.</div>
+
+      <h3 style="font-size:16px;margin-top:18px">Dato 1: la dirección del proyecto</h3>
       <ol>
-        <li>La forma más rápida: presiona <strong>Ctrl+K</strong> (Cmd+K en Mac), escribe <strong>API</strong> y entra a la opción que aparezca</li>
-        <li>O usa el botón verde de aquí abajo, que te lleva directo</li>
-        <li>O a mano: entra a tu proyecto <strong>el-cielo-adventures</strong>, luego <span class="clic">Settings</span> y ahí <span class="clic">API</span> o <span class="clic">API Keys</span></li>
-        <li>Copia el <strong>Project URL</strong> y la llave <strong>anon public</strong>. Esa llave es larguísima y empieza con <strong>eyJ</strong></li>
+        <li>Menú de la izquierda: <span class="clic">Settings</span> y luego <span class="clic">Data API</span></li>
+        <li>Copia la <strong>Project URL</strong>. Si lo que ves termina en <strong>/rest/v1/</strong>, quítale esa parte: solo necesito hasta <strong>.supabase.co</strong></li>
       </ol>
-      <div class="acciones" style="margin-bottom:6px"><a class="btn primary" href="https://supabase.com/dashboard/project/_/settings/api" target="_blank" rel="noopener">Llévame a la sección API</a></div>
-      <div class="espera"><b>Vas bien si</b> ves un recuadro que dice Project URL con una dirección terminada en .supabase.co, y abajo una o varias llaves.</div>
+      <div class="acciones"><a class="btn" href="https://supabase.com/dashboard/project/_/settings/api" target="_blank" rel="noopener">Ir a Data API</a></div>
+
+      <h3 style="font-size:16px;margin-top:22px">Dato 2: la llave pública</h3>
+      <p>Está en una sección aparte, no junto a la dirección.</p>
+      <ol>
+        <li>Menú de la izquierda: <span class="clic">Settings</span> y luego <span class="clic">API Keys</span></li>
+        <li>Vas a ver dos tipos de llave. Cópiame la <strong>pública</strong>, que puede aparecer con cualquiera de estos dos nombres según la versión:
+          <ul style="margin-top:6px">
+            <li><strong>Publishable key</strong>, empieza con <strong>sb_publishable_</strong></li>
+            <li><strong>anon public</strong>, es larguísima y empieza con <strong>eyJ</strong></li>
+          </ul>
+        </li>
+        <li>Cualquiera de las dos sirve. Si aparecen las dos, mándame la que diga Publishable.</li>
+      </ol>
+      <div class="acciones"><a class="btn primary" href="https://supabase.com/dashboard/project/_/settings/api-keys" target="_blank" rel="noopener">Ir a las llaves</a></div>
+      <div class="espera"><b>Si no encuentras el menú</b> presiona <strong>Ctrl+K</strong>, escribe <strong>API Keys</strong> y entra desde ahí.</div>
+
       <p>Anótalos aquí si quieres tenerlos a la mano, y pégamelos en el chat:</p>
       <div class="anota">
         <label>Project URL<input id="url" placeholder="https://xxxxxxxx.supabase.co" spellcheck="false"></label>
-        <label>Llave anon public<input id="key" placeholder="eyJhbGciOi..." spellcheck="false"></label>
+        <label>Llave pública<input id="key" placeholder="sb_publishable_... o eyJ..." spellcheck="false"></label>
       </div>
       <div class="acciones"><button class="btn" id="copiar-datos">Copiar los dos para pegarlos en el chat</button></div>
-      <div class="aviso rojo"><b>Nunca copies estas dos</b>La llave que dice <strong>service_role</strong> y la contraseña de la base. Esas se quedan contigo siempre.</div>
+      <div class="aviso rojo"><b>Nunca me mandes estas</b>La llave <strong>service_role</strong>, cualquiera que empiece con <strong>sb_secret_</strong>, y la contraseña de la base. Esas son las que sí abren todo y se quedan contigo siempre.</div>
     </div>
   </section>
 
