@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Revisión de la base · El Cielo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Space+Grotesk:wght@400;500;600;700&display=swap">
+<style>
+  :root {
+    color-scheme: light;
+    --bg: #FFFFFF; --panel: #F8FBF3; --panel-2: #EEF4E4; --ink: #131A11; --ink-2: #5C6857;
+    --line: #DCE5D2; --line-2: #C9D6BC; --accent: #6FA300; --accent-ink: #4C7300; --accent-soft: #E9F3D3;
+    --sun-ink: #7A6400; --sun-soft: #FBF1D6; --rojo: #B3261E; --rojo-soft: #F9E3E1;
+    --codigo: #1E2A1C; --codigo-ink: #DCE5D2;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --bg: #131A11; --panel: #1B241A; --panel-2: #243024; --ink: #F3F7EB; --ink-2: #A9B59F;
+      --line: #2E3B2B; --line-2: #3B4B38; --accent: #8CC61F; --accent-ink: #B9E45A; --accent-soft: #263A16;
+      --sun-ink: #F0C858; --sun-soft: #3A2E10; --rojo: #F08A83; --rojo-soft: #3D1F1D;
+      --codigo: #0C120B; --codigo-ink: #C9D6BC;
+    }
+  }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.6 'Space Grotesk', system-ui, sans-serif; }
+  .wrap { max-width: 720px; margin: 0 auto; padding-inline: 20px; padding-block: 34px 60px; }
+  h1 { font-family: 'Fraunces', Georgia, serif; font-size: 32px; font-weight: 700; margin: 6px 0 0; }
+  .eyebrow { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2); font-weight: 600; }
+  .intro { color: var(--ink-2); margin: 10px 0 24px; }
+  h2 { font-size: 17px; font-weight: 600; margin: 26px 0 10px; }
+  button, input { font: inherit; color: inherit; }
+  .btn { border: 1px solid var(--line-2); background: var(--panel); border-radius: 9px; padding: 10px 16px; cursor: pointer; font-weight: 600; }
+  .btn.primary { background: var(--accent-ink); border-color: var(--accent-ink); color: #fff; }
+  .btn:disabled { opacity: .5; cursor: default; }
+  .acciones { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 8px; }
+  .lista { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+  .item { display: grid; grid-template-columns: 28px 1fr auto; gap: 12px; align-items: start; padding: 12px 14px; border-bottom: 1px solid var(--line); background: var(--panel); }
+  .item:last-child { border-bottom: 0; }
+  .item .ico { font-size: 18px; line-height: 1.3; }
+  .item small { display: block; color: var(--ink-2); font-size: 13px; }
+  .item .val { font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .ok .ico { color: var(--accent-ink); }
+  .mal .ico { color: var(--rojo); }
+  .ojo .ico { color: var(--sun-ink); }
+  .caja { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px; }
+  .caja label { display: grid; gap: 5px; font-size: 13px; font-weight: 600; color: var(--ink-2); margin-bottom: 10px; }
+  .caja input { padding: 10px 12px; border: 1px solid var(--line-2); border-radius: 8px; background: var(--bg); width: 100%; }
+  .aviso { border-radius: 10px; padding: 13px 15px; margin: 18px 0; font-size: 15px; }
+  .aviso.rojo { background: var(--rojo-soft); color: var(--rojo); }
+  .aviso.verde { background: var(--accent-soft); color: var(--accent-ink); }
+  .aviso.ambar { background: var(--sun-soft); color: var(--sun-ink); }
+  .aviso b { display: block; margin-bottom: 3px; }
+  pre { background: var(--codigo); color: var(--codigo-ink); border-radius: 10px; padding: 14px; overflow-x: auto; font-size: 13px; white-space: pre-wrap; word-break: break-word; }
+  .sesion { font-size: 14px; color: var(--ink-2); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">El Cielo Adventures</div>
+  <h1>Revisión de la base</h1>
+  <p class="intro">Esta página se conecta a tu proyecto de Supabase y revisa que todo haya quedado bien instalado. No cambia nada, solo lee.</p>
+
+  <div class="acciones">
+    <button class="btn primary" id="revisar">Revisar ahora</button>
+    <span class="sesion" id="sesion">Sin sesión iniciada</span>
+  </div>
+
+  <div id="resultado"></div>
+
+  <h2>Iniciar sesión</h2>
+  <p style="color:var(--ink-2);font-size:15px;margin-top:0">Con la sesión iniciada se revisa lo que en realidad va a ver el equipo. Usa el correo que invitaste en Supabase.</p>
+  <div class="caja">
+    <label>Correo<input id="correo" type="email" autocomplete="username" placeholder="tu@correo.com"></label>
+    <label>Contraseña<input id="clave" type="password" autocomplete="current-password" placeholder="La que pusiste al aceptar la invitación"></label>
+    <div class="acciones" style="margin:0">
+      <button class="btn primary" id="entrar">Entrar y revisar</button>
+      <button class="btn" id="salir">Cerrar sesión</button>
+    </div>
+  </div>
+
+  <h2>Para mandarme</h2>
+  <p style="color:var(--ink-2);font-size:15px;margin-top:0">Copia esto y pégamelo en el chat. No incluye datos de clientes.</p>
+  <pre id="resumen">Todavía no se ha revisado nada.</pre>
+  <div class="acciones"><button class="btn" id="copiar">Copiar el resumen</button></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="./config.js"></script>
+<script>
+(function () {
+  'use strict';
+  const $ = s => document.querySelector(s);
+  const C = window.CONFIG || {};
+  let sb = null, resumen = [];
+
+  try {
+    sb = window.supabase.createClient(C.url, C.key);
+  } catch (e) {
+    $('#resultado').innerHTML = '<div class="aviso rojo"><b>No se pudo iniciar la conexión</b>' + e.message + '</div>';
+  }
+
+  // Tablas que debe haber creado el script del esquema, con lo que se espera encontrar.
+  const TABLAS = [
+    ['pasos_embudo', 'Pasos del embudo', 16],
+    ['leads', 'Leads', 1634],
+    ['seguimientos', 'Historial de seguimiento', 1776],
+    ['reservaciones', 'Reservaciones', 48],
+    ['pagos', 'Pagos', 76],
+    ['cabanas', 'Cabañas', null],
+    ['eventos', 'Eventos', 7],
+    ['evento_tareas', 'Tareas de eventos', null],
+    ['inscripciones', 'Inscritos a eventos', 15],
+    ['metas', 'Metas', null],
+    ['servicios', 'Transporte y actividades', 9],
+    ['temporadas', 'Temporadas', 3],
+    ['rutina_tareas', 'Rutina del plan diario', 15],
+    ['publicaciones', 'Publicaciones', null],
+    ['bloqueos', 'Bloqueos de cabaña', null]
+  ];
+
+  const fila = (estado, titulo, detalle, valor) =>
+    '<div class="item ' + estado + '"><span class="ico">' + (estado === 'ok' ? '✓' : estado === 'mal' ? '✕' : '!') + '</span>' +
+    '<span><b>' + titulo + '</b>' + (detalle ? '<small>' + detalle + '</small>' : '') + '</span>' +
+    '<span class="val">' + (valor == null ? '' : valor) + '</span></div>';
+
+  async function contar(tabla) {
+    const r = await sb.from(tabla).select('*', { count: 'exact', head: true });
+    return { n: r.count, error: r.error };
+  }
+
+  async function revisar() {
+    if (!sb) return;
+    $('#revisar').disabled = true;
+    $('#resultado').innerHTML = '<p style="color:var(--ink-2)">Revisando…</p>';
+    resumen = [];
+
+    const { data: ses } = await sb.auth.getSession();
+    const haySesion = !!(ses && ses.session);
+    const correo = haySesion ? ses.session.user.email : null;
+    $('#sesion').textContent = haySesion ? 'Sesión de ' + correo : 'Sin sesión iniciada';
+
+    let html = '', faltan = 0, conDatos = 0, leidasSinSesion = 0;
+    const partes = [];
+
+    for (const [tabla, nombre, esperado] of TABLAS) {
+      const { n, error } = await contar(tabla);
+      if (error) {
+        const noExiste = /does not exist|schema cache|PGRST205|42P01/i.test(error.message + ' ' + (error.code || ''));
+        if (noExiste) { faltan++; html += fila('mal', nombre, 'La tabla ' + tabla + ' no existe todavía', '—'); partes.push(tabla + ': NO EXISTE'); }
+        else { html += fila('ojo', nombre, error.message, '—'); partes.push(tabla + ': ' + error.message); }
+        continue;
+      }
+      if (n > 0) conDatos++;
+      if (n > 0 && !haySesion) leidasSinSesion++;
+      const bien = esperado == null ? n >= 0 : n >= esperado;
+      html += fila(bien && (haySesion || n === 0) ? 'ok' : (n === 0 ? 'ojo' : 'ok'), nombre,
+        esperado != null ? 'se esperaban ' + esperado.toLocaleString('es-MX') : '', n == null ? '—' : n.toLocaleString('es-MX'));
+      partes.push(tabla + ': ' + n);
+    }
+
+    let cabecera = '';
+    if (faltan === TABLAS.length) {
+      cabecera = '<div class="aviso rojo"><b>Todavía no hay tablas</b>Falta correr el script del esquema, que es el paso 3 de la guía.</div>';
+    } else if (faltan > 0) {
+      cabecera = '<div class="aviso ambar"><b>Faltan ' + faltan + ' tablas</b>Puede que el script del esquema se haya cortado a medias. Vuelve a correrlo completo.</div>';
+    } else if (!haySesion && leidasSinSesion > 0) {
+      cabecera = '<div class="aviso rojo"><b>Cuidado: la información está abierta</b>Se pudieron leer ' + leidasSinSesion + ' tablas con datos sin iniciar sesión. Falta correr el script de permisos, que es el paso 5 de la guía.</div>';
+    } else if (!haySesion && conDatos === 0) {
+      cabecera = '<div class="aviso verde"><b>Los candados funcionan</b>Sin sesión iniciada no se ve ningún dato, que es justo como debe ser. Inicia sesión abajo para revisar que tus datos sí estén cargados.</div>';
+    } else if (haySesion && conDatos > 5) {
+      cabecera = '<div class="aviso verde"><b>Todo listo</b>Las tablas existen, tus datos están cargados y los permisos funcionan.</div>';
+    } else if (haySesion) {
+      cabecera = '<div class="aviso ambar"><b>Las tablas existen pero están casi vacías</b>Falta correr el archivo con tus datos, que es el paso 4 de la guía.</div>';
+    }
+
+    $('#resultado').innerHTML = cabecera + '<div class="lista">' + html + '</div>';
+    $('#resumen').textContent = [
+      'Revisión de ' + C.url,
+      'Sesión: ' + (haySesion ? 'iniciada como ' + correo : 'sin iniciar'),
+      'Tablas que faltan: ' + faltan + ' de ' + TABLAS.length,
+      '',
+      ...partes
+    ].join('\n');
+    $('#revisar').disabled = false;
+  }
+
+  $('#revisar').addEventListener('click', revisar);
+  $('#entrar').addEventListener('click', async () => {
+    const { error } = await sb.auth.signInWithPassword({ email: $('#correo').value.trim(), password: $('#clave').value });
+    if (error) { $('#resultado').innerHTML = '<div class="aviso rojo"><b>No se pudo entrar</b>' + error.message + '</div>'; return; }
+    $('#clave').value = '';
+    revisar();
+  });
+  $('#salir').addEventListener('click', async () => { await sb.auth.signOut(); revisar(); });
+  $('#copiar').addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText($('#resumen').textContent); $('#copiar').textContent = '✓ Copiado'; }
+    catch (e) { $('#copiar').textContent = 'Selecciona el texto y cópialo'; }
+    setTimeout(() => { $('#copiar').textContent = 'Copiar el resumen'; }, 2500);
+  });
+
+  if (sb) revisar();
+})();
+</script>
+</body>
+</html>
