@@ -144,6 +144,31 @@ begin
   perform marcar_plan(current_date, 'p-' || pub_id, false, 'Andrés');
   assert (select estado from publicaciones where id = pub_id) = 'pendiente', 'desmarcar regresa la publicación a pendiente';
 
+  -- Metas: un mes y un trimestre sobre el mismo indicador.
+  insert into metas (objetivo, indicador, periodo, desde, valor_meta) values
+    ('Prueba', 'reservas', 'trimestre', date '2026-10-01', 30),
+    ('Prueba', 'reservas', 'mes', date '2026-10-01', 8),
+    ('Prueba', 'reservas', 'mes', date '2026-11-01', 10),
+    ('Prueba', 'reservas', 'mes', date '2026-12-01', 12);
+  assert fin_periodo(date '2026-10-01', 'trimestre') = date '2027-01-01', 'el trimestre termina tres meses después';
+  assert fin_periodo(date '2026-10-01', 'mes') = date '2026-11-01', 'el mes termina un mes después';
+  assert (select suma_mensuales from v_metas where periodo = 'trimestre' and indicador = 'reservas' and desde = date '2026-10-01') = 30,
+         'los meses del trimestre suman lo mismo que el compromiso';
+  assert (select trimestre from v_metas where periodo = 'mes' and desde = date '2026-11-01' and objetivo = 'Prueba') = '2026-T4',
+         'noviembre cae en el cuarto trimestre';
+  select avance into n from v_metas where periodo = 'mes' and indicador = 'reservas' and desde = date '2026-10-01' and objetivo = 'Prueba';
+  insert into reservaciones (cabana_id, nombre, fecha_llegada, fecha_salida, total)
+  values (r.cabana_id, 'Meta de octubre', date '2026-10-05', date '2026-10-07', 5000);
+  assert (select avance from v_metas where periodo = 'mes' and indicador = 'reservas' and desde = date '2026-10-01' and objetivo = 'Prueba') = n + 1,
+         'la reservación de octubre suma a la meta mensual';
+  assert (select avance from v_metas where periodo = 'trimestre' and indicador = 'reservas' and desde = date '2026-10-01' and objetivo = 'Prueba')
+       >= (select avance from v_metas where periodo = 'mes' and indicador = 'reservas' and desde = date '2026-10-01' and objetivo = 'Prueba'),
+         'el trimestre incluye lo del mes';
+  assert (select avance from v_metas where periodo = 'mes' and indicador = 'reservas' and desde = date '2026-11-01' and objetivo = 'Prueba') = 0,
+         'pero no cuenta en noviembre';
+  assert (select meses_con_meta from v_metas_trimestre where trimestre = '2026-T4' and indicador = 'reservas') = 3,
+         'el trimestre tiene sus tres meses desglosados';
+
   raise notice 'Todas las pruebas pasaron';
 end $$;
 

@@ -207,13 +207,21 @@ create index pagos_inscripcion_idx on pagos (inscripcion_id);
 -- -----------------------------------------------------------------------------
 -- Metas SMART (hoja "Hoja 7")
 -- -----------------------------------------------------------------------------
+create type periodo_t as enum ('mes', 'trimestre');
+
+-- Una meta cubre un mes o un trimestre completo. 'desde' es el primer día del
+-- periodo (para un trimestre: enero, abril, julio u octubre).
 create table metas (
   id          serial primary key,
   objetivo    text not null,
   indicador   text not null check (indicador in ('reservas', 'resenas', 'eventos', 'leads', 'ingresos')),
-  mes         date not null,          -- primer día del mes
-  valor_meta  numeric not null,
-  unique (indicador, mes)
+  periodo     periodo_t not null default 'mes',
+  desde       date not null,
+  valor_meta  numeric not null check (valor_meta > 0),
+  avance_manual numeric not null default 0,   -- solo para indicadores que no se calculan (reseñas)
+  unique (indicador, periodo, desde),
+  check (extract(day from desde) = 1),
+  check (periodo = 'mes' or extract(month from desde) in (1, 4, 7, 10))
 );
 
 -- =============================================================================
@@ -546,7 +554,7 @@ select date_trunc('month', r.fecha_llegada)::date as mes,
        sum(r.ganancia) as ganancia,
        max(m.valor_meta) as meta_reservas
 from v_reserva_resumen r
-left join metas m on m.indicador = 'reservas' and m.mes = date_trunc('month', r.fecha_llegada)::date
+left join metas m on m.indicador = 'reservas' and m.periodo = 'mes' and m.desde = date_trunc('month', r.fecha_llegada)::date
 where r.estado <> 'cancelada' and r.fecha_llegada is not null
 group by 1
 order by 1 desc;
@@ -957,3 +965,57 @@ insert into rutina_tareas (tarea, dia, orden) values
 
 update cabanas set personas_incluidas = 6, extra_persona = 600, capacidad = 8 where nombre = 'Cabaña San José';
 update cabanas set personas_incluidas = 2, extra_persona = 400, capacidad = 4 where nombre = 'Cabaña Alpina Gómez Farías';
+
+
+-- =============================================================================
+-- Avance de metas: el mismo cálculo sirve para un mes y para un trimestre.
+-- =============================================================================
+create or replace function fin_periodo(p_desde date, p_periodo periodo_t)
+returns date language sql immutable as $$
+  select p_desde + (case when p_periodo = 'trimestre' then interval '3 months' else interval '1 month' end)
+$$;
+
+-- Cuánto se lleva de un indicador entre dos fechas [desde, hasta).
+create or replace function avance_indicador(p_indicador text, p_desde date, p_hasta date)
+returns numeric language sql stable as $$
+  select case p_indicador
+    when 'reservas' then (select count(*) from reservaciones r
+                          where r.estado <> 'cancelada' and r.fecha_llegada >= p_desde and r.fecha_llegada < p_hasta)
+    when 'ingresos' then (select coalesce(sum(r.total), 0) from reservaciones r
+                          where r.estado <> 'cancelada' and r.fecha_llegada >= p_desde and r.fecha_llegada < p_hasta)
+                       + (select coalesce(sum(p.monto), 0) from pagos p
+                          join inscripciones i on i.id = p.inscripcion_id
+                          join eventos e on e.id = i.evento_id
+                          where e.fecha >= p_desde and e.fecha < p_hasta and e.estado <> 'cancelado')
+    when 'leads'    then (select count(*) from leads l where l.creado_en >= p_desde and l.creado_en < p_hasta)
+    when 'eventos'  then (select count(*) from eventos e
+                          where e.estado = 'realizado' and e.fecha >= p_desde and e.fecha < p_hasta)
+    else 0
+  end
+$$;
+
+-- Metas con su avance y, para las trimestrales, cuánto suman las mensuales del
+-- mismo trimestre: si no cuadran, el plan mensual no alcanza el compromiso.
+create view v_metas as
+select m.*,
+       fin_periodo(m.desde, m.periodo) as hasta,
+       case when m.indicador = 'resenas' then m.avance_manual
+            else avance_indicador(m.indicador, m.desde, fin_periodo(m.desde, m.periodo)::date) end as avance,
+       round(100 * (case when m.indicador = 'resenas' then m.avance_manual
+                         else avance_indicador(m.indicador, m.desde, fin_periodo(m.desde, m.periodo)::date) end)
+             / nullif(m.valor_meta, 0)) as porcentaje,
+       case when m.periodo = 'trimestre' then (
+         select coalesce(sum(x.valor_meta), 0) from metas x
+         where x.periodo = 'mes' and x.indicador = m.indicador
+           and x.desde >= m.desde and x.desde < fin_periodo(m.desde, 'trimestre')
+       ) end as suma_mensuales,
+       to_char(m.desde, 'YYYY') || '-T' || extract(quarter from m.desde)::text as trimestre
+from metas m;
+
+-- Resumen por trimestre para el tablero de Dirección.
+create view v_metas_trimestre as
+select trimestre, indicador, max(valor_meta) filter (where periodo = 'trimestre') as meta_trimestral,
+       max(suma_mensuales) filter (where periodo = 'trimestre') as suma_mensuales,
+       max(avance) filter (where periodo = 'trimestre') as avance_trimestral,
+       count(*) filter (where periodo = 'mes') as meses_con_meta
+from v_metas group by trimestre, indicador order by trimestre, indicador;

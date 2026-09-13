@@ -30,7 +30,7 @@ sistema/
 | Reservaciones | `reservaciones`, `pagos`, `gastos_reserva`, `checklist_reserva` |
 | Reservaciones Eventos, Eventos | `eventos`, `evento_tareas` (proceso por fases), `inscripciones`, `pagos`, `gastos_evento` |
 | Cabañas, Marzo | `cabanas`, `bloqueos`, vistas `v_ocupacion` y `v_calendario` |
-| Hoja 7 (metas SMART) | `metas`, vista `v_mes` |
+| Hoja 7 (metas SMART) | `metas` por mes o trimestre, vistas `v_metas`, `v_metas_trimestre` y `v_mes` |
 | Plan Trabajo | `rutina_tareas`, `plan_dia` (con evidencia), `publicaciones` |
 | Cotizaciones que se hacían a mano | `temporadas`, `servicios`, `cotizaciones`, función `cotizar_hospedaje` |
 
@@ -147,6 +147,23 @@ elcielotamaulipas.org sin exponer datos de clientes. Las reservaciones que no
 vienen del embudo (Airbnb, teléfono, conocidos) se guardan en `reservaciones` con
 `origen` y sin `lead_id`.
 
+## Metas trimestrales y mensuales
+
+Cada meta cubre un mes o un trimestre completo: `periodo` dice cuál y `desde` es
+el primer día del periodo (para un trimestre, enero, abril, julio u octubre). El
+mismo indicador convive en los dos niveles: el trimestre es el compromiso que se
+le rinde a Dirección y los meses son el plan para llegar ahí.
+
+`avance_indicador(indicador, desde, hasta)` cuenta lo real en un rango:
+reservaciones por fecha de llegada, ingresos de hospedaje más lo cobrado a
+inscritos de eventos, leads por fecha de registro y eventos realizados. Las
+reseñas de Google no se pueden calcular todavía y se capturan en
+`avance_manual`. `v_metas` agrega a cada meta su avance, el porcentaje, el
+trimestre al que pertenece y, si es trimestral, cuánto suman las metas mensuales
+de ese trimestre: si esa suma no llega al compromiso, el plan mensual se queda
+corto y la pantalla lo avisa. `v_metas_trimestre` resume ambos niveles por
+trimestre e indicador.
+
 ## Plan de trabajo diario
 
 `rutina_tareas` guarda lo que se hace todos los días y lo que toca cada día de la
@@ -187,7 +204,7 @@ hicieron y cuántas traen evidencia.
 | Cotizador | `cabanas`, `temporadas`, `servicios`, `cotizar_hospedaje`, `cabana_disponible`, `cotizaciones` |
 | Calendario | `v_calendario`, `bloqueos`, `agenda_actividades`, `publicaciones`, `disponibilidad` |
 | Plan del día | `plan_del_dia`, `marcar_plan`, `rutina_tareas`, `v_plan_cumplimiento` |
-| Metas | `metas` (avance calculado desde reservaciones, eventos y leads) |
+| Metas | `v_metas`, `v_metas_trimestre`, `avance_indicador` |
 | Tablero | `v_semana`, `v_mes`, `v_embudo`, `metas`, `v_evento_resumen` |
 
 ## Fases

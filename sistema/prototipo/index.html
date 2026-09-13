@@ -151,7 +151,14 @@
   .prog { height: 8px; background: var(--grid); border-radius: 4px; overflow: hidden; min-width: 120px; }
   .prog b { display: block; height: 100%; background: var(--bar); border-radius: 4px; }
   .prog.done b { background: var(--accent); }
-  td form.inline { display: grid; grid-template-columns: 1.6fr 1fr 1fr .7fr auto; gap: 6px; align-items: end; min-width: 520px; }
+  .trim { margin-bottom: 26px; }
+  .trim > header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+  .trim > header h3 { font-family: 'Fraunces', Georgia, serif; font-size: 20px; font-weight: 600; }
+  .trim.activo > header h3 { color: var(--accent-ink); }
+  .trim .sub-tabla { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-2); margin: 12px 0 6px; }
+  .trim .tabla-wrap + .sub-tabla { margin-top: 14px; }
+  .metas-mini .lbl { font-weight: 700; color: var(--ink); }
+  td form.inline { display: grid; grid-template-columns: 1.6fr 1fr .8fr 1fr .7fr auto; gap: 6px; align-items: end; min-width: 620px; }
   td form.inline input, td form.inline select { padding: 6px 8px; }
 
   /* ---- tablero ---- */
@@ -433,22 +440,21 @@
   <!-- ================= METAS ================= -->
   <section class="vista" id="vista-metas" role="tabpanel" aria-labelledby="tab-metas" hidden>
     <div class="head">
-      <div><h2>Metas</h2><div class="sub">Las metas SMART de la hoja 7, con el avance calculado desde reservaciones, eventos y leads. Las reseñas se capturan a mano hasta conectar Google.</div></div>
+      <div><h2>Metas</h2><div class="sub">El compromiso del trimestre y cómo se llega mes con mes. El avance se calcula solo desde reservaciones, eventos y leads; las reseñas se capturan a mano hasta conectar Google.</div></div>
       <button class="btn primary" id="btn-nueva-meta" type="button">+ Agregar meta</button>
     </div>
     <div class="panel" id="registro-meta" hidden>
       <form id="form-meta-nueva" class="grid" autocomplete="off">
         <label class="f">Objetivo<input id="m-objetivo" required placeholder="Generar ingresos sostenibles"></label>
         <label class="f">Indicador<select id="m-indicador"><option value="reservas">Reservas</option><option value="ingresos">Ingresos ($)</option><option value="leads">Leads nuevos</option><option value="eventos">Eventos realizados</option><option value="resenas">Reseñas en Google</option></select></label>
-        <label class="f">Mes<input id="m-mes" type="month" required></label>
+        <label class="f">Periodo<select id="m-periodo"><option value="mes">Mensual</option><option value="trimestre">Trimestral</option></select></label>
+        <label class="f" id="lbl-mes">Mes<input id="m-mes" type="month"></label>
+        <label class="f" id="lbl-trim" hidden>Trimestre<select id="m-trim"></select></label>
         <label class="f">Meta<input id="m-meta" type="number" min="1" required placeholder="10"></label>
         <div class="botones"><button class="btn primary" type="submit">Guardar</button><button class="btn ghost" type="button" id="btn-cancelar-meta">Cerrar</button></div>
       </form>
     </div>
-    <div class="tabla-wrap"><table id="tabla-metas">
-      <thead><tr><th>Objetivo</th><th>Indicador</th><th>Mes</th><th class="r">Meta</th><th class="r">Avance</th><th>Progreso</th><th></th></tr></thead>
-      <tbody></tbody>
-    </table></div>
+    <div id="metas-lista"></div>
   </section>
 
   <!-- ================= EMBUDO ================= -->
@@ -760,14 +766,26 @@
         [['Guía', 2000], ['Camioneta 4x4', 3500], ['Comidas', 3000], ['Bolsas y consumibles', 300]])
     ];
     const m0 = parse(HOY); const mes = k => iso(new Date(m0.getFullYear(), m0.getMonth() + k, 1)).slice(0, 7);
+    const OBJ_ING = 'Generar ingresos sostenibles mediante hospedaje y experiencias';
+    const OBJ_POS = 'Posicionar Glamping El Cielo Adventures como referente de El Cielo';
+    const OBJ_EXP = 'Realizar mínimo una experiencia o evento al mes';
     const metas = [
-      ['Generar ingresos sostenibles mediante hospedaje y experiencias', 'reservas', mes(0), 6], ['Generar ingresos sostenibles mediante hospedaje y experiencias', 'reservas', mes(1), 8],
-      ['Generar ingresos sostenibles mediante hospedaje y experiencias', 'reservas', mes(2), 10],
-      ['Posicionar Glamping El Cielo Adventures como referente de El Cielo', 'resenas', mes(0), 10], ['Posicionar Glamping El Cielo Adventures como referente de El Cielo', 'resenas', mes(1), 15],
-      ['Posicionar Glamping El Cielo Adventures como referente de El Cielo', 'resenas', mes(2), 20],
-      ['Realizar mínimo una experiencia o evento al mes', 'eventos', mes(0), 1], ['Realizar mínimo una experiencia o evento al mes', 'eventos', mes(1), 1], ['Realizar mínimo una experiencia o evento al mes', 'eventos', mes(2), 1],
-      ['Mantener el flujo de leads de temporada', 'leads', mes(0), 150]
-    ].map((m, i) => ({ id: 'm' + (i + 1), objetivo: m[0], indicador: m[1], mes: m[2], meta: m[3], avance: m[1] === 'resenas' && m[2] === mes(0) ? 4 : 0 }));
+      // trimestrales: el compromiso que se le rinde a Dirección
+      [OBJ_ING, 'reservas', 'trimestre', inicioTrimestre(mes(0)), 24],
+      [OBJ_ING, 'ingresos', 'trimestre', inicioTrimestre(mes(0)), 180000],
+      [OBJ_POS, 'resenas', 'trimestre', inicioTrimestre(mes(0)), 45],
+      [OBJ_EXP, 'eventos', 'trimestre', inicioTrimestre(mes(0)), 3],
+      [OBJ_ING, 'reservas', 'trimestre', inicioTrimestre(mes(3)), 30],
+      [OBJ_ING, 'ingresos', 'trimestre', inicioTrimestre(mes(3)), 240000],
+      [OBJ_POS, 'resenas', 'trimestre', inicioTrimestre(mes(3)), 60],
+      [OBJ_EXP, 'eventos', 'trimestre', inicioTrimestre(mes(3)), 3],
+      // mensuales: cómo se llega ahí mes con mes
+      [OBJ_ING, 'reservas', 'mes', mes(0), 6], [OBJ_ING, 'reservas', 'mes', mes(1), 8], [OBJ_ING, 'reservas', 'mes', mes(2), 10], [OBJ_ING, 'reservas', 'mes', mes(3), 12],
+      [OBJ_POS, 'resenas', 'mes', mes(0), 10], [OBJ_POS, 'resenas', 'mes', mes(1), 15], [OBJ_POS, 'resenas', 'mes', mes(2), 20], [OBJ_POS, 'resenas', 'mes', mes(3), 25],
+      [OBJ_EXP, 'eventos', 'mes', mes(0), 1], [OBJ_EXP, 'eventos', 'mes', mes(1), 1], [OBJ_EXP, 'eventos', 'mes', mes(2), 1], [OBJ_EXP, 'eventos', 'mes', mes(3), 1],
+      ['Mantener el flujo de leads de temporada', 'leads', 'mes', mes(0), 150]
+    ].map((m, i) => ({ id: 'm' + (i + 1), objetivo: m[0], indicador: m[1], periodo: m[2], desde: m[3], meta: m[4],
+      avance: m[1] === 'resenas' ? (m[2] === 'mes' && m[3] === mes(0) ? 4 : (m[2] === 'trimestre' ? 12 : 0)) : 0 }));
 
     // calendario: bloqueos, reservas sin lead (Airbnb) y actividades agendadas
     const bloqueos = [{ id: 'b1', cabanaId: 3, desde: iso(addDays(hoy(), 9)), hasta: iso(addDays(hoy(), 11)), motivo: 'Mantenimiento', nota: 'Revisión de plagas y pintura' }];
@@ -943,16 +961,32 @@
   function borrarEvento(e) { S.eventos = S.eventos.filter(x => x !== e); guardar(); cerrarFicha(); render(); toast('Evento borrado.'); }
 
   // ---------- metas ----------
+  // Una meta cubre un mes o un trimestre; el avance se calcula sobre su rango.
+  const mesesDe = m => m.periodo === 'trimestre' ? 3 : 1;
+  function rangoMeta(m) {
+    const [y, mm] = m.desde.split('-').map(Number);
+    return { desde: m.desde, hasta: iso(new Date(y, mm - 1 + mesesDe(m), 1)).slice(0, 7) };   // [desde, hasta)
+  }
   function avanceMeta(m) {
-    const enMes = f => f && f.slice(0, 7) === m.mes;
+    const { desde, hasta } = rangoMeta(m);
+    const dentro = f => { if (!f) return false; const k = f.slice(0, 7); return k >= desde && k < hasta; };
     switch (m.indicador) {
-      case 'reservas': return S.leads.filter(l => l.reserva && enMes(l.reserva.llegada)).length + S.reservas.filter(r => enMes(r.llegada)).length;
-      case 'ingresos': return S.leads.filter(l => l.reserva && enMes(l.reserva.llegada)).reduce((a, l) => a + l.reserva.total, 0) + S.reservas.filter(r => enMes(r.llegada)).reduce((a, r) => a + (r.total || 0), 0) + S.eventos.filter(e => enMes(e.fecha) && e.estado !== 'cancelado').reduce((a, e) => a + ingresosEv(e), 0);
-      case 'leads': return S.leads.filter(l => enMes(l.creado)).length;
-      case 'eventos': return S.eventos.filter(e => enMes(e.fecha) && e.estado === 'realizado').length;
+      case 'reservas': return S.leads.filter(l => l.reserva && dentro(l.reserva.llegada)).length + S.reservas.filter(r => dentro(r.llegada)).length;
+      case 'ingresos': return S.leads.filter(l => l.reserva && dentro(l.reserva.llegada)).reduce((a, l) => a + l.reserva.total, 0) + S.reservas.filter(r => dentro(r.llegada)).reduce((a, r) => a + (r.total || 0), 0) + S.eventos.filter(e => dentro(e.fecha) && e.estado !== 'cancelado').reduce((a, e) => a + ingresosEv(e), 0);
+      case 'leads': return S.leads.filter(l => dentro(l.creado)).length;
+      case 'eventos': return S.eventos.filter(e => dentro(e.fecha) && e.estado === 'realizado').length;
       default: return m.avance || 0;
     }
   }
+  // Suma de las metas mensuales de un trimestre, para comparar el plan mensual con el compromiso trimestral.
+  function sumaMensuales(mt) {
+    const { desde, hasta } = rangoMeta(mt);
+    return S.metas.filter(x => x.periodo === 'mes' && x.indicador === mt.indicador && x.desde >= desde && x.desde < hasta).reduce((a, x) => a + x.meta, 0);
+  }
+  const trimestreDe = ym => { const [y, m] = ym.split('-').map(Number); return y + '-T' + (Math.floor((m - 1) / 3) + 1); };
+  const inicioTrimestre = ym => { const [y, m] = ym.split('-').map(Number); return y + '-' + String(Math.floor((m - 1) / 3) * 3 + 1).padStart(2, '0'); };
+  const nombreTrimestre = t => { const [y, n] = t.split('-T'); return 'Trimestre ' + n + ' de ' + y + ' · ' + ['enero a marzo', 'abril a junio', 'julio a septiembre', 'octubre a diciembre'][+n - 1]; };
+  const T_ACTUAL = trimestreDe(MES_ACTUAL);
 
   // ---------- render ----------
   const $ = s => document.querySelector(s);
@@ -1054,25 +1088,51 @@
         '</article>';
     }).join('') || '<div class="vacio">Sin eventos. Crea el primero.</div>';
   }
-  function renderMetas() {
-    const ms = [...S.metas].sort((a, b) => a.mes.localeCompare(b.mes) || a.indicador.localeCompare(b.indicador));
-    $('#tabla-metas tbody').innerHTML = ms.map(m => {
-      const av = avanceMeta(m), pct = Math.min(100, Math.round(100 * av / m.meta));
-      if (confirmando === 'meta-edit:' + m.id) {
-        return '<tr><td colspan="7"><form class="inline" id="form-meta-edit" data-id="' + m.id + '">' +
-          '<label class="f">Objetivo<input id="me-objetivo" value="' + h(m.objetivo) + '" required></label>' +
-          '<label class="f">Indicador<select id="me-indicador">' + Object.keys(INDICADORES).map(k => '<option value="' + k + '"' + (k === m.indicador ? ' selected' : '') + '>' + INDICADORES[k] + '</option>').join('') + '</select></label>' +
-          '<label class="f">Mes<input id="me-mes" type="month" value="' + m.mes + '" required></label>' +
-          '<label class="f">Meta<input id="me-meta" type="number" min="1" value="' + m.meta + '" required></label>' +
-          (m.indicador === 'resenas' ? '<label class="f">Avance<input id="me-avance" type="number" min="0" value="' + (m.avance || 0) + '"></label>' : '<span></span>') +
-          '<span style="display:flex;gap:6px"><button class="btn small primary" type="submit">Guardar</button><button class="btn small ghost" type="button" data-act="no-confirmar">Cancelar</button></span></form></td></tr>';
-      }
-      return '<tr><td>' + h(m.objetivo) + '</td><td>' + INDICADORES[m.indicador] + (m.indicador === 'resenas' ? ' <small style="color:var(--ink-2)">(manual)</small>' : '') + '</td><td>' + fmtMes(m.mes) + '</td>' +
-        '<td class="r num">' + (m.indicador === 'ingresos' ? fmtMonto(m.meta) : m.meta) + '</td><td class="r num">' + (m.indicador === 'ingresos' ? fmtMonto(av) : av) + '</td>' +
-        '<td><div class="prog' + (pct >= 100 ? ' done' : '') + '" title="' + pct + ' %"><b style="width:' + pct + '%"></b></div><small style="color:var(--ink-2)">' + pct + ' %</small></td>' +
-        '<td class="acc"><button class="btn tiny" data-act="meta-editar" data-id="' + m.id + '">Editar</button>' + btnConfirm('meta:' + m.id, 'Borrar', '¿Borrar?').replace('btn small', 'btn tiny') + '</td></tr>';
-    }).join('') || '<tr><td colspan="7">Sin metas. Agrega la primera.</td></tr>';
+  function filaMeta(m, cols) {
+    const av = avanceMeta(m), pct = Math.min(100, Math.round(100 * av / m.meta)), esIng = m.indicador === 'ingresos';
+    if (confirmando === 'meta-edit:' + m.id) {
+      const trim = trimestreDe(m.desde);
+      return '<tr><td colspan="' + cols + '"><form class="inline" id="form-meta-edit" data-id="' + m.id + '">' +
+        '<label class="f">Objetivo<input id="me-objetivo" value="' + h(m.objetivo) + '" required></label>' +
+        '<label class="f">Indicador<select id="me-indicador">' + Object.keys(INDICADORES).map(k => '<option value="' + k + '"' + (k === m.indicador ? ' selected' : '') + '>' + INDICADORES[k] + '</option>').join('') + '</select></label>' +
+        '<label class="f">Periodo<select id="me-periodo"><option value="mes"' + (m.periodo === 'mes' ? ' selected' : '') + '>Mensual</option><option value="trimestre"' + (m.periodo === 'trimestre' ? ' selected' : '') + '>Trimestral</option></select></label>' +
+        (m.periodo === 'trimestre'
+          ? '<label class="f">Trimestre<select id="me-trim">' + opcionesTrimestre(trim) + '</select></label>'
+          : '<label class="f">Mes<input id="me-mes" type="month" value="' + m.desde + '" required></label>') +
+        '<label class="f">Meta<input id="me-meta" type="number" min="1" value="' + m.meta + '" required></label>' +
+        (m.indicador === 'resenas' ? '<label class="f">Avance<input id="me-avance" type="number" min="0" value="' + (m.avance || 0) + '"></label>' : '') +
+        '<span style="display:flex;gap:6px"><button class="btn small primary" type="submit">Guardar</button><button class="btn small ghost" type="button" data-act="no-confirmar">Cancelar</button></span></form></td></tr>';
+    }
+    const plan = m.periodo === 'trimestre' ? sumaMensuales(m) : null;
+    const aviso = plan != null && plan > 0 && plan !== m.meta
+      ? '<small class="' + (plan < m.meta ? 'alerta' : 'ok') + '">los meses suman ' + (esIng ? fmtMonto(plan) : plan) + '</small>' : '';
+    return '<tr><td>' + (m.periodo === 'trimestre' ? '<b>' + h(m.objetivo) + '</b>' : h(m.objetivo)) + '</td>' +
+      '<td>' + INDICADORES[m.indicador] + (m.indicador === 'resenas' ? ' <small style="color:var(--ink-2)">(manual)</small>' : '') + '</td>' +
+      '<td>' + (m.periodo === 'trimestre' ? 'Todo el trimestre' : fmtMes(m.desde)) + '</td>' +
+      '<td class="r num">' + (esIng ? fmtMonto(m.meta) : m.meta) + '</td><td class="r num">' + (esIng ? fmtMonto(av) : av) + '</td>' +
+      '<td><div class="prog' + (pct >= 100 ? ' done' : '') + '" title="' + pct + ' %"><b style="width:' + pct + '%"></b></div><small style="color:var(--ink-2)">' + pct + ' %</small> ' + aviso + '</td>' +
+      '<td class="acc"><button class="btn tiny" data-act="meta-editar" data-id="' + m.id + '">Editar</button>' + btnConfirm('meta:' + m.id, 'Borrar', '¿Borrar?').replace('btn small', 'btn tiny') + '</td></tr>';
   }
+  function renderMetas() {
+    const trimestres = [...new Set(S.metas.map(m => trimestreDe(m.desde)))].sort();
+    if (!trimestres.length) { $('#metas-lista').innerHTML = '<div class="vacio">Sin metas. Agrega la primera.</div>'; return; }
+    $('#metas-lista').innerHTML = trimestres.map(t => {
+      const dentro = S.metas.filter(m => trimestreDe(m.desde) === t);
+      const tri = dentro.filter(m => m.periodo === 'trimestre').sort((a, b) => a.indicador.localeCompare(b.indicador));
+      const men = dentro.filter(m => m.periodo === 'mes').sort((a, b) => a.desde.localeCompare(b.desde) || a.indicador.localeCompare(b.indicador));
+      const tabla = ls => '<div class="tabla-wrap"><table><thead><tr><th>Objetivo</th><th>Indicador</th><th>Periodo</th><th class="r">Meta</th><th class="r">Avance</th><th>Progreso</th><th></th></tr></thead><tbody>' +
+        ls.map(m => filaMeta(m, 7)).join('') + '</tbody></table></div>';
+      return '<section class="trim' + (t === T_ACTUAL ? ' activo' : '') + '"><header><h3>' + h(nombreTrimestre(t)) + '</h3>' +
+        (t === T_ACTUAL ? '<span class="badge hoy">en curso</span>' : '') + '</header>' +
+        (tri.length ? tabla(tri) : '<div class="vacio" style="padding:14px;margin-bottom:10px">Sin meta trimestral. Agrega una para tener el compromiso del trimestre completo.</div>') +
+        (men.length ? '<h4 class="sub-tabla">Desglose mensual</h4>' + tabla(men) : '') + '</section>';
+    }).join('');
+  }
+  const opcionesTrimestre = sel => {
+    const [y0] = MES_ACTUAL.split('-').map(Number); const out = [];
+    for (let y = y0 - 1; y <= y0 + 1; y++) for (let n = 1; n <= 4; n++) { const v = y + '-T' + n; out.push('<option value="' + v + '"' + (v === sel ? ' selected' : '') + '>' + nombreTrimestre(v) + '</option>'); }
+    return out.join('');
+  };
   function renderEmbudo() {
     const activos = {};
     S.leads.forEach(l => { if (l.estado === 'activo') activos[l.paso] = (activos[l.paso] || 0) + 1; });
@@ -1115,10 +1175,14 @@
     $('#hbars-pasos').innerHTML = porPaso.map(x => '<div class="lab"><b>' + h(x.p.codigo) + '</b> <small>' + h(x.p.nombre) + '</small></div><div class="track" title="' + x.n + '"><b style="width:' + (100 * x.n / mx) + '%"></b></div><div class="v num">' + x.n + '</div>').join('');
     $('#tabla-pasos tbody').innerHTML = porPaso.map(x => '<tr><td>' + h(x.p.codigo) + ' · ' + h(x.p.nombre) + '</td><td class="r num">' + x.n + '</td></tr>').join('');
 
-    const mm = S.metas.filter(m => m.mes === MES_ACTUAL);
-    $('#metas-mes-titulo').textContent = fmtMes(MES_ACTUAL);
-    $('#metas-mini').innerHTML = mm.map(m => { const av = avanceMeta(m), pct = Math.min(100, Math.round(100 * av / m.meta));
-      return '<div class="m"><span>' + INDICADORES[m.indicador] + '</span><b class="num">' + (m.indicador === 'ingresos' ? fmtMonto(av) + ' / ' + fmtMonto(m.meta) : av + ' / ' + m.meta) + '</b><div class="prog' + (pct >= 100 ? ' done' : '') + '"><b style="width:' + pct + '%"></b></div></div>'; }).join('') || '<div style="color:var(--ink-2)">Sin metas para este mes.</div>';
+    const mini = ls => ls.map(m => { const av = avanceMeta(m), pct = Math.min(100, Math.round(100 * av / m.meta));
+      return '<div class="m"><span>' + INDICADORES[m.indicador] + '</span><b class="num">' + (m.indicador === 'ingresos' ? fmtMonto(av) + ' / ' + fmtMonto(m.meta) : av + ' / ' + m.meta) + '</b><div class="prog' + (pct >= 100 ? ' done' : '') + '"><b style="width:' + pct + '%"></b></div></div>'; }).join('');
+    const mm = S.metas.filter(m => m.periodo === 'mes' && m.desde === MES_ACTUAL);
+    const mt = S.metas.filter(m => m.periodo === 'trimestre' && trimestreDe(m.desde) === T_ACTUAL);
+    $('#metas-mes-titulo').textContent = nombreTrimestre(T_ACTUAL) + ' · mes en curso: ' + fmtMes(MES_ACTUAL);
+    $('#metas-mini').innerHTML = (mt.length ? '<div class="lbl">Trimestre</div>' + mini(mt) : '') +
+      (mm.length ? '<div class="lbl" style="margin-top:8px">' + fmtMes(MES_ACTUAL) + '</div>' + mini(mm) : '') ||
+      '<div style="color:var(--ink-2)">Sin metas para este periodo.</div>';
     const evs = S.eventos.filter(e => e.estado === 'planeado' || e.estado === 'publicado').sort((a, b) => a.fecha.localeCompare(b.fecha));
     $('#eventos-mini').innerHTML = evs.map(e => { const vc = tareasVenc(e).length, pct = e.cupo ? Math.min(100, Math.round(100 * e.inscritos.length / e.cupo)) : 0;
       return '<div class="m"><span><b>' + h(e.nombre) + '</b> · ' + fmtFecha(e.fecha) + (vc ? ' · <span class="alerta">' + vc + ' tareas vencidas</span>' : '') + '</span><b class="num">' + e.inscritos.length + '/' + (e.cupo || '—') + ' · ' + fmtMonto(ingresosEv(e)) + '</b><div class="prog"><b style="width:' + pct + '%"></b></div></div>'; }).join('') || '<div style="color:var(--ink-2)">Sin eventos en curso.</div>';
@@ -1705,6 +1769,15 @@
   togglePanel('#btn-nueva-meta', '#registro-meta', '#m-objetivo', '#btn-cancelar-meta');
   $('#e-fecha').value = iso(addDays(hoy(), 35));
   $('#m-mes').value = MES_ACTUAL;
+  const inicioDeTrimestre = t => { const [y, n] = t.split('-T'); return y + '-' + String((+n - 1) * 3 + 1).padStart(2, '0'); };
+  function togglePeriodoMeta() {
+    const tri = $('#m-periodo').value === 'trimestre';
+    $('#lbl-trim').hidden = !tri; $('#lbl-mes').hidden = tri;
+    $('#m-mes').required = !tri;
+  }
+  $('#m-trim').innerHTML = opcionesTrimestre(T_ACTUAL);
+  $('#m-periodo').addEventListener('change', togglePeriodoMeta);
+  document.addEventListener('change', e => { if (e.target.id === 'me-periodo') { const m = S.metas.find(x => x.id === e.target.closest('form').dataset.id); if (m) { m.periodo = e.target.value; if (e.target.value === 'trimestre') m.desde = inicioTrimestre(m.desde); guardar(); render(); } } });
 
   document.addEventListener('submit', e => {
     const f = e.target; e.preventDefault();
@@ -1740,11 +1813,18 @@
     } else if (f.id === 'form-gasto') {
       ev.gastos.push({ id: 'g' + Date.now(), concepto: v('ng-concepto'), monto: n('ng-monto') || 0 }); guardar(); render();
     } else if (f.id === 'form-meta-nueva') {
-      S.metas.push({ id: 'm' + (S.sigM++), objetivo: v('m-objetivo'), indicador: v('m-indicador'), mes: v('m-mes'), meta: n('m-meta') || 1, avance: 0 });
-      guardar(); render(); f.reset(); $('#m-mes').value = MES_ACTUAL; $('#registro-meta').hidden = true; toast('Meta guardada.');
+      const periodo = v('m-periodo');
+      const desde = periodo === 'trimestre' ? inicioDeTrimestre(v('m-trim')) : v('m-mes');
+      if (!desde) { toast('Elige el mes o el trimestre.'); return; }
+      S.metas.push({ id: 'm' + (S.sigM++), objetivo: v('m-objetivo'), indicador: v('m-indicador'), periodo, desde, meta: n('m-meta') || 1, avance: 0 });
+      guardar(); render(); f.reset(); $('#m-mes').value = MES_ACTUAL; togglePeriodoMeta(); $('#registro-meta').hidden = true;
+      toast(periodo === 'trimestre' ? 'Meta trimestral guardada.' : 'Meta mensual guardada.');
     } else if (f.id === 'form-meta-edit') {
-      const m = S.metas.find(x => x.id === f.dataset.id);
-      Object.assign(m, { objetivo: v('me-objetivo'), indicador: v('me-indicador'), mes: v('me-mes'), meta: n('me-meta') || 1 });
+      const m = S.metas.find(x => x.id === f.dataset.id), periodo = v('me-periodo');
+      const desde = periodo === 'trimestre'
+        ? (document.getElementById('me-trim') ? inicioDeTrimestre(v('me-trim')) : inicioTrimestre(m.desde))
+        : (document.getElementById('me-mes') ? v('me-mes') : m.desde);
+      Object.assign(m, { objetivo: v('me-objetivo'), indicador: v('me-indicador'), periodo, desde, meta: n('me-meta') || 1 });
       if (document.getElementById('me-avance')) m.avance = n('me-avance') || 0;
       confirmando = null; guardar(); render(); toast('Meta actualizada.');
     } else if (f.id === 'form-res-manual') {

@@ -120,18 +120,25 @@ from eventos e where e.id = t.evento_id and e.estado = 'realizado';
 update checklist_reserva set hecho = true, hecho_en = now(), hecho_por = 'migración'
 where reservacion_id in (select id from reservaciones where estado = 'completada' and referencia_excel is not null);
 
--- Metas SMART de la hoja "Hoja 7" (ajusta el año si aplica)
-insert into metas (objetivo, indicador, mes, valor_meta) values
-  ('Generar ingresos sostenibles mediante hospedaje y experiencias turísticas', 'reservas', date '2026-09-01', 6),
-  ('Generar ingresos sostenibles mediante hospedaje y experiencias turísticas', 'reservas', date '2026-10-01', 8),
-  ('Generar ingresos sostenibles mediante hospedaje y experiencias turísticas', 'reservas', date '2026-11-01', 10),
-  ('Posicionar Glamping El Cielo Adventures como referente turístico de El Cielo', 'resenas', date '2026-09-01', 10),
-  ('Posicionar Glamping El Cielo Adventures como referente turístico de El Cielo', 'resenas', date '2026-10-01', 15),
-  ('Posicionar Glamping El Cielo Adventures como referente turístico de El Cielo', 'resenas', date '2026-11-01', 20),
-  ('Realizar mínimo una experiencia o evento mensual en El Cielo', 'eventos', date '2026-09-01', 1),
-  ('Realizar mínimo una experiencia o evento mensual en El Cielo', 'eventos', date '2026-10-01', 1),
-  ('Realizar mínimo una experiencia o evento mensual en El Cielo', 'eventos', date '2026-11-01', 1)
-on conflict (indicador, mes) do nothing;
+-- Metas de la hoja "Hoja 7": el compromiso del trimestre y su desglose mensual
+-- (ajusta el año y las cifras con Dirección antes de usarlas en serio)
+insert into metas (objetivo, indicador, periodo, desde, valor_meta) values
+  ('Generar ingresos sostenibles mediante hospedaje y experiencias turísticas', 'reservas', 'trimestre', date '2026-10-01', 30),
+  ('Posicionar Glamping El Cielo Adventures como referente turístico de El Cielo', 'resenas', 'trimestre', date '2026-10-01', 60),
+  ('Realizar mínimo una experiencia o evento mensual en El Cielo', 'eventos', 'trimestre', date '2026-10-01', 3),
+  ('Generar ingresos sostenibles mediante hospedaje y experiencias turísticas', 'reservas', 'mes', date '2026-09-01', 6),
+  ('Generar ingresos sostenibles mediante hospedaje y experiencias turísticas', 'reservas', 'mes', date '2026-10-01', 8),
+  ('Generar ingresos sostenibles mediante hospedaje y experiencias turísticas', 'reservas', 'mes', date '2026-11-01', 10),
+  ('Generar ingresos sostenibles mediante hospedaje y experiencias turísticas', 'reservas', 'mes', date '2026-12-01', 12),
+  ('Posicionar Glamping El Cielo Adventures como referente turístico de El Cielo', 'resenas', 'mes', date '2026-09-01', 10),
+  ('Posicionar Glamping El Cielo Adventures como referente turístico de El Cielo', 'resenas', 'mes', date '2026-10-01', 15),
+  ('Posicionar Glamping El Cielo Adventures como referente turístico de El Cielo', 'resenas', 'mes', date '2026-11-01', 20),
+  ('Posicionar Glamping El Cielo Adventures como referente turístico de El Cielo', 'resenas', 'mes', date '2026-12-01', 25),
+  ('Realizar mínimo una experiencia o evento mensual en El Cielo', 'eventos', 'mes', date '2026-09-01', 1),
+  ('Realizar mínimo una experiencia o evento mensual en El Cielo', 'eventos', 'mes', date '2026-10-01', 1),
+  ('Realizar mínimo una experiencia o evento mensual en El Cielo', 'eventos', 'mes', date '2026-11-01', 1),
+  ('Realizar mínimo una experiencia o evento mensual en El Cielo', 'eventos', 'mes', date '2026-12-01', 1)
+on conflict (indicador, periodo, desde) do nothing;
 
 commit;
 
