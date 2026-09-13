@@ -136,7 +136,8 @@
     <div class="cuerpo">
       <p>Aquí se crea la estructura: leads, embudos, reservaciones, eventos, metas y todo lo demás.</p>
       <ol>
-        <li>En el menú de la izquierda busca el ícono de <span class="clic">SQL Editor</span> (parece una hojita con código)</li>
+        <li>Primero entra a tu proyecto: clic en <strong>el-cielo-adventures</strong> arriba a la izquierda. El menú cambia y aparecen Table Editor, SQL Editor, Authentication y demás.</li>
+        <li>Clic en <span class="clic">SQL Editor</span> (el ícono parece una hojita con código)</li>
         <li>Clic en <span class="clic">New query</span></li>
         <li>Con el botón de aquí abajo copia el script, y pégalo en el recuadro grande con <strong>Ctrl+V</strong> (o Cmd+V en Mac)</li>
         <li>Clic en <span class="clic">Run</span> abajo a la derecha, o presiona <strong>Ctrl+Enter</strong></li>
@@ -195,11 +196,16 @@
     <div class="cab"><span class="n">7</span><h2>Copiarme dos datos</h2><span class="min">2 min</span><input type="checkbox" class="chk" aria-label="Paso 7 hecho"></div>
     <div class="cuerpo">
       <p>Con estos dos conecto la aplicación a tu base. Los dos son públicos: van dentro del código de la página y no abren nada por sí solos, porque los candados del paso 5 son los que mandan.</p>
+      <div class="aviso"><b>Ojo: hay dos configuraciones distintas</b>
+        Si en el menú ves <strong>Organization Settings</strong> con opciones como Security, SSO, OAuth Apps o Audit Logs, estás en la de la <strong>organización</strong> y ahí no existe API. Necesitas la del <strong>proyecto</strong>. Para llegar: clic en el nombre de tu proyecto arriba a la izquierda para entrar en él, y ya adentro busca Settings.</div>
       <ol>
-        <li>Menú de la izquierda, hasta abajo: <span class="clic">Project Settings</span></li>
-        <li>Clic en <span class="clic">API</span></li>
-        <li>Copia el <strong>Project URL</strong> y la llave <strong>anon public</strong></li>
+        <li>La forma más rápida: presiona <strong>Ctrl+K</strong> (Cmd+K en Mac), escribe <strong>API</strong> y entra a la opción que aparezca</li>
+        <li>O usa el botón verde de aquí abajo, que te lleva directo</li>
+        <li>O a mano: entra a tu proyecto <strong>el-cielo-adventures</strong>, luego <span class="clic">Settings</span> y ahí <span class="clic">API</span> o <span class="clic">API Keys</span></li>
+        <li>Copia el <strong>Project URL</strong> y la llave <strong>anon public</strong>. Esa llave es larguísima y empieza con <strong>eyJ</strong></li>
       </ol>
+      <div class="acciones" style="margin-bottom:6px"><a class="btn primary" href="https://supabase.com/dashboard/project/_/settings/api" target="_blank" rel="noopener">Llévame a la sección API</a></div>
+      <div class="espera"><b>Vas bien si</b> ves un recuadro que dice Project URL con una dirección terminada en .supabase.co, y abajo una o varias llaves.</div>
       <p>Anótalos aquí si quieres tenerlos a la mano, y pégamelos en el chat:</p>
       <div class="anota">
         <label>Project URL<input id="url" placeholder="https://xxxxxxxx.supabase.co" spellcheck="false"></label>
