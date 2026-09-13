@@ -53,3 +53,5 @@ desktop.ini
 # Sistema de leads: datos de clientes que nunca se suben
 sistema/migracion/salida/
 *.xlsx
+# El esquema y los scripts del sistema sí van al repositorio (no son respaldos)
+!sistema/db/*.sql
