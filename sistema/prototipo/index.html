@@ -8,6 +8,7 @@
     --line: #DCE5D2; --line-2: #C9D6BC; --accent: #6FA300; --accent-ink: #4C7300; --accent-soft: #E9F3D3;
     --sun: #B58900; --sun-ink: #7A6400; --sun-soft: #FBF1D6; --rojo: #B3261E; --rojo-soft: #F9E3E1;
     --wa: #1B9E4B; --wa-ink: #FFFFFF; --bar: #4C7300; --grid: #E6ECDD; --shadow: 0 12px 32px rgba(19,26,17,.12);
+    --azul-soft: #E3EEF8; --azul-ink: #1F4E79; --lila-soft: #EFE6F7; --lila-ink: #5B3A82;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
@@ -16,6 +17,7 @@
       --line: #2E3B2B; --line-2: #3B4B38; --accent: #8CC61F; --accent-ink: #B9E45A; --accent-soft: #263A16;
       --sun: #D9A521; --sun-ink: #F0C858; --sun-soft: #3A2E10; --rojo: #F08A83; --rojo-soft: #3D1F1D;
       --wa: #2ED070; --wa-ink: #0B1A0F; --bar: #8CC61F; --grid: #26322A; --shadow: 0 12px 32px rgba(0,0,0,.45);
+      --azul-soft: #1B2E44; --azul-ink: #9CC4EE; --lila-soft: #2E2340; --lila-ink: #CDB4EA;
     }
   }
   :root[data-theme="dark"] {
@@ -240,7 +242,92 @@
   footer.pie { max-width: 1160px; margin: 0 auto; padding: 0 20px 30px; font-size: 12px; color: var(--ink-2); display: flex; gap: 14px; flex-wrap: wrap; }
   footer.pie button { border: 0; background: none; color: var(--accent-ink); cursor: pointer; padding: 0; font-weight: 600; }
 
+  /* ---- cotizador ---- */
+  .cot { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+  @media (max-width: 860px) { .cot { grid-template-columns: 1fr; } }
+  .cot form.grid { grid-template-columns: 1fr 1fr; }
+  .cot .acts { display: grid; gap: 4px; grid-column: 1 / -1; }
+  .cot .acts label { display: flex; gap: 8px; align-items: center; font-size: 13px; font-weight: 500; color: var(--ink); }
+  .cot .acts label small { color: var(--ink-2); margin-left: auto; }
+  .resultado { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+  .desglose { width: 100%; border-collapse: collapse; min-width: 0; font-size: 13px; }
+  .desglose td { padding: 5px 0; border-bottom: 1px solid var(--line); }
+  .desglose td.r { text-align: right; white-space: nowrap; }
+  .desglose tr.desc td { color: var(--accent-ink); }
+  .total { display: flex; justify-content: space-between; align-items: baseline; font-family: 'Fraunces', Georgia, serif; font-size: 24px; font-weight: 600; }
+  .total small { font-family: 'Space Grotesk', system-ui, sans-serif; font-size: 13px; color: var(--ink-2); font-weight: 500; }
+  .cat table { min-width: 0; }
+  .cat table input, .cat table select { padding: 4px 6px; }
+  .cat h4 { font-size: 13px; margin: 14px 0 6px; display: flex; justify-content: space-between; align-items: center; }
+  .cat textarea { width: 100%; min-height: 150px; }
+
+  /* ---- calendario ---- */
+  .cal-top { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 12px; }
+  .cal-top h3 { font-family: 'Fraunces', Georgia, serif; font-size: 20px; font-weight: 600; min-width: 190px; text-transform: capitalize; }
+  .cal-top select { width: auto; }
+  .cal-top label.sw { display: inline-flex; gap: 6px; align-items: center; font-size: 13px; font-weight: 600; margin-left: auto; cursor: pointer; }
+  .cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+  .cal .dow { font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: var(--ink-2); text-align: center; padding: 4px 0; }
+  .cal .dia { min-height: 98px; border: 1px solid var(--line); border-radius: 8px; padding: 4px; background: var(--panel); cursor: pointer; display: flex; flex-direction: column; gap: 2px; text-align: left; font: inherit; color: inherit; min-width: 0; }
+  .cal .dia:hover { border-color: var(--accent-ink); }
+  .cal .dia.otro { opacity: .45; }
+  .cal .dia.hoy { border-color: var(--accent-ink); box-shadow: inset 0 0 0 1px var(--accent-ink); }
+  .cal .dia.pasado { background: var(--bg); }
+  .cal .dia .n { font-size: 12px; font-weight: 600; }
+  .cal .dia .mas { font-size: 11px; color: var(--ink-2); }
+  .it { font-size: 11px; padding: 1px 5px; border-radius: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .it.reserva { background: var(--accent-soft); color: var(--accent-ink); }
+  .it.bloqueo { background: var(--panel-2); color: var(--ink-2); }
+  .it.evento { background: var(--sun-soft); color: var(--sun-ink); }
+  .it.actividad { background: var(--azul-soft); color: var(--azul-ink); }
+  .it.pub { background: var(--lila-soft); color: var(--lila-ink); }
+  .cal .puntos { display: none; gap: 3px; flex-wrap: wrap; }
+  .cal .puntos i { width: 7px; height: 7px; border-radius: 50%; display: block; }
+  .cal .disp-row { display: flex; gap: 3px; flex-wrap: wrap; }
+  .cab-dot { font-size: 10px; padding: 1px 5px; border-radius: 4px; font-weight: 600; }
+  .cab-dot.libre { background: var(--accent-soft); color: var(--accent-ink); }
+  .cab-dot.ocupada { background: var(--rojo-soft); color: var(--rojo); }
+  .leyenda-cal { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 10px; font-size: 12px; color: var(--ink-2); }
+  .leyenda-cal span { display: inline-flex; gap: 5px; align-items: center; }
+  .leyenda-cal i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+  .dia-item { display: grid; grid-template-columns: auto 1fr auto; gap: 8px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+  .dia-item:last-child { border-bottom: 0; }
+  .dia-item .tipo { font-size: 11px; padding: 2px 6px; border-radius: 4px; text-transform: uppercase; letter-spacing: .04em; font-weight: 600; }
+  .dia-item small { display: block; color: var(--ink-2); }
+  .dia-item input, .dia-item select { padding: 3px 6px; font-size: 12px; width: auto; }
+
+  /* ---- plan del día ---- */
+  .plan-grupo { margin-bottom: 18px; }
+  .plan-grupo > h3 { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-2); padding: 0 4px 6px; border-bottom: 1px solid var(--line); margin-bottom: 4px; display: flex; justify-content: space-between; }
+  .plan-item { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: start; padding: 10px 8px; border-bottom: 1px solid var(--line); }
+  .plan-item:last-child { border-bottom: 0; }
+  .plan-item input[type="checkbox"] { margin-top: 3px; width: 18px; height: 18px; }
+  .plan-item.hecho > label { text-decoration: line-through; color: var(--ink-2); }
+  .plan-item label { cursor: pointer; }
+  .plan-item .meta { font-size: 12px; color: var(--ink-2); }
+  .plan-item .meta.vencida { color: var(--rojo); font-weight: 600; }
+  .evidencia { margin-top: 6px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; font-size: 12px; color: var(--ink-2); }
+  .evidencia img { height: 56px; border-radius: 6px; border: 1px solid var(--line); }
+  .ev-form { display: grid; grid-template-columns: 1fr auto auto; gap: 6px; margin-top: 6px; align-items: center; }
+  .ev-form input[type="file"] { display: none; }
+  .ev-form .btn { cursor: pointer; }
+  .pub-dia { display: grid; grid-template-columns: 90px 1fr; gap: 6px 12px; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+  .pub-dia:last-child { border-bottom: 0; }
+  .pub-dia .f { font-weight: 600; }
+  .pub-dia .p { display: flex; justify-content: space-between; gap: 8px; align-items: center; }
+  .pub-dia .p.ok { color: var(--ink-2); text-decoration: line-through; }
+  .rutina-lista { display: grid; gap: 4px; margin-bottom: 8px; }
+  .rutina-lista div { display: flex; gap: 6px; }
+  .rutina-lista input { padding: 5px 8px; }
+
   @media (max-width: 720px) {
+    .cal .dia { min-height: 62px; padding: 3px; }
+    .cal .it, .cal .dia .mas { display: none; }
+    .cal .puntos { display: flex; }
+    .cal-top label.sw { margin-left: 0; }
+    .cot form.grid { grid-template-columns: 1fr; }
+    .ev-form { grid-template-columns: 1fr; }
+    .pub-dia { grid-template-columns: 1fr; }
     .lead { grid-template-columns: 1fr; gap: 8px; }
     .actions { justify-content: flex-start; }
     .paso-row summary { grid-template-columns: 44px 1fr; }
@@ -265,6 +352,9 @@
       <button role="tab" aria-selected="false" data-vista="leads" id="tab-leads">Leads</button>
       <button role="tab" aria-selected="false" data-vista="embudo" id="tab-embudo">Embudo</button>
       <button role="tab" aria-selected="false" data-vista="eventos" id="tab-eventos">Eventos <span class="cnt ok" id="cnt-eventos">0</span></button>
+      <button role="tab" aria-selected="false" data-vista="cotizador" id="tab-cotizador">Cotizador</button>
+      <button role="tab" aria-selected="false" data-vista="calendario" id="tab-calendario">Calendario</button>
+      <button role="tab" aria-selected="false" data-vista="plan" id="tab-plan">Plan del día <span class="cnt ok" id="cnt-plan">0</span></button>
     </nav>
     <div class="right">
       <span class="demo">Demo · nombres y celulares ficticios</span>
@@ -398,6 +488,56 @@
       </div>
     </div>
   </section>
+
+  <!-- ================= COTIZADOR ================= -->
+  <section class="vista" id="vista-cotizador" role="tabpanel" aria-labelledby="tab-cotizador" hidden>
+    <div class="head"><div><h2>Cotizador</h2><div class="sub">Precio por cabaña, personas, noches, temporada, transporte y actividades. Revisa disponibilidad y arma el mensaje de cotización listo para WhatsApp.</div></div></div>
+    <div class="cot">
+      <div class="panel" style="margin:0"><form id="form-cot" class="grid" autocomplete="off"></form></div>
+      <div id="cot-resultado"></div>
+    </div>
+    <details class="panel cat" id="catalogo" style="margin-top:16px">
+      <summary style="cursor:pointer;font-weight:600">Catálogo de precios (editable)</summary>
+      <div id="catalogo-cuerpo"></div>
+    </details>
+  </section>
+
+  <!-- ================= CALENDARIO ================= -->
+  <section class="vista" id="vista-calendario" role="tabpanel" aria-labelledby="tab-calendario" hidden>
+    <div class="head"><div><h2>Calendario</h2><div class="sub">Reservaciones, bloqueos, eventos, actividades y publicaciones en un solo lugar. Toca un día para agregar o editar. La vista pública es lo que vería un visitante en el sitio.</div></div></div>
+    <div class="cal-top" id="cal-top"></div>
+    <div class="cal" id="cal"></div>
+    <div class="leyenda-cal" id="cal-leyenda"></div>
+  </section>
+
+  <!-- ================= PLAN DEL DÍA ================= -->
+  <section class="vista" id="vista-plan" role="tabpanel" aria-labelledby="tab-plan" hidden>
+    <div class="head">
+      <div><h2 id="plan-titulo">Plan del día</h2><div class="sub" id="plan-sub"></div></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+        <button class="btn small ghost" type="button" data-act="plan-dia" data-n="-1" aria-label="Día anterior">◀</button>
+        <input type="date" id="plan-fecha" style="width:auto">
+        <button class="btn small ghost" type="button" data-act="plan-dia" data-n="1" aria-label="Día siguiente">▶</button>
+        <button class="btn small" type="button" data-act="plan-hoy">Hoy</button>
+        <button class="btn small" type="button" data-act="rutina-editar">Editar rutina</button>
+        <button class="btn primary" type="button" data-act="plan-resumen">Enviar resumen al grupo</button>
+      </div>
+    </div>
+    <div class="prog" id="plan-prog" style="min-width:0;margin-bottom:16px"><b style="width:0"></b></div>
+    <div id="plan-lista"></div>
+    <div class="panel" style="margin-top:22px">
+      <h3 style="display:flex;justify-content:space-between;align-items:center;gap:8px">Calendario de publicaciones <span style="display:flex;gap:6px"><button class="btn small" type="button" data-act="pub-generar">Generar 4 semanas más</button><button class="btn small primary" type="button" data-act="pub-nueva">+ Publicación</button></span></h3>
+      <div class="sub" style="margin-bottom:10px">Lunes servicios, miércoles cosas por hacer, viernes flora y fauna, sábado reel, más el lanzamiento de cada evento. Cada publicación aparece en el plan de su día.</div>
+      <form id="form-pub" class="grid" hidden style="margin-bottom:12px">
+        <label class="f">Fecha<input id="pb-fecha" type="date" required></label>
+        <label class="f">Tipo<select id="pb-tipo"><option>Post</option><option>Reel</option><option>Historia</option><option>Mensaje</option></select></label>
+        <label class="f full">Tema<input id="pb-tema" required placeholder="Post de flora y fauna: mariposas de temporada"></label>
+        <label class="f">Canal<select id="pb-canal"><option>Facebook / Instagram</option><option>Comunidad WhatsApp</option><option>Grupos de Facebook</option><option>Google</option></select></label>
+        <div class="botones"><button class="btn primary" type="submit">Guardar</button><button class="btn ghost" type="button" data-act="pub-cerrar">Cerrar</button></div>
+      </form>
+      <div id="pub-lista"></div>
+    </div>
+  </section>
 </main>
 
 <footer class="pie">
@@ -463,7 +603,42 @@
   ];
   const INDICADORES = { reservas: 'Reservas', ingresos: 'Ingresos', leads: 'Leads nuevos', eventos: 'Eventos realizados', resenas: 'Reseñas en Google' };
   const USUARIO = 'Andrés';
-  const CLAVE = 'cielo-embudo-demo-v2';
+  const CLAVE = 'cielo-embudo-demo-v3';
+  // Catálogo de precios: los de cabañas salen del Excel; transporte y actividades son de ejemplo, editables.
+  const CATALOGO = () => ({
+    cabanas: [
+      { id: 1, nombre: 'Cabaña San José', ubicacion: 'San José', incluidas: 6, capacidad: 8, precioNoche: 8299, extraPersona: 600 },
+      { id: 2, nombre: 'Cabaña Alpina Gómez Farías', ubicacion: 'Gómez Farías', incluidas: 2, capacidad: 4, precioNoche: 2500, extraPersona: 400 },
+      { id: 3, nombre: 'Cabaña Yussef', ubicacion: 'San José', incluidas: 4, capacidad: 7, precioNoche: 5599, extraPersona: 500 },
+      { id: 4, nombre: 'Camping', ubicacion: 'San José', incluidas: 2, capacidad: 20, precioNoche: 700, extraPersona: 350 }
+    ],
+    temporadas: [
+      { id: 1, nombre: 'Semana Santa', desde: '03-28', hasta: '04-12', factor: 1.2 },
+      { id: 2, nombre: 'Verano', desde: '07-01', hasta: '08-20', factor: 1.1 },
+      { id: 3, nombre: 'Navidad y Año Nuevo', desde: '12-15', hasta: '01-06', factor: 1.2 }
+    ],
+    transporte: [
+      { id: 1, nombre: 'Llegan en su propio 4x4', precio: 0, por: 'viaje' },
+      { id: 2, nombre: '4x4 desde Gómez Farías, ida y vuelta', precio: 1500, por: 'viaje' },
+      { id: 3, nombre: '4x4 desde Ciudad Mante, ida y vuelta', precio: 2500, por: 'viaje' }
+    ],
+    actividades: [
+      { id: 1, nombre: 'Paseo a caballo', precio: 350, por: 'persona' },
+      { id: 2, nombre: 'Tour a la Cueva del Agua', precio: 250, por: 'persona' },
+      { id: 3, nombre: 'Senderismo guiado a Alta Cima', precio: 300, por: 'persona' },
+      { id: 4, nombre: 'Avistamiento de aves al amanecer', precio: 400, por: 'persona' },
+      { id: 5, nombre: 'Fogata con leña', precio: 200, por: 'grupo' },
+      { id: 6, nombre: 'Bicicletas de montaña', precio: 150, por: 'persona' }
+    ],
+    anticipoPct: 50,
+    plantilla: '¡Claro! Aquí va tu cotización 📸👇\n\n📍 {cabana}\n📅 {llegada} al {salida} · {noches}\n👥 {personas} personas\n\n{desglose}\n\n💵 Total: {total}\n🔒 Aparta tu fecha con {anticipo} ({pct} %) por transferencia o depósito; el resto lo pagas 3 días antes de llegar. No hay reembolsos.\n\n{disponibilidad}\n¿Te aparto la fecha? 😊'
+  });
+  const RUTINA = () => ({
+    diario: ['Mandar los buenos días al grupo', 'Contestar mensajes de WhatsApp', 'Registrar los leads nuevos que llegaron', 'Seguimiento del embudo (lista de hoy)', 'Contestar mensajes y comentarios de Facebook e Instagram', 'Barrer y limpieza rápida', 'Enviar el registro diario de leads al grupo'],
+    1: ['Limpieza profunda de baños y áreas comunes', 'Compartir en la comunidad de WhatsApp'], 2: [], 3: [], 4: ['Revisar anticipos por liquidar de la semana'], 5: ['Confirmar llegadas del fin de semana'],
+    6: ['Compartir fotos de las cabañas en grupos', 'Limpiar senderos y zona de entrada', 'Junta con Dirección'], 0: ['Revisar la semana: leads, reservas y pendientes']
+  });
+  const DIAS_SEMANA = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
 
   // ---------- fechas ----------
   const hoy = () => { const d = new Date(); d.setHours(12, 0, 0, 0); return d; };
@@ -572,7 +747,7 @@
         gastos: gastos.map((g, i) => ({ id: id + 'g' + (i + 1), concepto: g[0], monto: g[1] })), notas: '' };
     };
     const eventos = [
-      mkEvento('e1', 'Yoga en San José', 18, 'San José', 2500, 900, 15, 'publicado', 'Transporte 4x4, instructora, comidas, fogata y meditación', 12,
+      mkEvento('e1', 'Yoga en San José', 18, 'San José', 2500, 900, 15, 'publicado', 'Transporte 4x4, instructora, comidas, fogata y meditación', 9,
         [['Gisela Gómez', '8345550201', 'Cabaña', 2500, 2500], ['Dalia Torres', '8345550202', 'Casa de campaña', 2500, 500], ['Oscar Carrillo', '8345550203', 'Casa de campaña', 2500, 500],
          ['Sindy Garza', '8345550204', 'Cabaña', 2500, 1250], ['Ana Salazar', '8345550205', 'Casa de campaña', 2500, 500], ['Marcela Ruiz', '8345550206', 'Casa de campaña', 2500, 2500],
          ['Iván Medina', '8345550207', 'Camping', 2500, 0], ['Renata Sosa', '8345550208', 'Casa de campaña', 2500, 500]],
@@ -593,11 +768,56 @@
       ['Realizar mínimo una experiencia o evento al mes', 'eventos', mes(0), 1], ['Realizar mínimo una experiencia o evento al mes', 'eventos', mes(1), 1], ['Realizar mínimo una experiencia o evento al mes', 'eventos', mes(2), 1],
       ['Mantener el flujo de leads de temporada', 'leads', mes(0), 150]
     ].map((m, i) => ({ id: 'm' + (i + 1), objetivo: m[0], indicador: m[1], mes: m[2], meta: m[3], avance: m[1] === 'resenas' && m[2] === mes(0) ? 4 : 0 }));
-    return { leads, eventos, metas, sig: leads.length + 1, sigE: 4, sigM: metas.length + 1 };
+
+    // calendario: bloqueos, reservas sin lead (Airbnb) y actividades agendadas
+    const bloqueos = [{ id: 'b1', cabanaId: 3, desde: iso(addDays(hoy(), 9)), hasta: iso(addDays(hoy(), 11)), motivo: 'Mantenimiento', nota: 'Revisión de plagas y pintura' }];
+    const reservas = [{ id: 'x1', cabana: 1, nombre: 'Familia Rodríguez', llegada: iso(addDays(hoy(), 13)), salida: iso(addDays(hoy(), 15)), total: 16598, pagado: 16598, origen: 'Airbnb', nota: 'Llegan en su camioneta' }];
+    const agenda = [
+      { id: 'a1', fecha: iso(addDays(hoy(), 6)), actividadId: 1, nombre: 'Paseo a caballo', personas: 2, hora: '10:00', para: 'Ricardo Peña', nota: '' },
+      { id: 'a2', fecha: iso(addDays(hoy(), 21)), actividadId: 3, nombre: 'Senderismo guiado a Alta Cima', personas: 4, hora: '08:00', para: 'Alejandra Cárdenas', nota: '' }
+    ];
+    // publicaciones: desde el lunes de la semana pasada, cinco semanas; las pasadas quedan como publicadas
+    const publicaciones = generarPublicaciones([], eventos, addDays(hoy(), -7), 5);
+    publicaciones.forEach(p => { if (p.fecha < HOY) p.estado = 'publicada'; });
+    // plan del día: ayer quedó completo, con evidencia
+    const dias = {}; const ayer = iso(addDays(hoy(), -1)); dias[ayer] = { items: {} };
+    RUTINA().diario.forEach((t, i) => { dias[ayer].items['r-d-' + i] = { hecho: true, hora: '09:' + String(10 + i * 5).padStart(2, '0'), por: USUARIO, evidencia: i === 6 ? { texto: 'Enviado al grupo a las 21:05' } : null }; });
+    return { leads, eventos, metas, catalogo: CATALOGO(), bloqueos, reservas, agenda, rutina: RUTINA(), dias, publicaciones, cotizaciones: [],
+      sig: leads.length + 1, sigE: 4, sigM: metas.length + 1, sigX: 100 };
+  }
+  function generarPublicaciones(existentes, eventos, desde, semanas) {
+    const out = existentes.slice();
+    const ya = new Set(out.map(p => p.fecha + '|' + p.tema));
+    const add = (fecha, tipo, tema, canal, eventoId) => {
+      const k = fecha + '|' + tema; if (ya.has(k)) return; ya.add(k);
+      out.push({ id: 'p-' + fecha + '-' + tema.toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 24), fecha, tipo, tema, canal, estado: 'pendiente', eventoId: eventoId || null });
+    };
+    const lunes = addDays(desde, -((desde.getDay() + 6) % 7));
+    for (let s = 0; s < semanas; s++) {
+      const b = addDays(lunes, s * 7);
+      add(iso(b), 'Post', 'Nuestros servicios: cabañas, tours y caballos', 'Facebook / Instagram');
+      add(iso(addDays(b, 2)), 'Post', 'Cosas por hacer en El Cielo', 'Facebook / Instagram');
+      add(iso(addDays(b, 4)), 'Post', 'Flora y fauna de El Cielo', 'Facebook / Instagram');
+      add(iso(addDays(b, 5)), 'Reel', 'Reel de la semana', 'Facebook / Instagram');
+    }
+    eventos.forEach(e => {
+      if (e.publicacion && e.estado !== 'cancelado' && e.estado !== 'realizado') {
+        add(e.publicacion, 'Post', 'Lanzar evento: ' + e.nombre, 'Facebook / Instagram', e.id);
+        add(e.publicacion, 'Mensaje', 'Compartir en la comunidad: ' + e.nombre, 'Comunidad WhatsApp', e.id);
+      }
+    });
+    return out.sort((a, b) => a.fecha.localeCompare(b.fecha) || a.tipo.localeCompare(b.tipo));
+  }
+  function completar(o) {
+    if (!o || !o.leads) return semilla();
+    const base = semilla();
+    Object.keys(base).forEach(k => { if (!(k in o)) o[k] = base[k]; });
+    return o;
   }
   function cargar() {
-    try { const s = localStorage.getItem(CLAVE); if (s) { const o = JSON.parse(s); if (o && o.leads && o.eventos && o.metas) return o; } } catch (e) { /* sin almacenamiento */ }
-    return semilla();
+    let o = null;
+    try { const s = localStorage.getItem(CLAVE); if (s) o = JSON.parse(s); } catch (e) { /* sin almacenamiento */ }
+    return completar(o);
   }
   function guardar() { try { localStorage.setItem(CLAVE, JSON.stringify(S)); } catch (e) { /* sin almacenamiento */ } }
   const porId = id => S.leads.find(l => l.id === id);
@@ -693,8 +913,7 @@
     if (!silencioso) { guardar(); render(); toast('Lead ' + estado + '.'); }
   }
   function reservar(lead, r) {
-    const choque = S.leads.some(o => o.reserva && o !== lead && o.reserva.cabana === r.cabana && o.reserva.llegada < r.salida && r.llegada < o.reserva.salida);
-    if (choque) { toast('Esa cabaña ya está reservada en esas fechas.'); return false; }
+    if (!cabanaLibre(r.cabana, r.llegada, r.salida)) { toast('Esa cabaña ya está reservada o bloqueada en esas fechas.'); return false; }
     lead.reserva = { cabana: r.cabana, llegada: r.llegada, salida: r.salida, total: r.total, pagado: r.anticipo || 0, checklist: CHECKLIST.map(() => false) };
     Object.assign(lead, { estado: 'reservo', paso: '9', enviado: false, fechaPaso: HOY, proxima: null, monto: lead.monto || r.total });
     log(lead, { tipo: 'cambio', paso: '9', nota: 'Reservó ' + fmtFecha(r.llegada) + ' al ' + fmtFecha(r.salida) });
@@ -727,8 +946,8 @@
   function avanceMeta(m) {
     const enMes = f => f && f.slice(0, 7) === m.mes;
     switch (m.indicador) {
-      case 'reservas': return S.leads.filter(l => l.reserva && enMes(l.reserva.llegada)).length;
-      case 'ingresos': return S.leads.filter(l => l.reserva && enMes(l.reserva.llegada)).reduce((a, l) => a + l.reserva.total, 0) + S.eventos.filter(e => enMes(e.fecha) && e.estado !== 'cancelado').reduce((a, e) => a + ingresosEv(e), 0);
+      case 'reservas': return S.leads.filter(l => l.reserva && enMes(l.reserva.llegada)).length + S.reservas.filter(r => enMes(r.llegada)).length;
+      case 'ingresos': return S.leads.filter(l => l.reserva && enMes(l.reserva.llegada)).reduce((a, l) => a + l.reserva.total, 0) + S.reservas.filter(r => enMes(r.llegada)).reduce((a, r) => a + (r.total || 0), 0) + S.eventos.filter(e => enMes(e.fecha) && e.estado !== 'cancelado').reduce((a, e) => a + ingresosEv(e), 0);
       case 'leads': return S.leads.filter(l => enMes(l.creado)).length;
       case 'eventos': return S.eventos.filter(e => enMes(e.fecha) && e.estado === 'realizado').length;
       default: return m.avance || 0;
@@ -881,7 +1100,8 @@
       ['Activos en el embudo', activos.length, 'sin cerrar'],
       ['Reservaron', reservaron, 'últimos 30 días · ' + fmtMonto(montoRes)],
       ['Conversión', conv + ' %', 'reservó entre los cerrados, 30 días'],
-      ['Próximo evento', proximo ? enDias(proximo.fecha).replace('en ', '') : '—', proximo ? proximo.nombre + ' · ' + proximo.inscritos.length + '/' + (proximo.cupo || '—') + ' inscritos' : 'sin eventos programados']
+      ['Próximo evento', proximo ? enDias(proximo.fecha).replace('en ', '') : '—', proximo ? proximo.nombre + ' · ' + proximo.inscritos.length + '/' + (proximo.cupo || '—') + ' inscritos' : 'sin eventos programados'],
+      (() => { const its = itemsDelDia(HOY), hh = its.filter(i => i.hecho).length; return ['Plan de hoy', hh + ' / ' + its.length, 'tareas hechas con evidencia']; })()
     ].map(t => '<div class="tile"><div class="lbl">' + h(t[0]) + '</div><div class="val num">' + h(t[1]) + '</div><div class="sub">' + h(t[2]) + '</div></div>').join('');
 
     const max = 60, ticks = [0, 20, 40, 60];
@@ -1059,8 +1279,289 @@
   function cerrarFicha() { $('#ficha').hidden = true; $('#backdrop').hidden = true; delete $('#ficha').dataset.id; delete $('#ficha').dataset.tipo; fichaEdit = false; evEdit = false; }
   function render() {
     renderHoy(); renderLeads(); renderEventos(); renderMetas(); renderEmbudo(); renderTablero();
+    renderCotizador(); renderCalendario(); renderPlan();
     const f = $('#ficha');
-    if (!f.hidden && f.dataset.id) { if (f.dataset.tipo === 'evento') renderEvento(f.dataset.id); else renderFicha(f.dataset.id); }
+    if (!f.hidden && f.dataset.id) {
+      if (f.dataset.tipo === 'evento') renderEvento(f.dataset.id);
+      else if (f.dataset.tipo === 'dia') renderDia(f.dataset.id);
+      else if (f.dataset.tipo === 'rutina') renderRutina();
+      else renderFicha(f.dataset.id);
+    }
+  }
+
+  // ---------- cotizador ----------
+  let cot = { leadId: '', cabana: 1, llegada: iso(addDays(hoy(), 7)), salida: iso(addDays(hoy(), 8)), personas: 4, transporte: 1, actividades: [], descuento: 0, mensajeEditado: null };
+  function temporadaDe(fecha) {
+    const md = fecha.slice(5);
+    return S.catalogo.temporadas.find(t => t.desde <= t.hasta ? (md >= t.desde && md <= t.hasta) : (md >= t.desde || md <= t.hasta)) || null;
+  }
+  // Quién ocupa una cabaña en un rango [llegada, salida): reservas de leads, reservas sueltas y bloqueos.
+  function ocupantes(cabId, llegada, salida) {
+    const out = [];
+    S.leads.forEach(l => { if (l.reserva && l.reserva.cabana === cabId && l.reserva.llegada < salida && llegada < l.reserva.salida) out.push({ tipo: 'reserva', nombre: nombreDe(l), desde: l.reserva.llegada, hasta: l.reserva.salida, leadId: l.id }); });
+    S.reservas.forEach(r => { if (r.cabana === cabId && r.llegada < salida && llegada < r.salida) out.push({ tipo: 'reserva', nombre: r.nombre, desde: r.llegada, hasta: r.salida, extraId: r.id }); });
+    S.bloqueos.forEach(b => { if (b.cabanaId === cabId && b.desde < salida && llegada < b.hasta) out.push({ tipo: 'bloqueo', nombre: b.motivo, desde: b.desde, hasta: b.hasta, bloqueoId: b.id }); });
+    return out;
+  }
+  const cabanaLibre = (cabId, llegada, salida) => ocupantes(cabId, llegada, salida).length === 0;
+  function cotizar(q) {
+    const C = S.catalogo, cab = C.cabanas.find(c => c.id === q.cabana) || C.cabanas[0];
+    const noches = Math.max(1, dias(q.salida, q.llegada) || 1);
+    const temp = temporadaDe(q.llegada);
+    const factor = temp ? temp.factor : 1;
+    const base = cab.precioNoche * noches;
+    const extraP = Math.max(0, (q.personas || 0) - cab.incluidas);
+    const extras = extraP * cab.extraPersona * noches;
+    const hospedaje = Math.round((base + extras) * factor);
+    const lineas = [{ c: '🏡 ' + cab.nombre + ' · ' + noches + (noches === 1 ? ' noche' : ' noches') + ' (hasta ' + cab.incluidas + ' personas)', m: Math.round(base * factor) }];
+    if (extras) lineas.push({ c: '👥 ' + extraP + (extraP === 1 ? ' persona extra' : ' personas extra') + ' × ' + fmtMonto(cab.extraPersona) + ' × ' + noches, m: Math.round(extras * factor) });
+    if (temp) lineas.push({ c: '📆 Temporada ' + temp.nombre + ': ' + Math.round((temp.factor - 1) * 100) + ' % ya incluido', m: null });
+    const tr = C.transporte.find(t => t.id === q.transporte);
+    let transporte = 0;
+    if (tr && tr.precio) { transporte = tr.por === 'persona' ? tr.precio * q.personas : tr.precio; lineas.push({ c: '🚙 ' + tr.nombre, m: transporte }); }
+    let actividades = 0;
+    q.actividades.forEach(id => { const a = C.actividades.find(x => x.id === id); if (!a) return; const m = a.por === 'persona' ? a.precio * q.personas : a.precio; actividades += m; lineas.push({ c: '✨ ' + a.nombre + (a.por === 'persona' ? ' × ' + q.personas : ''), m }); });
+    const subtotal = hospedaje + transporte + actividades;
+    const descuento = Math.round(subtotal * (q.descuento || 0) / 100);
+    if (descuento) lineas.push({ c: '🎁 Descuento ' + q.descuento + ' %', m: -descuento, desc: true });
+    const total = subtotal - descuento;
+    const anticipo = Math.round(total * C.anticipoPct / 100);
+    const ocup = ocupantes(cab.id, q.llegada, q.salida);
+    return { cab, noches, temp, lineas, hospedaje, transporte, actividades, subtotal, descuento, total, anticipo, libre: ocup.length === 0, ocup, sobrecupo: q.personas > cab.capacidad };
+  }
+  function mensajeCotizacion(q, r) {
+    const C = S.catalogo;
+    const desglose = r.lineas.map(x => x.m === null ? x.c : x.c + ': ' + fmtMonto(x.m)).join('\n');
+    return C.plantilla.split('{cabana}').join(r.cab.nombre).split('{llegada}').join(fmtFecha(q.llegada)).split('{salida}').join(fmtFecha(q.salida))
+      .split('{noches}').join(r.noches + (r.noches === 1 ? ' noche' : ' noches')).split('{personas}').join(q.personas).split('{desglose}').join(desglose)
+      .split('{total}').join(fmtMonto(r.total)).split('{anticipo}').join(fmtMonto(r.anticipo)).split('{pct}').join(C.anticipoPct)
+      .split('{disponibilidad}').join(r.libre ? '✅ Tenemos disponible esa fecha.' : '⚠️ Esa fecha ya está apartada; te propongo otras fechas.');
+  }
+  function renderCotizador() {
+    const C = S.catalogo;
+    const activos = S.leads.filter(l => l.estado === 'activo');
+    const lead = cot.leadId ? porId(cot.leadId) : null;
+    if (cot.leadId && !lead) cot.leadId = '';
+    $('#form-cot').innerHTML =
+      '<label class="f full">Lead (opcional)<select id="c-lead"><option value="">Sin lead · cotización suelta</option>' + activos.map(l => '<option value="' + l.id + '"' + (l.id === cot.leadId ? ' selected' : '') + '>' + h(nombreDe(l)) + ' · ' + fmtTel(l.lada, l.celular) + (l.destino !== 'Sin definir' ? ' · ' + h(l.destino) : '') + '</option>').join('') + '</select></label>' +
+      '<label class="f full">Cabaña<select id="c-cabana">' + C.cabanas.map(c => '<option value="' + c.id + '"' + (c.id === cot.cabana ? ' selected' : '') + '>' + h(c.nombre) + ' · ' + fmtMonto(c.precioNoche) + ' por noche hasta ' + c.incluidas + ' pers</option>').join('') + '</select></label>' +
+      '<label class="f">Llegada<input type="date" id="c-llegada" value="' + cot.llegada + '"></label><label class="f">Salida<input type="date" id="c-salida" value="' + cot.salida + '"></label>' +
+      '<label class="f">Personas<input type="number" id="c-personas" min="1" value="' + cot.personas + '"></label><label class="f">Descuento %<input type="number" id="c-descuento" min="0" max="50" value="' + cot.descuento + '"></label>' +
+      '<label class="f full">Transporte<select id="c-transporte">' + C.transporte.map(t => '<option value="' + t.id + '"' + (t.id === cot.transporte ? ' selected' : '') + '>' + h(t.nombre) + (t.precio ? ' · ' + fmtMonto(t.precio) + (t.por === 'persona' ? ' por persona' : '') : '') + '</option>').join('') + '</select></label>' +
+      '<div class="acts"><span class="lbl">Actividades</span>' + C.actividades.map(a => '<label><input type="checkbox" class="c-act" value="' + a.id + '"' + (cot.actividades.includes(a.id) ? ' checked' : '') + '> ' + h(a.nombre) + '<small>' + fmtMonto(a.precio) + (a.por === 'persona' ? ' por persona' : ' por grupo') + '</small></label>').join('') + '</div>' +
+      (lead ? '<div class="full" style="font-size:12px;color:var(--ink-2)">Tomado del lead: ' + [lead.personas ? lead.personas + ' personas' : '', lead.noches ? lead.noches + ' noches' : '', lead.mes ? h(lead.mes) : ''].filter(Boolean).join(', ') + '</div>' : '');
+    renderCotResultado();
+    renderCatalogo();
+  }
+  function renderCotResultado() {
+    const r = cotizar(cot);
+    const lead = cot.leadId ? porId(cot.leadId) : null;
+    const msg = cot.mensajeEditado != null ? cot.mensajeEditado : mensajeCotizacion(cot, r);
+    $('#cot-resultado').innerHTML = '<div class="resultado">' +
+      '<div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:center"><span class="badge ' + (r.libre ? 'hoy' : 'muy') + '">' + (r.libre ? 'Disponible' : 'Ocupada: ' + h(r.ocup.map(o => o.nombre + ' ' + fmtFecha(o.desde) + ' a ' + fmtFecha(o.hasta)).join(', '))) + '</span>' +
+      (r.sobrecupo ? '<span class="alerta">Excede la capacidad de ' + r.cab.capacidad + ' personas</span>' : '') + '</div>' +
+      '<table class="desglose">' + r.lineas.map(x => '<tr' + (x.desc ? ' class="desc"' : '') + '><td>' + h(x.c) + '</td><td class="r num">' + (x.m === null ? '' : fmtMonto(x.m)) + '</td></tr>').join('') + '</table>' +
+      '<div class="total"><span>Total</span><span class="num">' + fmtMonto(r.total) + ' <small>anticipo ' + fmtMonto(r.anticipo) + '</small></span></div>' +
+      '<label class="f">Mensaje para WhatsApp (puedes editarlo)<textarea id="c-mensaje" style="min-height:230px">' + h(msg) + '</textarea></label>' +
+      '<div class="acciones-ficha">' +
+      (lead ? '<button class="btn wa" data-act="cot-wa">' + WA_SVG + 'Enviar a ' + h(nombreDe(lead)) + '</button><button class="btn primary" data-act="cot-guardar">Guardar en el lead</button>'
+            : '<input id="c-tel" placeholder="Celular para enviar" inputmode="tel" style="width:170px"><button class="btn wa" data-act="cot-wa">' + WA_SVG + 'Enviar</button>') +
+      '<button class="btn" data-act="cot-copiar">Copiar mensaje</button><button class="btn ghost" data-act="cot-calendario">Ver en el calendario</button></div></div>';
+  }
+  function renderCatalogo() {
+    const C = S.catalogo;
+    const fila = (cat, o, campos) => '<tr>' + campos.map(([k, tipo, opts]) => '<td>' + (tipo === 'select'
+      ? '<select data-cat="' + cat + '" data-id="' + o.id + '" data-campo="' + k + '">' + opts.map(v => '<option' + (v === o[k] ? ' selected' : '') + '>' + h(v) + '</option>').join('') + '</select>'
+      : '<input type="' + tipo + '" data-cat="' + cat + '" data-id="' + o.id + '" data-campo="' + k + '" value="' + h(o[k]) + '"' + (tipo === 'number' ? ' step="any" min="0"' : '') + '>') + '</td>').join('') +
+      '<td class="acc"><button class="btn tiny ghost danger" data-act="cat-del" data-cat="' + cat + '" data-id="' + o.id + '" title="Quitar">✕</button></td></tr>';
+    const tabla = (titulo, cat, cols, campos) => '<h4>' + titulo + ' <button class="btn tiny" data-act="cat-add" data-cat="' + cat + '">+ Agregar</button></h4><div class="tabla-wrap"><table><thead><tr>' + cols.map(c => '<th>' + c + '</th>').join('') + '<th></th></tr></thead><tbody>' + C[cat].map(o => fila(cat, o, campos)).join('') + '</tbody></table></div>';
+    $('#catalogo-cuerpo').innerHTML =
+      '<p class="sub" style="margin:8px 0 0">Los precios de cabañas vienen del Excel; transporte, actividades y temporadas son de ejemplo. Todo lo que cambies aquí se aplica de inmediato al cotizador.</p>' +
+      tabla('Cabañas', 'cabanas', ['Nombre', 'Ubicación', 'Precio por noche', 'Personas incluidas', 'Extra por persona y noche', 'Capacidad'], [['nombre', 'text'], ['ubicacion', 'select', ['San José', 'Gómez Farías']], ['precioNoche', 'number'], ['incluidas', 'number'], ['extraPersona', 'number'], ['capacidad', 'number']]) +
+      tabla('Temporadas (factor sobre el hospedaje)', 'temporadas', ['Nombre', 'Desde (MM-DD)', 'Hasta (MM-DD)', 'Factor'], [['nombre', 'text'], ['desde', 'text'], ['hasta', 'text'], ['factor', 'number']]) +
+      tabla('Transporte', 'transporte', ['Opción', 'Precio', 'Se cobra por'], [['nombre', 'text'], ['precio', 'number'], ['por', 'select', ['viaje', 'persona']]]) +
+      tabla('Actividades', 'actividades', ['Actividad', 'Precio', 'Se cobra por'], [['nombre', 'text'], ['precio', 'number'], ['por', 'select', ['persona', 'grupo']]]) +
+      '<h4>Anticipo y plantilla del mensaje</h4><label class="f" style="max-width:200px">Anticipo %<input type="number" min="0" max="100" data-cat="anticipoPct" value="' + C.anticipoPct + '"></label>' +
+      '<label class="f" style="margin-top:8px">Plantilla · variables: {cabana} {llegada} {salida} {noches} {personas} {desglose} {total} {anticipo} {pct} {disponibilidad}<textarea data-cat="plantilla">' + h(C.plantilla) + '</textarea></label>';
+  }
+
+  // ---------- calendario ----------
+  let cal = { mes: MES_ACTUAL, cabana: '', publico: false };
+  function itemsCalendario() {
+    const m = {}; const push = (f, it) => { (m[f] = m[f] || []).push(it); };
+    const rango = (desde, hasta, it) => { let d = parse(desde), n = 0; while (iso(d) < hasta && n < 90) { push(iso(d), it); d = addDays(d, 1); n++; } };
+    S.leads.forEach(l => { if (l.reserva) rango(l.reserva.llegada, l.reserva.salida, { tipo: 'reserva', cab: l.reserva.cabana, label: nombreDe(l), id: l.id, leadId: l.id }); });
+    S.reservas.forEach(r => rango(r.llegada, r.salida, { tipo: 'reserva', cab: r.cabana, label: r.nombre + ' · ' + r.origen, id: r.id, extraId: r.id }));
+    S.bloqueos.forEach(b => rango(b.desde, b.hasta, { tipo: 'bloqueo', cab: b.cabanaId, label: b.motivo, id: b.id }));
+    S.eventos.forEach(e => { if (e.estado !== 'cancelado') push(e.fecha, { tipo: 'evento', label: e.nombre, id: e.id }); });
+    S.agenda.forEach(a => push(a.fecha, { tipo: 'actividad', label: (a.hora ? a.hora + ' ' : '') + a.nombre + (a.personas ? ' · ' + a.personas + 'p' : ''), id: a.id }));
+    S.publicaciones.forEach(p => push(p.fecha, { tipo: 'pub', label: p.tipo + ': ' + p.tema, id: p.id, hecho: p.estado === 'publicada' }));
+    return m;
+  }
+  const nombreCab = id => { const c = S.catalogo.cabanas.find(x => x.id === id); return c ? c.nombre : 'Cabaña'; };
+  const abrevCab = id => nombreCab(id).replace('Cabaña ', '').replace('Alpina Gómez Farías', 'Gómez F.').slice(0, 10);
+  function renderCalendario() {
+    const [y, m] = cal.mes.split('-').map(Number);
+    const primero = new Date(y, m - 1, 1, 12), ultimo = new Date(y, m, 0, 12);
+    const inicio = addDays(primero, -((primero.getDay() + 6) % 7));
+    const items = itemsCalendario();
+    const cabs = S.catalogo.cabanas;
+    $('#cal-top').innerHTML = '<button class="btn small ghost" data-act="cal-mes" data-n="-1" aria-label="Mes anterior">◀</button><h3>' + fmtMes(cal.mes) + '</h3><button class="btn small ghost" data-act="cal-mes" data-n="1" aria-label="Mes siguiente">▶</button>' +
+      '<button class="btn small" data-act="cal-hoy">Hoy</button>' +
+      '<select id="cal-cabana" aria-label="Cabaña"><option value="">Todas las cabañas</option>' + cabs.map(c => '<option value="' + c.id + '"' + (String(c.id) === String(cal.cabana) ? ' selected' : '') + '>' + h(c.nombre) + '</option>').join('') + '</select>' +
+      '<label class="sw"><input type="checkbox" id="cal-publico"' + (cal.publico ? ' checked' : '') + '> Vista pública, como en el sitio</label>';
+    const celdas = [];
+    for (let i = 0; i < 42; i++) {
+      const d = addDays(inicio, i);
+      if (i >= 35 && d > ultimo) break;
+      const f = iso(d), otro = d.getMonth() !== m - 1;
+      let cuerpo;
+      if (cal.publico) {
+        const lista = cabs.filter(c => !cal.cabana || String(c.id) === String(cal.cabana));
+        cuerpo = '<div class="disp-row">' + lista.map(c => { const oc = !cabanaLibre(c.id, f, iso(addDays(d, 1))); return '<span class="cab-dot ' + (oc ? 'ocupada' : 'libre') + '" title="' + h(c.nombre) + '">' + h(abrevCab(c.id)) + '</span>'; }).join('') + '</div>';
+      } else {
+        const its = (items[f] || []).filter(it => !cal.cabana || it.cab == null || String(it.cab) === String(cal.cabana));
+        cuerpo = its.slice(0, 4).map(it => '<span class="it ' + it.tipo + '"' + (it.hecho ? ' style="text-decoration:line-through;opacity:.7"' : '') + ' title="' + h(it.label) + '">' + (it.cab ? h(abrevCab(it.cab)) + ' · ' : '') + h(it.label) + '</span>').join('') +
+          (its.length > 4 ? '<span class="mas">+' + (its.length - 4) + ' más</span>' : '') +
+          '<span class="puntos">' + its.map(it => '<i class="it ' + it.tipo + '" style="padding:0"></i>').join('') + '</span>';
+      }
+      celdas.push('<button type="button" class="dia' + (otro ? ' otro' : '') + (f === HOY ? ' hoy' : '') + (f < HOY ? ' pasado' : '') + '" data-act="cal-dia" data-fecha="' + f + '"><span class="n">' + d.getDate() + '</span>' + cuerpo + '</button>');
+    }
+    $('#cal').innerHTML = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'].map(x => '<div class="dow">' + x + '</div>').join('') + celdas.join('');
+    $('#cal-leyenda').innerHTML = cal.publico
+      ? '<span><i style="background:var(--accent-soft)"></i> Disponible</span><span><i style="background:var(--rojo-soft)"></i> Ocupada</span><span>Sin nombres ni montos: es lo que vería un visitante en elcielotamaulipas.org, alimentado por la misma base.</span>'
+      : '<span><i style="background:var(--accent-soft)"></i> Reservación</span><span><i style="background:var(--panel-2)"></i> Bloqueo</span><span><i style="background:var(--sun-soft)"></i> Evento</span><span><i style="background:var(--azul-soft)"></i> Actividad</span><span><i style="background:var(--lila-soft)"></i> Publicación</span>';
+  }
+  const TIPO_ITEM = { reserva: 'Reserva', bloqueo: 'Bloqueo', evento: 'Evento', actividad: 'Actividad', pub: 'Publicación' };
+  function renderDia(f) {
+    const d = parse(f), items = itemsCalendario()[f] || [];
+    const cabs = S.catalogo.cabanas;
+    const tiny = s => s.replace('btn small', 'btn tiny');
+    const lista = items.map(it => {
+      let extra = '', acc = '';
+      if (it.tipo === 'reserva' && it.leadId) { const l = porId(it.leadId); extra = fmtFecha(l.reserva.llegada) + ' → ' + fmtFecha(l.reserva.salida) + ' · ' + fmtMonto(l.reserva.total) + ' · pagado ' + fmtMonto(l.reserva.pagado); acc = '<button class="btn tiny" data-act="ficha" data-id="' + l.id + '">Ficha</button>' + tiny(btnConfirm('res:' + l.id, 'Cancelar', '¿Cancelar la reservación?')); }
+      else if (it.tipo === 'reserva') { const r = S.reservas.find(x => x.id === it.extraId); extra = fmtFecha(r.llegada) + ' → ' + fmtFecha(r.salida) + ' · ' + fmtMonto(r.total) + ' · pagado ' + fmtMonto(r.pagado) + (r.nota ? ' · ' + h(r.nota) : ''); acc = tiny(btnConfirm('resx:' + r.id, 'Cancelar', '¿Cancelar la reservación?')); }
+      else if (it.tipo === 'bloqueo') { const b = S.bloqueos.find(x => x.id === it.id); extra = fmtFecha(b.desde) + ' → ' + fmtFecha(b.hasta) + (b.nota ? ' · ' + h(b.nota) : ''); acc = tiny(btnConfirm('bloq:' + b.id, 'Quitar', '¿Quitar el bloqueo?')); }
+      else if (it.tipo === 'evento') { const e = evId(it.id); extra = e.inscritos.length + ' inscritos · ' + EST[e.estado]; acc = '<button class="btn tiny" data-act="ev-abrir" data-id="' + e.id + '">Abrir</button>'; }
+      else if (it.tipo === 'actividad') { const a = S.agenda.find(x => x.id === it.id); extra = '<span style="display:inline-flex;gap:6px;align-items:center;flex-wrap:wrap">para ' + h(a.para || '—') + ' · <input type="time" value="' + h(a.hora) + '" data-act="act-edit" data-id="' + a.id + '" data-campo="hora" aria-label="Hora"> <input type="number" min="1" value="' + a.personas + '" data-act="act-edit" data-id="' + a.id + '" data-campo="personas" style="width:60px" aria-label="Personas"> pers</span>'; acc = tiny(btnConfirm('act:' + a.id, 'Quitar', '¿Quitar la actividad?')); }
+      else if (it.tipo === 'pub') { const p = S.publicaciones.find(x => x.id === it.id); extra = h(p.canal) + ' · ' + (p.estado === 'publicada' ? 'publicada' : 'pendiente'); acc = '<button class="btn tiny" data-act="pub-toggle" data-id="' + p.id + '">' + (p.estado === 'publicada' ? 'Marcar pendiente' : 'Marcar publicada') + '</button>' + tiny(btnConfirm('pub:' + p.id, 'Quitar', '¿Quitar?')); }
+      return '<div class="dia-item"><span class="tipo it ' + it.tipo + '">' + TIPO_ITEM[it.tipo] + '</span><div><b>' + (it.cab ? h(nombreCab(it.cab)) + ' · ' : '') + h(it.label) + '</b><small>' + extra + '</small></div><div style="display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end">' + acc + '</div></div>';
+    }).join('') || '<div style="color:var(--ink-2);font-size:13px">Nada agendado este día.</div>';
+    const disp = cabs.map(c => '<span class="cab-dot ' + (cabanaLibre(c.id, f, iso(addDays(d, 1))) ? 'libre' : 'ocupada') + '">' + h(c.nombre) + '</span>').join(' ');
+    const selCab = id => '<select id="' + id + '">' + cabs.map(c => '<option value="' + c.id + '">' + h(c.nombre) + '</option>').join('') + '</select>';
+    $('#ficha').className = 'sheet wide';
+    $('#ficha').innerHTML = '<button class="btn small ghost close" data-act="cerrar-ficha" aria-label="Cerrar">✕</button>' +
+      '<div><span class="lbl">Calendario</span><h2 style="text-transform:capitalize">' + fmtLargo(d) + '</h2><div class="disp-row" style="margin-top:6px">' + disp + '</div></div>' +
+      '<section><h3>Agendado <button class="btn small" data-act="cot-fecha" data-fecha="' + f + '">Cotizar estas fechas</button></h3>' + lista + '</section>' +
+      '<section class="caja"><h3>Agregar reservación sin pasar por el embudo (Airbnb, teléfono, conocidos)</h3><form id="form-res-manual" class="grid" data-fecha="' + f + '">' +
+      '<label class="f">Cabaña' + selCab('rm-cabana') + '</label><label class="f">Noches<input type="number" id="rm-noches" min="1" value="1"></label>' +
+      '<label class="f">Nombre<input id="rm-nombre" required></label><label class="f">Origen<select id="rm-origen"><option>Airbnb</option><option>Teléfono</option><option>Recomendación</option><option>Otro</option></select></label>' +
+      '<label class="f">Total<input type="number" id="rm-total" min="0" value="8299"></label><label class="f">Pagado<input type="number" id="rm-pagado" min="0" value="0"></label>' +
+      '<label class="f full">Nota<input id="rm-nota" placeholder="Llegan en su camioneta, traen mascota…"></label>' +
+      '<div class="full"><button class="btn primary" type="submit">Guardar reservación</button></div></form></section>' +
+      '<section class="caja"><h3>Bloquear cabaña (mantenimiento, uso propio)</h3><form id="form-bloqueo" class="grid" data-fecha="' + f + '">' +
+      '<label class="f">Cabaña' + selCab('bl-cabana') + '</label><label class="f">Noches<input type="number" id="bl-noches" min="1" value="1"></label>' +
+      '<label class="f">Motivo<select id="bl-motivo"><option>Mantenimiento</option><option>Uso propio</option><option>Limpieza profunda</option><option>Otro</option></select></label><label class="f">Nota<input id="bl-nota"></label>' +
+      '<div class="full"><button class="btn" type="submit">Bloquear</button></div></form></section>' +
+      '<section class="caja"><h3>Agendar actividad</h3><form id="form-actividad" class="grid" data-fecha="' + f + '">' +
+      '<label class="f full">Actividad<select id="ac-act">' + S.catalogo.actividades.map(a => '<option value="' + a.id + '">' + h(a.nombre) + ' · ' + fmtMonto(a.precio) + (a.por === 'persona' ? ' por persona' : ' por grupo') + '</option>').join('') + '</select></label>' +
+      '<label class="f">Hora<input type="time" id="ac-hora" value="10:00"></label><label class="f">Personas<input type="number" id="ac-personas" min="1" value="2"></label>' +
+      '<label class="f full">Para quién<input id="ac-para" placeholder="Nombre del huésped o grupo"></label>' +
+      '<div class="full"><button class="btn" type="submit">Agendar</button></div></form></section>' +
+      '<section class="caja"><h3>Programar publicación</h3><form id="form-pub-dia" class="grid" data-fecha="' + f + '">' +
+      '<label class="f">Tipo<select id="pd-tipo"><option>Post</option><option>Reel</option><option>Historia</option><option>Mensaje</option></select></label><label class="f">Canal<select id="pd-canal"><option>Facebook / Instagram</option><option>Comunidad WhatsApp</option><option>Grupos de Facebook</option><option>Google</option></select></label>' +
+      '<label class="f full">Tema<input id="pd-tema" required></label><div class="full"><button class="btn" type="submit">Programar</button></div></form></section>';
+    abrirSheet('dia', f);
+  }
+
+  // ---------- plan del día ----------
+  let planFecha = HOY, evAbierta = null;
+  const wdDe = f => parse(f).getDay();
+  function itemsDelDia(f) {
+    const wd = wdDe(f), R = S.rutina, reg = (S.dias[f] && S.dias[f].items) || {};
+    const items = [];
+    R.diario.forEach((t, i) => items.push({ clave: 'r-d-' + i, texto: t, grupo: 'Rutina diaria', tipo: 'rutina' }));
+    (R[wd] || []).forEach((t, i) => items.push({ clave: 'r-' + wd + '-' + i, texto: t, grupo: 'Cada ' + DIAS_SEMANA[wd].toLowerCase(), tipo: 'rutina' }));
+    S.publicaciones.filter(p => p.fecha === f).forEach(p => items.push({ clave: 'p-' + p.id, texto: p.tipo + ': ' + p.tema + ' · ' + p.canal, grupo: 'Publicaciones del día', tipo: 'publicacion', ref: p, hecho: p.estado === 'publicada' }));
+    S.eventos.forEach(e => {
+      if (e.estado === 'realizado' || e.estado === 'cancelado') return;
+      e.tareas.forEach(t => {
+        const esHoy = f === HOY, marcadaHoy = !!reg['e-' + e.id + '-' + t.id];
+        // Hoy se arrastra todo lo pendiente; lo que se marque hoy sigue a la vista, tachado.
+        if ((esHoy && ((!t.hecho && t.limite <= f) || marcadaHoy)) || (!esHoy && t.limite === f)) items.push({ clave: 'e-' + e.id + '-' + t.id, texto: t.tarea + ' · ' + e.nombre, grupo: 'Tareas de eventos', tipo: 'evento', ref: t, ev: e, hecho: t.hecho, vencida: !t.hecho && t.limite < f, resp: t.responsable });
+      });
+    });
+    items.forEach(it => { const r = reg[it.clave] || {}; if (it.tipo === 'rutina') it.hecho = !!r.hecho; it.hora = r.hora; it.por = r.por; it.evidencia = r.evidencia || null; });
+    return items;
+  }
+  function registroDia(f, clave) { S.dias[f] = S.dias[f] || { items: {} }; S.dias[f].items[clave] = S.dias[f].items[clave] || {}; return S.dias[f].items[clave]; }
+  function marcarItem(f, it, hecho) {
+    const r = registroDia(f, it.clave);
+    r.hecho = hecho; r.hora = hecho ? new Date().toTimeString().slice(0, 5) : null; r.por = hecho ? USUARIO : null;
+    if (it.tipo === 'publicacion') it.ref.estado = hecho ? 'publicada' : 'pendiente';
+    if (it.tipo === 'evento') { it.ref.hecho = hecho; it.ref.hecho_por = hecho ? USUARIO : null; }
+    guardar(); render();
+  }
+  function renderPlan() {
+    const f = planFecha, items = itemsDelDia(f), hechas = items.filter(i => i.hecho).length;
+    const pend = pendientesHoy().length;
+    $('#plan-fecha').value = f;
+    $('#plan-titulo').textContent = (f === HOY ? 'Plan de hoy, ' : 'Plan del ') + fmtLargo(parse(f));
+    $('#plan-sub').textContent = hechas + ' de ' + items.length + ' tareas hechas' + (f === HOY && pend ? ' · ' + pend + ' leads pendientes en la lista de hoy' : '');
+    $('#plan-prog').className = 'prog' + (items.length && hechas === items.length ? ' done' : '');
+    $('#plan-prog').querySelector('b').style.width = (items.length ? Math.round(100 * hechas / items.length) : 0) + '%';
+    const hoyItems = f === HOY ? items : itemsDelDia(HOY);
+    $('#cnt-plan').textContent = hoyItems.filter(i => !i.hecho).length;
+    const grupos = [...new Set(items.map(i => i.grupo))];
+    $('#plan-lista').innerHTML = grupos.map(g => {
+      const ls = items.filter(i => i.grupo === g);
+      return '<section class="plan-grupo"><h3>' + h(g) + '<span>' + ls.filter(i => i.hecho).length + ' de ' + ls.length + '</span></h3>' + ls.map(it => {
+        const idc = 'pl-' + it.clave;
+        let meta = it.hecho ? 'hecho' + (it.hora ? ' a las ' + it.hora : '') + (it.por ? ' por ' + it.por : '') : '';
+        if (it.tipo === 'evento') meta = (it.vencida && !it.hecho ? 'vencida el ' + fmtFecha(it.ref.limite) : 'vence el ' + fmtFecha(it.ref.limite)) + ' · ' + it.resp + (it.hecho ? ' · hecho' : '');
+        if (it.tipo === 'rutina' && it.texto.startsWith('Seguimiento del embudo') && f === HOY) meta = (pend ? pend + ' leads pendientes en Hoy' : 'lista de hoy al día') + (it.hecho ? ' · hecho' + (it.hora ? ' a las ' + it.hora : '') : '');
+        const ev = it.evidencia ? '<div class="evidencia">' + (it.evidencia.foto ? '<img src="' + it.evidencia.foto + '" alt="Evidencia">' : '') + (it.evidencia.texto ? '<span>' + h(it.evidencia.texto) + '</span>' : '') + '<button class="btn tiny ghost" data-act="ev-quitar" data-clave="' + h(it.clave) + '">quitar</button></div>' : '';
+        const form = evAbierta === it.clave ? '<form class="ev-form" id="form-evidencia" data-clave="' + h(it.clave) + '"><input id="evi-texto" placeholder="Nota, liga o comentario" value="' + h(it.evidencia && it.evidencia.texto || '') + '"><label class="btn small">📷 Foto<input type="file" accept="image/*" capture="environment" data-act="plan-foto" data-clave="' + h(it.clave) + '"></label><button class="btn small primary" type="submit">Guardar</button></form>' : '';
+        return '<div class="plan-item' + (it.hecho ? ' hecho' : '') + '"><input type="checkbox" id="' + idc + '" data-act="plan-chk" data-clave="' + h(it.clave) + '"' + (it.hecho ? ' checked' : '') + '>' +
+          '<div><label for="' + idc + '">' + h(it.texto) + '</label><div class="meta' + (it.vencida && !it.hecho ? ' vencida' : '') + '">' + h(meta) + '</div>' + ev + form + '</div>' +
+          '<button class="btn tiny ghost" data-act="ev-abrir-form" data-clave="' + h(it.clave) + '">' + (evAbierta === it.clave ? 'Cerrar' : 'Evidencia') + '</button></div>';
+      }).join('') + '</section>';
+    }).join('') || '<div class="vacio">Sin tareas para este día.</div>';
+    const desde = iso(addDays(hoy(), -1)), hasta = iso(addDays(hoy(), 21));
+    const pubs = S.publicaciones.filter(p => p.fecha >= desde && p.fecha <= hasta);
+    const fechas = [...new Set(pubs.map(p => p.fecha))];
+    $('#pub-lista').innerHTML = fechas.map(fe => '<div class="pub-dia"><div class="f">' + fmtFecha(fe) + '<small style="display:block;color:var(--ink-2);font-weight:400">' + DIAS_SEMANA[wdDe(fe)] + '</small></div><div>' +
+      pubs.filter(p => p.fecha === fe).map(p => '<div class="p' + (p.estado === 'publicada' ? ' ok' : '') + '"><span><b>' + h(p.tipo) + '</b> ' + h(p.tema) + ' <small style="color:var(--ink-2)">· ' + h(p.canal) + '</small></span><span style="display:flex;gap:4px"><button class="btn tiny ghost" data-act="pub-toggle" data-id="' + p.id + '" title="' + (p.estado === 'publicada' ? 'Marcar pendiente' : 'Marcar publicada') + '">' + (p.estado === 'publicada' ? '↩' : '✓') + '</button>' + btnConfirm('pub:' + p.id, 'Quitar', '¿Quitar?').replace('btn small', 'btn tiny') + '</span></div>').join('') + '</div></div>').join('') ||
+      '<div style="color:var(--ink-2)">Nada programado en las próximas tres semanas. Genera cuatro semanas o agrega una publicación.</div>';
+  }
+  function resumenDia() {
+    const f = planFecha, items = itemsDelDia(f), hechas = items.filter(i => i.hecho), pend = items.filter(i => !i.hecho);
+    const t = ['📋 Plan del día · ' + fmtLargo(parse(f)), '✅ ' + hechas.length + ' de ' + items.length + ' tareas',
+      ...hechas.map(i => '✔ ' + i.texto + (i.hora ? ' (' + i.hora + ')' : '')),
+      ...(pend.length ? ['⏳ Pendientes:', ...pend.map(i => '• ' + i.texto)] : []),
+      '📲 Leads por atender: ' + pendientesHoy().length, '— ' + USUARIO].join('\n');
+    window.open('https://wa.me/?text=' + encodeURIComponent(t), '_blank', 'noopener');
+  }
+  function renderRutina() {
+    const R = S.rutina;
+    const lista = (clave, titulo) => '<section><h3>' + titulo + '</h3><div class="rutina-lista">' + (R[clave] || []).map((t, i) => '<div><input value="' + h(t) + '" data-rut="' + clave + '" data-i="' + i + '" aria-label="Tarea"><button class="btn tiny ghost danger" data-act="rutina-del" data-lista="' + clave + '" data-i="' + i + '" title="Quitar">✕</button></div>').join('') + '</div>' +
+      '<form class="ev-form" data-lista="' + clave + '" id="form-rutina-' + clave + '" style="grid-template-columns:1fr auto"><input placeholder="Nueva tarea" required aria-label="Nueva tarea"><button class="btn small" type="submit">Agregar</button></form></section>';
+    $('#ficha').className = 'sheet';
+    $('#ficha').innerHTML = '<button class="btn small ghost close" data-act="cerrar-ficha" aria-label="Cerrar">✕</button><div><span class="lbl">Plan de trabajo</span><h2>Rutina del equipo</h2><div class="sub">Lo que se hace todos los días y lo que toca cada día de la semana. Los cambios aplican desde hoy.</div></div>' +
+      lista('diario', 'Todos los días') + [1, 2, 3, 4, 5, 6, 0].map(d => lista(String(d), DIAS_SEMANA[d])).join('');
+    abrirSheet('rutina', 'rutina');
+  }
+  function guardarFoto(clave, file) {
+    if (!file) return;
+    const img = new Image(); const url = URL.createObjectURL(file);
+    img.onload = () => {
+      const esc = Math.min(1, 480 / img.width); const cv = document.createElement('canvas');
+      cv.width = Math.round(img.width * esc); cv.height = Math.round(img.height * esc);
+      cv.getContext('2d').drawImage(img, 0, 0, cv.width, cv.height); URL.revokeObjectURL(url);
+      const r = registroDia(planFecha, clave); r.evidencia = Object.assign({}, r.evidencia || {}, { foto: cv.toDataURL('image/jpeg', 0.6) });
+      guardar(); render(); toast('Foto guardada como evidencia.');
+    };
+    img.src = url;
   }
 
   // ---------- interacción ----------
@@ -1086,6 +1587,11 @@
       else if (tipo === 'evento') borrarEvento(evId(id));
       else if (tipo === 'meta') { S.metas = S.metas.filter(m => m.id !== id); guardar(); render(); toast('Meta borrada.'); }
       else if (tipo === 'lote') { const n = sel.size; S.leads = S.leads.filter(x => !sel.has(x.id)); sel.clear(); guardar(); render(); toast(n + ' leads borrados.'); }
+      else if (tipo === 'res') { const l = porId(id); log(l, { tipo: 'cambio', paso: l.paso, nota: 'Reservación cancelada' }); l.reserva = null; l.estado = 'cancelado'; l.proxima = null; guardar(); render(); toast('Reservación cancelada.'); }
+      else if (tipo === 'resx') { S.reservas = S.reservas.filter(r => r.id !== id); guardar(); render(); toast('Reservación cancelada.'); }
+      else if (tipo === 'bloq') { S.bloqueos = S.bloqueos.filter(x => x.id !== id); guardar(); render(); }
+      else if (tipo === 'act') { S.agenda = S.agenda.filter(x => x.id !== id); guardar(); render(); }
+      else if (tipo === 'pub') { S.publicaciones = S.publicaciones.filter(x => x.id !== id); guardar(); render(); }
       return;
     }
     if (act === 'enviar') enviar(l);
@@ -1110,16 +1616,80 @@
     else if (act === 'ev-gasto-borrar') { ev.gastos = ev.gastos.filter(g => g.id !== b.dataset.g); guardar(); render(); }
     else if (act === 'ev-pago') { const i = ev.inscritos.find(x => x.id === b.dataset.i); const m = +document.getElementById('pg-' + i.id).value; if (m > 0) { i.pagado = (i.pagado || 0) + m; guardar(); render(); toast('Pago de ' + fmtMonto(m) + ' registrado.'); } }
     else if (act === 'meta-editar') { confirmando = 'meta-edit:' + b.dataset.id; render(); }
+    // cotizador
+    else if (act === 'cot-copiar') { const t = $('#c-mensaje'); t.select(); try { navigator.clipboard.writeText(t.value); } catch (e2) { document.execCommand('copy'); } toast('Mensaje copiado.'); }
+    else if (act === 'cot-wa') {
+      const lead = cot.leadId ? porId(cot.leadId) : null;
+      const tel = lead ? { lada: lead.lada, cel: lead.celular } : normalizar($('#c-tel') ? $('#c-tel').value : '');
+      if (!tel) { toast('Escribe un celular de 10 dígitos o elige un lead.'); return; }
+      window.open(waLink(tel.lada, tel.cel, $('#c-mensaje').value), '_blank', 'noopener');
+      if (lead) { log(lead, { tipo: 'envio', paso: lead.paso, nota: 'Cotización enviada: ' + fmtMonto(cotizar(cot).total) }); guardar(); }
+    }
+    else if (act === 'cot-guardar') {
+      const lead = porId(cot.leadId), r = cotizar(cot), c = S.catalogo.cabanas.find(x => x.id === cot.cabana);
+      lead.monto = r.total; lead.personas = cot.personas; lead.noches = r.noches;
+      if (c && lead.destino === 'Sin definir') lead.destino = c.ubicacion;
+      log(lead, { tipo: 'nota', nota: 'Cotización: ' + r.cab.nombre + ', ' + fmtFecha(cot.llegada) + ' al ' + fmtFecha(cot.salida) + ', ' + cot.personas + ' personas, total ' + fmtMonto(r.total) });
+      S.cotizaciones.push({ fecha: HOY, leadId: lead.id, cabana: cot.cabana, llegada: cot.llegada, salida: cot.salida, personas: cot.personas, total: r.total });
+      guardar(); render(); toast('Cotización guardada en el lead: ' + fmtMonto(r.total) + '.');
+    }
+    else if (act === 'cot-calendario') { cal.mes = cot.llegada.slice(0, 7); cal.cabana = String(cot.cabana); cal.publico = false; renderCalendario(); verVista('calendario'); }
+    else if (act === 'cot-fecha') { cot.llegada = b.dataset.fecha; cot.salida = iso(addDays(parse(b.dataset.fecha), 1)); cot.mensajeEditado = null; cerrarFicha(); renderCotizador(); verVista('cotizador'); }
+    else if (act === 'cat-add') {
+      const cat = b.dataset.cat, id = S.sigX++;
+      const nuevo = { cabanas: { id, nombre: 'Nueva cabaña', ubicacion: 'San José', incluidas: 2, capacidad: 4, precioNoche: 0, extraPersona: 0 }, temporadas: { id, nombre: 'Nueva temporada', desde: '01-01', hasta: '01-31', factor: 1.1 },
+        transporte: { id, nombre: 'Nueva opción', precio: 0, por: 'viaje' }, actividades: { id, nombre: 'Nueva actividad', precio: 0, por: 'persona' } }[cat];
+      S.catalogo[cat].push(nuevo); guardar(); renderCotizador();
+    }
+    else if (act === 'cat-del') { S.catalogo[b.dataset.cat] = S.catalogo[b.dataset.cat].filter(x => String(x.id) !== b.dataset.id); guardar(); renderCotizador(); }
+    // calendario
+    else if (act === 'cal-mes') { const [y, m] = cal.mes.split('-').map(Number); cal.mes = iso(new Date(y, m - 1 + (+b.dataset.n), 1, 12)).slice(0, 7); renderCalendario(); }
+    else if (act === 'cal-hoy') { cal.mes = MES_ACTUAL; renderCalendario(); }
+    else if (act === 'cal-dia') { confirmando = null; renderDia(b.dataset.fecha); }
+    else if (act === 'pub-toggle') {
+      const p = S.publicaciones.find(x => x.id === b.dataset.id); p.estado = p.estado === 'publicada' ? 'pendiente' : 'publicada';
+      const r = registroDia(p.fecha, 'p-' + p.id); r.hecho = p.estado === 'publicada'; r.hora = r.hecho ? new Date().toTimeString().slice(0, 5) : null; r.por = r.hecho ? USUARIO : null;
+      guardar(); render();
+    }
+    else if (act === 'pub-nueva') { $('#form-pub').hidden = !$('#form-pub').hidden; $('#pb-fecha').value = planFecha; }
+    else if (act === 'pub-cerrar') { $('#form-pub').hidden = true; }
+    else if (act === 'pub-generar') {
+      const ultima = S.publicaciones.reduce((a, p) => p.fecha > a ? p.fecha : a, HOY);
+      S.publicaciones = generarPublicaciones(S.publicaciones, S.eventos, addDays(parse(ultima), 1), 4);
+      guardar(); render(); toast('Publicaciones programadas hasta el ' + fmtFecha(S.publicaciones[S.publicaciones.length - 1].fecha) + '.');
+    }
+    // plan del día
+    else if (act === 'plan-dia') { planFecha = iso(addDays(parse(planFecha), +b.dataset.n)); evAbierta = null; renderPlan(); }
+    else if (act === 'plan-hoy') { planFecha = HOY; evAbierta = null; renderPlan(); }
+    else if (act === 'plan-resumen') resumenDia();
+    else if (act === 'rutina-editar') renderRutina();
+    else if (act === 'rutina-del') { S.rutina[b.dataset.lista].splice(+b.dataset.i, 1); guardar(); render(); }
+    else if (act === 'ev-abrir-form') { evAbierta = evAbierta === b.dataset.clave ? null : b.dataset.clave; renderPlan(); }
+    else if (act === 'ev-quitar') { const r = registroDia(planFecha, b.dataset.clave); r.evidencia = null; guardar(); render(); }
   });
   document.addEventListener('change', e => {
     const b = e.target.closest('[data-act]');
     if (e.target.matches('[data-sel]')) { if (e.target.checked) sel.add(e.target.dataset.sel); else sel.delete(e.target.dataset.sel); renderLeads(); return; }
     if (e.target.id === 'sel-todos') { const ls = leadsFiltrados(); if (e.target.checked) ls.forEach(l => sel.add(l.id)); else ls.forEach(l => sel.delete(l.id)); renderLeads(); return; }
+    if (e.target.dataset.cat) {
+      const cat = e.target.dataset.cat, C = S.catalogo;
+      if (cat === 'anticipoPct') C.anticipoPct = +e.target.value || 0;
+      else if (cat === 'plantilla') C.plantilla = e.target.value;
+      else { const o = C[cat].find(x => String(x.id) === e.target.dataset.id); if (o) { const k = e.target.dataset.campo; o[k] = e.target.type === 'number' ? (+e.target.value || 0) : e.target.value; } }
+      cot.mensajeEditado = null; guardar(); renderCotizador(); return;   // el select de cabaña también refleja el precio nuevo
+    }
+    if (e.target.dataset.rut) { S.rutina[e.target.dataset.rut][+e.target.dataset.i] = e.target.value.trim(); guardar(); renderPlan(); return; }
+    if (e.target.id === 'cal-cabana') { cal.cabana = e.target.value; renderCalendario(); return; }
+    if (e.target.id === 'cal-publico') { cal.publico = e.target.checked; renderCalendario(); return; }
+    if (e.target.id === 'plan-fecha') { if (e.target.value) { planFecha = e.target.value; evAbierta = null; renderPlan(); } return; }
     if (!b) return;
     const act = b.dataset.act, l = b.dataset.id ? porId(b.dataset.id) : null, ev = b.dataset.id ? evId(b.dataset.id) : null;
     if (act === 'chk') { l.reserva.checklist[+b.dataset.i] = b.checked; guardar(); render(); }
     else if (act === 'ev-tarea') { const t = ev.tareas.find(x => x.id === b.dataset.t); t.hecho = b.checked; guardar(); render(); }
     else if (act === 'ev-resp') { const t = ev.tareas.find(x => x.id === b.dataset.t); t.responsable = b.value; guardar(); }
+    else if (act === 'act-edit') { const a = S.agenda.find(x => x.id === b.dataset.id); a[b.dataset.campo] = b.dataset.campo === 'personas' ? (+b.value || 1) : b.value; guardar(); renderCalendario(); }
+    else if (act === 'plan-chk') { const it = itemsDelDia(planFecha).find(x => x.clave === b.dataset.clave); if (it) marcarItem(planFecha, it, b.checked); }
+    else if (act === 'plan-foto') guardarFoto(b.dataset.clave, b.files && b.files[0]);
   });
   document.querySelectorAll('[data-toggle]').forEach(b => b.addEventListener('click', () => {
     const t = document.getElementById(b.dataset.toggle); t.hidden = !t.hidden; b.textContent = t.hidden ? 'Ver tabla' : 'Ocultar tabla';
@@ -1177,13 +1747,53 @@
       Object.assign(m, { objetivo: v('me-objetivo'), indicador: v('me-indicador'), mes: v('me-mes'), meta: n('me-meta') || 1 });
       if (document.getElementById('me-avance')) m.avance = n('me-avance') || 0;
       confirmando = null; guardar(); render(); toast('Meta actualizada.');
+    } else if (f.id === 'form-res-manual') {
+      const cab = +v('rm-cabana'), ll = f.dataset.fecha, sa = iso(addDays(parse(ll), n('rm-noches') || 1));
+      if (!cabanaLibre(cab, ll, sa)) { toast('Esa cabaña ya está ocupada en esas noches.'); return; }
+      S.reservas.push({ id: 'x' + (S.sigX++), cabana: cab, nombre: v('rm-nombre'), llegada: ll, salida: sa, total: n('rm-total') || 0, pagado: n('rm-pagado') || 0, origen: v('rm-origen'), nota: v('rm-nota') });
+      guardar(); render(); toast('Reservación guardada.');
+    } else if (f.id === 'form-bloqueo') {
+      const ll = f.dataset.fecha;
+      S.bloqueos.push({ id: 'b' + (S.sigX++), cabanaId: +v('bl-cabana'), desde: ll, hasta: iso(addDays(parse(ll), n('bl-noches') || 1)), motivo: v('bl-motivo'), nota: v('bl-nota') });
+      guardar(); render(); toast('Cabaña bloqueada.');
+    } else if (f.id === 'form-actividad') {
+      const a = S.catalogo.actividades.find(x => String(x.id) === v('ac-act'));
+      S.agenda.push({ id: 'a' + (S.sigX++), fecha: f.dataset.fecha, actividadId: a ? a.id : null, nombre: a ? a.nombre : 'Actividad', personas: n('ac-personas') || 1, hora: v('ac-hora'), para: v('ac-para'), nota: '' });
+      guardar(); render(); toast('Actividad agendada.');
+    } else if (f.id === 'form-pub-dia' || f.id === 'form-pub') {
+      const esGeneral = f.id === 'form-pub', dia = esGeneral ? v('pb-fecha') : f.dataset.fecha, pre = esGeneral ? 'pb' : 'pd';
+      const tema = v(pre + '-tema'); if (!dia || !tema) return;
+      S.publicaciones = generarPublicaciones(S.publicaciones.concat([{ id: 'p-' + dia + '-' + Date.now(), fecha: dia, tipo: v(pre + '-tipo'), tema, canal: v(pre + '-canal'), estado: 'pendiente', eventoId: null }]), [], parse(dia), 0);
+      if (esGeneral) { f.reset(); f.hidden = true; }
+      guardar(); render(); toast('Publicación programada para el ' + fmtFecha(dia) + '.');
+    } else if (f.id === 'form-evidencia') {
+      const r = registroDia(planFecha, f.dataset.clave); r.evidencia = Object.assign({}, r.evidencia || {}, { texto: v('evi-texto') }); evAbierta = null;
+      guardar(); render(); toast('Evidencia guardada.');
+    } else if (f.id.indexOf('form-rutina-') === 0) {
+      const inp = f.querySelector('input'), t = inp.value.trim(); if (!t) return;
+      (S.rutina[f.dataset.lista] = S.rutina[f.dataset.lista] || []).push(t); guardar(); render();
     }
   });
   ['buscar', 'filtro-estado', 'filtro-destino'].forEach(id => $('#' + id).addEventListener('input', renderLeads));
+  const leerCot = e => {
+    if (e.target.id === 'c-lead') {
+      cot.leadId = e.target.value; const l = porId(cot.leadId);
+      if (l) { if (l.personas) cot.personas = l.personas; if (l.noches) cot.salida = iso(addDays(parse(cot.llegada), l.noches)); const c = S.catalogo.cabanas.find(x => x.ubicacion === l.destino); if (c) cot.cabana = c.id; }
+      cot.mensajeEditado = null; renderCotizador(); return;
+    }
+    cot.cabana = +$('#c-cabana').value; cot.llegada = $('#c-llegada').value || cot.llegada; cot.salida = $('#c-salida').value || cot.salida;
+    cot.personas = Math.max(1, +$('#c-personas').value || 1); cot.descuento = Math.max(0, +$('#c-descuento').value || 0); cot.transporte = +$('#c-transporte').value;
+    cot.actividades = [...document.querySelectorAll('.c-act:checked')].map(x => +x.value);
+    if (cot.salida <= cot.llegada) { cot.salida = iso(addDays(parse(cot.llegada), 1)); $('#c-salida').value = cot.salida; }
+    cot.mensajeEditado = null; renderCotResultado();
+  };
+  $('#form-cot').addEventListener('input', leerCot);
+  $('#form-cot').addEventListener('change', leerCot);
+  document.addEventListener('input', e => { if (e.target.id === 'c-mensaje') cot.mensajeEditado = e.target.value; });
   $('#reiniciar').addEventListener('click', () => { S = semilla(); sel.clear(); confirmando = null; guardar(); render(); toast('Demo reiniciada.'); });
 
   function start(data) {
-    S = (data && data.leads && data.eventos && data.metas) ? data : cargar();
+    S = (data && data.leads) ? completar(data) : cargar();
     render();
     let v = 'hoy'; try { v = localStorage.getItem(CLAVE + '-vista') || 'hoy'; } catch (e) { /* nada */ }
     verVista(v);
