@@ -579,3 +579,117 @@ insert into checklist_catalogo (momento, tarea, orden) values
   ('despues', 'Revisar la cabaña después del check-out: faltantes, daños, reabastecer', 10),
   ('despues', 'Registrar el feedback recibido para mejorar el servicio', 11),
   ('despues', 'Limpiar la cabaña para la próxima renta', 12);
+
+-- =============================================================================
+-- Proceso de un evento: tareas por fase con fecha límite y responsable,
+-- gastos y resumen financiero. Cada evento nace con el proceso completo.
+-- =============================================================================
+create type fase_evento_t as enum ('planeacion', 'difusion', 'inscripciones', 'logistica', 'evento', 'cierre');
+
+create table evento_tareas_catalogo (
+  id          serial primary key,
+  fase        fase_evento_t not null,
+  tarea       text not null,
+  dias_antes  int not null default 0,     -- negativo = días después del evento
+  responsable text,
+  orden       int not null default 0,
+  activo      boolean not null default true
+);
+
+create table evento_tareas (
+  id            bigserial primary key,
+  evento_id     int not null references eventos (id) on delete cascade,
+  fase          fase_evento_t not null,
+  tarea         text not null,
+  dias_antes    int not null default 0,
+  fecha_limite  date,
+  responsable   text,
+  hecho         boolean not null default false,
+  hecho_en      timestamptz,
+  hecho_por     text,
+  orden         int not null default 0
+);
+create index evento_tareas_evento_idx on evento_tareas (evento_id, hecho, fecha_limite);
+
+create table gastos_evento (
+  id         bigserial primary key,
+  evento_id  int not null references eventos (id) on delete cascade,
+  concepto   text not null,
+  monto      numeric(10,2) not null check (monto >= 0),
+  fecha      date not null default current_date
+);
+
+-- Al crear un evento se le cuelga el proceso completo con fechas límite.
+create or replace function eventos_proceso() returns trigger language plpgsql as $$
+begin
+  insert into evento_tareas (evento_id, fase, tarea, dias_antes, fecha_limite, responsable, orden)
+  select new.id, c.fase, c.tarea, c.dias_antes, new.fecha - c.dias_antes, c.responsable, c.orden
+  from evento_tareas_catalogo c where c.activo;
+  return new;
+end $$;
+create trigger eventos_proceso after insert on eventos for each row execute function eventos_proceso();
+
+-- Si cambia la fecha del evento, se recorren las fechas límite de lo pendiente.
+create or replace function eventos_recalcular_limites() returns trigger language plpgsql as $$
+begin
+  if new.fecha is distinct from old.fecha then
+    update evento_tareas set fecha_limite = new.fecha - dias_antes where evento_id = new.id and not hecho;
+  end if;
+  return new;
+end $$;
+create trigger eventos_recalcular_limites after update of fecha on eventos
+  for each row execute function eventos_recalcular_limites();
+
+create or replace function registrar_pago_inscripcion(p_inscripcion bigint, p_monto numeric, p_metodo text default null,
+                                                      p_cuenta text default null, p_nota text default null)
+returns pagos language sql as $$
+  insert into pagos (inscripcion_id, monto, tipo, metodo, cuenta, nota)
+  values (p_inscripcion, p_monto, 'evento', p_metodo, p_cuenta, p_nota) returning *;
+$$;
+
+-- Evento con inscritos, cobrado, gastos, ganancia y tareas pendientes o vencidas.
+create view v_evento_resumen as
+select e.*,
+       coalesce(i.inscritos, 0) as inscritos,
+       coalesce(i.esperado, 0) as esperado,
+       coalesce(pg.cobrado, 0) as cobrado,
+       coalesce(g.gastos, 0) + coalesce(e.costo, 0) * coalesce(i.inscritos, 0) as gastos,
+       coalesce(pg.cobrado, 0) - (coalesce(g.gastos, 0) + coalesce(e.costo, 0) * coalesce(i.inscritos, 0)) as ganancia,
+       coalesce(t.pendientes, 0) as tareas_pendientes,
+       coalesce(t.vencidas, 0) as tareas_vencidas
+from eventos e
+left join (select evento_id, count(*) as inscritos, sum(precio) as esperado from inscripciones group by 1) i on i.evento_id = e.id
+left join (select ins.evento_id, sum(p.monto) as cobrado from pagos p join inscripciones ins on ins.id = p.inscripcion_id group by 1) pg
+       on pg.evento_id = e.id
+left join (select evento_id, sum(monto) as gastos from gastos_evento group by 1) g on g.evento_id = e.id
+left join (select evento_id, count(*) filter (where not hecho) as pendientes,
+                  count(*) filter (where not hecho and fecha_limite < current_date) as vencidas
+           from evento_tareas group by 1) t on t.evento_id = e.id;
+
+insert into evento_tareas_catalogo (fase, tarea, dias_antes, responsable, orden) values
+  ('planeacion',    'Definir fecha, lugar y cupo', 30, 'Dirección', 1),
+  ('planeacion',    'Definir precio, costo por persona y punto de equilibrio', 30, 'Dirección', 2),
+  ('planeacion',    'Confirmar guía o instructor', 28, 'Dirección', 3),
+  ('planeacion',    'Confirmar transporte 4x4', 25, 'Transporte', 4),
+  ('planeacion',    'Tramitar permisos (acampar, acceso a la reserva)', 25, 'Operación', 5),
+  ('planeacion',    'Armar itinerario, plan de pagos y política de no reembolso', 24, 'Ventas', 6),
+  ('difusion',      'Diseñar imagen y texto del evento', 21, 'Marketing', 7),
+  ('difusion',      'Preparar la respuesta predeterminada de WhatsApp', 21, 'Ventas', 8),
+  ('difusion',      'Publicar en Facebook e Instagram', 20, 'Marketing', 9),
+  ('difusion',      'Compartir en la comunidad de WhatsApp', 20, 'Ventas', 10),
+  ('difusion',      'Lanzar anuncio en Meta', 18, 'Marketing', 11),
+  ('inscripciones', 'Registrar inscritos y cobrar anticipo', 14, 'Ventas', 12),
+  ('inscripciones', 'Cobrar liquidación a todos (dos semanas antes)', 14, 'Ventas', 13),
+  ('inscripciones', 'Confirmar alojamiento de cada inscrito', 10, 'Ventas', 14),
+  ('inscripciones', 'Cerrar la lista final de asistentes', 7, 'Ventas', 15),
+  ('logistica',     'Comprar comida, snacks y utensilios', 3, 'Operación', 16),
+  ('logistica',     'Preparar el material del taller', 3, 'Operación', 17),
+  ('logistica',     'Resolver baños, fogata y bolsas de basura', 2, 'Operación', 18),
+  ('logistica',     'Enviar instrucciones a los inscritos: hora, punto de salida, qué llevar', 2, 'Ventas', 19),
+  ('evento',        'Pasar lista y cobrar pendientes', 0, 'Ventas', 20),
+  ('evento',        'Tomar fotos y video', 0, 'Marketing', 21),
+  ('cierre',        'Limpiar el lugar', -1, 'Operación', 22),
+  ('cierre',        'Pedir reseñas a los asistentes', -1, 'Ventas', 23),
+  ('cierre',        'Publicar fotos y agradecer', -2, 'Marketing', 24),
+  ('cierre',        'Cerrar cuentas: ingresos, gastos y ganancia', -3, 'Dirección', 25),
+  ('cierre',        'Anotar aprendizajes para el próximo evento', -3, 'Dirección', 26);

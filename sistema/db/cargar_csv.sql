@@ -112,6 +112,10 @@ from st_ins s
 join inscripciones i on i.referencia_excel = s.fila_origen
 where s.monto_pagado > 0;
 
+-- Los eventos ya realizados no necesitan tareas pendientes.
+update evento_tareas t set hecho = true, hecho_en = now(), hecho_por = 'migración'
+from eventos e where e.id = t.evento_id and e.estado = 'realizado';
+
 -- Las estancias que ya pasaron no necesitan checklist pendiente.
 update checklist_reserva set hecho = true, hecho_en = now(), hecho_por = 'migración'
 where reservacion_id in (select id from reservaciones where estado = 'completada' and referencia_excel is not null);

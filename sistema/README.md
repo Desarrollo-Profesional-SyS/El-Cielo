@@ -28,7 +28,7 @@ sistema/
 | Embudo Nuevo, Embudo San José, Embudo Gómez F, Cancelar 2 | `pasos_embudo` (plantillas y reglas, editables) |
 | Feedback Diario de Leads | vista `v_semana`, se calcula sola |
 | Reservaciones | `reservaciones`, `pagos`, `gastos_reserva`, `checklist_reserva` |
-| Reservaciones Eventos, Eventos | `eventos`, `inscripciones`, `pagos` |
+| Reservaciones Eventos, Eventos | `eventos`, `evento_tareas` (proceso por fases), `inscripciones`, `pagos`, `gastos_evento` |
 | Cabañas, Marzo | `cabanas`, vista `v_ocupacion` |
 | Hoja 7 (metas SMART) | `metas`, vista `v_mes` |
 | Plan Trabajo | pendiente (fase 4, checklist diario) |
@@ -68,6 +68,17 @@ Las funciones que usa la aplicación:
 | `cerrar_lead(id, estado)` | Cancelar o archivar sin pasar por el embudo. |
 | `convertir_lead_en_reserva(id, cabana, llegada, salida, total, anticipo)` | Crea la reservación con su checklist de 12 tareas, registra el anticipo y cierra el lead como reservó. Rechaza traslapes de cabaña. |
 | `registrar_pago_reserva(reserva, monto)` | Registra un pago; si completa el total, la reservación pasa a liquidada. |
+
+## Cómo funciona el proceso de un evento
+
+Al insertar un evento con fecha, un trigger le cuelga las tareas del catálogo
+`evento_tareas_catalogo` con su fecha límite (`fecha del evento - días antes`) y
+un responsable sugerido. Si la fecha del evento cambia, las tareas pendientes se
+recorren solas. Las fases son planeación, difusión, inscripciones, logística,
+día del evento y cierre; el catálogo se edita como datos. La vista
+`v_evento_resumen` da inscritos, esperado, cobrado, gastos (fijos más costo por
+persona), ganancia y tareas pendientes o vencidas. Los pagos de inscritos se
+registran con `registrar_pago_inscripcion`.
 
 Las vistas que alimentan las pantallas: `v_lista_hoy` (a quién le toca mensaje
 hoy, con la plantilla y los dos pasos posibles), `v_embudo` (cuántos hay en cada
@@ -139,12 +150,34 @@ Lo que hace la limpieza:
 | Embudo (editar pasos y plantillas) | `pasos_embudo`, `v_embudo` |
 | Calendario de ocupación | `v_ocupacion`, `cabana_disponible` |
 | Reservación | `v_reserva_resumen`, `checklist_reserva`, `registrar_pago_reserva`, `gastos_reserva` |
-| Eventos | `eventos`, `v_inscripcion_resumen` |
-| Tablero | `v_semana`, `v_mes`, `v_embudo`, `metas` |
+| Eventos | `v_evento_resumen`, `evento_tareas`, `v_inscripcion_resumen`, `gastos_evento` |
+| Metas | `metas` (avance calculado desde reservaciones, eventos y leads) |
+| Tablero | `v_semana`, `v_mes`, `v_embudo`, `metas`, `v_evento_resumen` |
 
 ## Fases
 
-1. **Hecho:** modelo de datos, motor de embudo con pruebas, migración del Excel, prototipo.
-2. Lista de hoy, registro de leads, ficha e historial, tablero básico, login.
+1. **Hecho:** modelo de datos, motor de embudo con pruebas, proceso de eventos, migración del Excel, prototipo.
+2. Lista de hoy, registro y edición de leads, ficha e historial, tablero básico, login.
 3. Calendario, reservaciones con pagos y checklist, gastos y ganancia.
-4. Eventos e inscripciones, metas, checklist diario del plan de trabajo, API de WhatsApp.
+4. Eventos con proceso e inscritos, metas, checklist diario del plan de trabajo, API de WhatsApp.
+
+## Propuestas para que el sistema sea más eficiente
+
+Por orden de impacto sobre la operación diaria:
+
+1. **Captura automática desde WhatsApp.** Con la API de WhatsApp Cloud cada mensaje entrante crea el lead solo, con el anuncio de Meta como origen, y el paso 1 se responde en segundos aunque sea de madrugada.
+2. **Aviso diario al equipo.** A las 9:00 llega al grupo la lista de hoy (cuántos leads, cuáles con retraso, tareas de eventos vencidas, anticipos por liquidar). Sustituye los screenshots del plan de trabajo.
+3. **Cotizador.** Precio automático por cabaña, personas, noches, temporada, transporte 4x4 y tours; genera el mensaje de cotización con fotos. Elimina errores de monto y acelera el paso 5 y 6.
+4. **Plantillas con variables.** `{nombre}`, `{personas}`, `{fecha}`, `{monto}` en cada paso para que el mensaje llegue personalizado sin editarlo a mano.
+5. **Calendario de disponibilidad en el sitio** y sincronización con Airbnb por iCal, para evitar dobles reservas y vender sin pedir fechas por chat.
+6. **Formulario de reserva en la web** que registre el lead o la reservación directo en la base, con el sitio que ya existe.
+7. **Links de pago** (Mercado Pago, Clip o Stripe) en el paso 8 y conciliación automática de anticipos y liquidaciones.
+8. **Motivo de cancelación estructurado** (precio, fechas, sin 4x4, distancia, no contestó) para saber por qué se pierden leads y ajustar oferta y anuncios.
+9. **Post-estancia automático.** Un día después del check-out: mensaje de agradecimiento, encuesta corta y liga a la reseña de Google; la meta de reseñas se alimenta sola.
+10. **Remarketing con la base.** Exportar leads cancelados o archivados como público personalizado de Meta para promociones de temporada, y lista de exhuéspedes para eventos.
+11. **Métricas por persona.** Tiempo de primera respuesta, leads atendidos y conversión por quien atiende; turnos y asignación automática de leads nuevos.
+12. **Incidencias y mantenimiento por cabaña.** Registrar problemas (plagas, fugas, faltantes), consumibles y leña; el checklist de salida los alimenta.
+13. **Reporte semanal automático** por correo o WhatsApp: leads, cotizaciones, conversión, ingresos, avance de metas y eventos.
+14. **Roles y permisos.** Quién ve teléfonos completos, quién edita precios y plantillas, quién borra.
+15. **Respaldo y exportación** a Excel o Google Sheets con un clic, para quien prefiera analizar ahí.
+16. **Plan de trabajo diario** como checklist con evidencia (la hoja Plan Trabajo), ligado a las tareas de eventos y al calendario de publicaciones.

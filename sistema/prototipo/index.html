@@ -30,13 +30,20 @@
   [hidden] { display: none !important; }
   body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.45 'Space Grotesk', system-ui, sans-serif; }
   button, input, select, textarea { font: inherit; color: inherit; }
-  h1, h2, h3 { margin: 0; text-wrap: balance; }
+  h1, h2, h3, h4 { margin: 0; text-wrap: balance; }
+  a { color: var(--accent-ink); }
   .num { font-variant-numeric: tabular-nums; }
   :focus-visible { outline: 2px solid var(--accent-ink); outline-offset: 2px; }
+  input[type="text"], input[type="number"], input[type="date"], input[type="tel"], input:not([type]), select, textarea { padding: 8px 10px; border: 1px solid var(--line-2); border-radius: 8px; background: var(--bg); min-width: 0; width: 100%; }
+  textarea { min-height: 70px; resize: vertical; }
+  label.f { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--ink-2); font-weight: 600; min-width: 0; }
+  form.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px 12px; align-items: end; }
+  form.grid .full { grid-column: 1 / -1; }
+  form.grid .botones { display: flex; gap: 8px; flex-wrap: wrap; }
 
   /* ---- cabecera ---- */
   .top { position: sticky; top: 0; z-index: 20; background: var(--bg); border-bottom: 1px solid var(--line); }
-  .top-in { max-width: 1120px; margin: 0 auto; padding: 10px 20px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+  .top-in { max-width: 1160px; margin: 0 auto; padding: 10px 20px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
   .brand { display: flex; flex-direction: column; line-height: 1.1; }
   .brand .eyebrow { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); font-weight: 600; }
   .brand .name { font-family: 'Fraunces', Georgia, serif; font-size: 22px; font-weight: 700; }
@@ -44,15 +51,16 @@
   nav.tabs button { border: 0; background: transparent; padding: 8px 12px; border-radius: 999px; cursor: pointer; font-weight: 500; color: var(--ink-2); }
   nav.tabs button[aria-selected="true"] { background: var(--accent-soft); color: var(--accent-ink); font-weight: 600; }
   nav.tabs button .cnt { display: inline-block; min-width: 20px; padding: 0 6px; margin-left: 6px; border-radius: 999px; background: var(--sun-soft); color: var(--sun-ink); font-size: 12px; font-weight: 700; text-align: center; }
+  nav.tabs button .cnt.ok { background: var(--panel-2); color: var(--ink-2); }
   .top .right { margin-left: auto; display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--ink-2); }
   .demo { border: 1px dashed var(--line-2); border-radius: 999px; padding: 3px 10px; }
   .user { display: inline-flex; align-items: center; gap: 6px; }
   .user b { width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: #fff; display: inline-grid; place-items: center; font-size: 12px; }
 
-  main { max-width: 1120px; margin: 0 auto; padding-block: 22px 60px; padding-inline: 20px; }
+  main { max-width: 1160px; margin: 0 auto; padding-block: 22px 60px; padding-inline: 20px; }
   .vista > .head { display: flex; align-items: end; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 18px; }
   .vista h2 { font-family: 'Fraunces', Georgia, serif; font-size: 28px; font-weight: 600; }
-  .vista .sub { color: var(--ink-2); margin-top: 4px; }
+  .vista .sub { color: var(--ink-2); margin-top: 4px; max-width: 70ch; }
 
   /* ---- botones ---- */
   .btn { border: 1px solid var(--line-2); background: var(--panel); border-radius: 8px; padding: 7px 12px; cursor: pointer; font-weight: 600; display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; line-height: 1.2; }
@@ -62,14 +70,15 @@
   .btn.wa svg { width: 16px; height: 16px; fill: currentColor; }
   .btn.ghost { background: transparent; }
   .btn.small { padding: 5px 9px; font-size: 13px; }
+  .btn.tiny { padding: 3px 8px; font-size: 12px; }
   .btn.danger { color: var(--rojo); }
+  .btn.danger.solid { background: var(--rojo); border-color: var(--rojo); color: #fff; }
   .btn .arrow { color: inherit; opacity: .75; font-weight: 500; }
+  .confirm { display: inline-flex; align-items: center; gap: 8px; background: var(--rojo-soft); color: var(--rojo); padding: 5px 10px; border-radius: 8px; font-weight: 600; font-size: 13px; flex-wrap: wrap; }
 
-  /* ---- registrar ---- */
-  .registro { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px; margin-bottom: 22px; }
-  .registro form { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px 12px; align-items: end; }
-  .registro label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--ink-2); font-weight: 600; }
-  .registro input, .registro select { padding: 8px 10px; border: 1px solid var(--line-2); border-radius: 8px; background: var(--bg); }
+  /* ---- paneles ---- */
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px; margin-bottom: 22px; }
+  .panel h3 { font-size: 14px; margin-bottom: 10px; }
 
   /* ---- grupos y leads ---- */
   .grupo { margin-bottom: 22px; }
@@ -79,9 +88,9 @@
   .grupo .n { margin-left: auto; font-size: 12px; color: var(--ink-2); }
   .lead { display: grid; grid-template-columns: 1.3fr 1.5fr 1fr auto; gap: 12px 16px; align-items: center; padding: 12px 8px; border-bottom: 1px solid var(--line); }
   .lead:last-child { border-bottom: 0; }
-  .lead .name { border: 0; background: none; padding: 0; text-align: left; font-weight: 600; font-size: 15px; cursor: pointer; color: var(--ink); }
-  .lead .name:hover { color: var(--accent-ink); text-decoration: underline; }
-  .lead .tel { color: var(--ink-2); font-size: 13px; }
+  .name { border: 0; background: none; padding: 0; text-align: left; font-weight: 600; font-size: 15px; cursor: pointer; color: var(--ink); }
+  .name:hover { color: var(--accent-ink); text-decoration: underline; }
+  .tel { color: var(--ink-2); font-size: 13px; }
   .chips { display: flex; flex-wrap: wrap; gap: 6px; }
   .chip { font-size: 12px; padding: 2px 8px; border-radius: 999px; background: var(--panel-2); color: var(--ink); }
   .chip.dest { background: var(--accent-soft); color: var(--accent-ink); font-weight: 600; }
@@ -97,33 +106,56 @@
   .vacio { padding: 40px; text-align: center; color: var(--ink-2); border: 1px dashed var(--line-2); border-radius: 12px; }
 
   /* ---- tabla ---- */
-  .filtros { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
-  .filtros input, .filtros select { padding: 8px 10px; border: 1px solid var(--line-2); border-radius: 8px; background: var(--bg); }
+  .filtros { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; align-items: center; }
+  .filtros input, .filtros select { width: auto; }
+  .lote { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; padding: 8px 12px; background: var(--sun-soft); color: var(--sun-ink); border-radius: 10px; margin-bottom: 12px; font-weight: 600; }
   .tabla-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; }
   table { border-collapse: collapse; width: 100%; min-width: 640px; }
   th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
   th { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--ink-2); background: var(--panel); }
   tr:last-child td { border-bottom: 0; }
   td.r, th.r { text-align: right; }
-  .est { font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 999px; }
-  .est.activo { background: var(--accent-soft); color: var(--accent-ink); }
-  .est.reservo { background: var(--sun-soft); color: var(--sun-ink); }
+  td.acc { white-space: nowrap; }
+  td.acc .btn { margin-right: 4px; }
+  .est { font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
+  .est.activo, .est.publicado { background: var(--accent-soft); color: var(--accent-ink); }
+  .est.reservo, .est.planeado { background: var(--sun-soft); color: var(--sun-ink); }
   .est.cancelado { background: var(--rojo-soft); color: var(--rojo); }
-  .est.archivado { background: var(--panel-2); color: var(--ink-2); }
+  .est.archivado, .est.realizado, .est.idea { background: var(--panel-2); color: var(--ink-2); }
 
   /* ---- embudo ---- */
   .paso-row details { border: 1px solid var(--line); border-radius: 10px; margin-bottom: 8px; background: var(--panel); }
   .paso-row summary { display: grid; grid-template-columns: 52px 1.4fr 1fr 1fr 1fr auto; gap: 12px; align-items: center; padding: 10px 14px; cursor: pointer; list-style: none; }
   .paso-row summary::-webkit-details-marker { display: none; }
   .paso-row .cod { font-family: 'Fraunces', Georgia, serif; font-size: 20px; font-weight: 700; color: var(--accent-ink); }
-  .paso-row .lbl { font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: var(--ink-2); display: block; }
+  .lbl { font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: var(--ink-2); display: block; }
   .paso-row pre { margin: 0; padding: 12px 14px 14px; border-top: 1px solid var(--line); white-space: pre-wrap; font: 13px/1.5 'Space Grotesk', system-ui, sans-serif; color: var(--ink); background: var(--bg); border-radius: 0 0 10px 10px; }
   .leyenda { color: var(--ink-2); font-size: 13px; margin-bottom: 14px; }
+
+  /* ---- eventos ---- */
+  .eventos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
+  .evento { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+  .evento h3 { font-family: 'Fraunces', Georgia, serif; font-size: 20px; font-weight: 600; }
+  .evento .fecha { color: var(--ink-2); font-size: 13px; }
+  .evento .fila { display: flex; justify-content: space-between; gap: 10px; font-size: 13px; align-items: center; }
+  .evento .fila b { font-size: 15px; }
+  .cupo { height: 8px; background: var(--grid); border-radius: 4px; overflow: hidden; }
+  .cupo b { display: block; height: 100%; background: var(--bar); border-radius: 4px; }
+  .evento .pie { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: 4px; flex-wrap: wrap; }
+  .alerta { color: var(--rojo); font-weight: 600; font-size: 12px; }
+  .ok { color: var(--accent-ink); font-weight: 600; font-size: 12px; }
+
+  /* ---- metas ---- */
+  .prog { height: 8px; background: var(--grid); border-radius: 4px; overflow: hidden; min-width: 120px; }
+  .prog b { display: block; height: 100%; background: var(--bar); border-radius: 4px; }
+  .prog.done b { background: var(--accent); }
+  td form.inline { display: grid; grid-template-columns: 1.6fr 1fr 1fr .7fr auto; gap: 6px; align-items: end; min-width: 520px; }
+  td form.inline input, td form.inline select { padding: 6px 8px; }
 
   /* ---- tablero ---- */
   .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-bottom: 22px; }
   .tile { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
-  .tile .lbl { font-size: 12px; color: var(--ink-2); font-weight: 600; }
+  .tile .lbl { font-size: 12px; color: var(--ink-2); font-weight: 600; text-transform: none; letter-spacing: 0; }
   .tile .val { font-family: 'Fraunces', Georgia, serif; font-size: 34px; font-weight: 600; line-height: 1.1; margin-top: 4px; }
   .tile .sub { font-size: 12px; color: var(--ink-2); margin-top: 2px; }
   .charts { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
@@ -151,14 +183,19 @@
   .hbars .v { text-align: right; font-weight: 600; }
   .chart table { min-width: 0; margin-top: 10px; }
   .chart .tabla-wrap { margin-top: 10px; }
+  .metas-mini { display: grid; gap: 8px; }
+  .metas-mini .m { display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; align-items: center; font-size: 13px; }
+  .metas-mini .m .prog { grid-column: 1 / -1; min-width: 0; }
 
   /* ---- ficha lateral ---- */
-  .sheet { position: fixed; top: 0; right: 0; bottom: 0; width: min(440px, 100%); background: var(--bg); border-left: 1px solid var(--line); box-shadow: var(--shadow); z-index: 30; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 16px; }
+  .sheet { position: fixed; top: 0; right: 0; bottom: 0; width: min(480px, 100%); background: var(--bg); border-left: 1px solid var(--line); box-shadow: var(--shadow); z-index: 30; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 18px; }
+  .sheet.wide { width: min(640px, 100%); }
   .sheet .close { position: absolute; top: 12px; right: 12px; }
   .sheet h2 { font-family: 'Fraunces', Georgia, serif; font-size: 24px; font-weight: 600; padding-right: 40px; }
   .datos { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 14px; font-size: 13px; }
-  .datos div span { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: var(--ink-2); }
-  .sheet section h3 { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-2); margin-bottom: 8px; }
+  .datos div span.lbl { margin-bottom: 1px; }
+  .sheet section > h3 { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-2); margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+  .sheet section > h3 .btn { text-transform: none; letter-spacing: 0; }
   .hist { list-style: none; margin: 0; padding: 0; border-left: 2px solid var(--line-2); }
   .hist li { position: relative; padding: 2px 0 10px 14px; font-size: 13px; }
   .hist li::before { content: ""; position: absolute; left: -6px; top: 8px; width: 10px; height: 10px; border-radius: 50%; background: var(--line-2); }
@@ -166,22 +203,41 @@
   .hist li.respuesta.no::before { background: var(--sun); }
   .hist li.cambio::before { background: var(--ink-2); }
   .hist li small { display: block; color: var(--ink-2); }
-  .acciones-ficha { display: flex; flex-wrap: wrap; gap: 8px; }
-  .acciones-ficha select { padding: 6px 8px; border: 1px solid var(--line-2); border-radius: 8px; background: var(--bg); }
-  .reservar { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px; }
-  .reservar form { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .reservar label { font-size: 12px; color: var(--ink-2); font-weight: 600; display: flex; flex-direction: column; gap: 3px; }
-  .reservar input, .reservar select { padding: 7px 9px; border: 1px solid var(--line-2); border-radius: 8px; background: var(--bg); }
-  .reservar .full { grid-column: 1 / -1; }
+  .acciones-ficha { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .acciones-ficha select { width: auto; padding: 6px 8px; }
+  .caja { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px; }
+  .caja form.grid { grid-template-columns: 1fr 1fr; }
   .check { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
   .check li { display: flex; gap: 8px; align-items: flex-start; font-size: 13px; }
-  .check li.hecho { color: var(--ink-2); text-decoration: line-through; }
+  .check li.hecho label { color: var(--ink-2); text-decoration: line-through; }
   .check li span.m { font-size: 10px; text-transform: uppercase; letter-spacing: .05em; color: var(--ink-2); min-width: 54px; padding-top: 3px; }
+  .check input[type="checkbox"] { margin-top: 3px; }
   .plantilla-prev { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; font-size: 13px; white-space: pre-wrap; max-height: 160px; overflow: auto; }
   .backdrop { position: fixed; inset: 0; background: rgba(19,26,17,.35); z-index: 25; }
 
+  /* tareas de evento */
+  .fase { margin-bottom: 12px; }
+  .fase h4 { font-size: 12px; font-weight: 700; color: var(--ink); display: flex; gap: 8px; align-items: baseline; margin-bottom: 6px; }
+  .fase h4 small { color: var(--ink-2); font-weight: 500; }
+  .tarea { display: grid; grid-template-columns: auto 1fr auto auto; gap: 8px; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+  .tarea:last-child { border-bottom: 0; }
+  .tarea.hecha label { color: var(--ink-2); text-decoration: line-through; }
+  .tarea .lim { font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+  .tarea .lim.vencida { color: var(--rojo); font-weight: 600; }
+  .tarea select { width: auto; padding: 3px 6px; font-size: 12px; }
+  .tarea .del { border: 0; background: none; color: var(--ink-2); cursor: pointer; padding: 0 4px; }
+  .inscrito { display: grid; grid-template-columns: 1.4fr 1fr auto; gap: 8px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+  .inscrito:last-child { border-bottom: 0; }
+  .inscrito .pago { display: flex; gap: 6px; align-items: center; }
+  .inscrito .pago input { width: 84px; padding: 4px 6px; }
+  .fin { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 10px; }
+  .fin div { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; }
+  .fin div b { display: block; font-family: 'Fraunces', Georgia, serif; font-size: 20px; }
+  .gasto { display: flex; justify-content: space-between; gap: 8px; padding: 5px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+  .gasto:last-child { border-bottom: 0; }
+
   #toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 10px 16px; border-radius: 10px; font-weight: 500; z-index: 40; box-shadow: var(--shadow); max-width: calc(100% - 32px); }
-  footer.pie { max-width: 1120px; margin: 0 auto; padding: 0 20px 30px; font-size: 12px; color: var(--ink-2); display: flex; gap: 14px; flex-wrap: wrap; }
+  footer.pie { max-width: 1160px; margin: 0 auto; padding: 0 20px 30px; font-size: 12px; color: var(--ink-2); display: flex; gap: 14px; flex-wrap: wrap; }
   footer.pie button { border: 0; background: none; color: var(--accent-ink); cursor: pointer; padding: 0; font-weight: 600; }
 
   @media (max-width: 720px) {
@@ -190,6 +246,11 @@
     .paso-row summary { grid-template-columns: 44px 1fr; }
     .paso-row summary .oc { display: none; }
     .datos { grid-template-columns: 1fr; }
+    .caja form.grid { grid-template-columns: 1fr; }
+    .tarea { grid-template-columns: auto 1fr; }
+    .tarea .lim, .tarea select { grid-column: 2; }
+    .inscrito { grid-template-columns: 1fr; }
+    .fin { grid-template-columns: 1fr; }
   }
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
@@ -200,6 +261,8 @@
     <nav class="tabs" role="tablist" aria-label="Secciones">
       <button role="tab" aria-selected="true" data-vista="hoy" id="tab-hoy">Hoy <span class="cnt" id="cnt-hoy">0</span></button>
       <button role="tab" aria-selected="false" data-vista="leads" id="tab-leads">Leads</button>
+      <button role="tab" aria-selected="false" data-vista="eventos" id="tab-eventos">Eventos <span class="cnt ok" id="cnt-eventos">0</span></button>
+      <button role="tab" aria-selected="false" data-vista="metas" id="tab-metas">Metas</button>
       <button role="tab" aria-selected="false" data-vista="embudo" id="tab-embudo">Embudo</button>
       <button role="tab" aria-selected="false" data-vista="tablero" id="tab-tablero">Tablero</button>
     </nav>
@@ -217,24 +280,22 @@
       <div><h2 id="hoy-titulo">Hoy</h2><div class="sub" id="hoy-sub"></div></div>
       <button class="btn primary" id="btn-nuevo" type="button">+ Registrar lead</button>
     </div>
-
-    <div class="registro" id="registro" hidden>
-      <form id="form-lead" autocomplete="off">
-        <label>Celular (WhatsApp)<input id="f-cel" required placeholder="834 123 4567" inputmode="tel"></label>
-        <label>Nombre<input id="f-nombre" placeholder="Si ya lo dio"></label>
-        <label>Destino<select id="f-destino">
+    <div class="panel" id="registro" hidden>
+      <form id="form-lead" class="grid" autocomplete="off">
+        <label class="f">Celular (WhatsApp)<input id="f-cel" required placeholder="834 123 4567" inputmode="tel"></label>
+        <label class="f">Nombre<input id="f-nombre" placeholder="Si ya lo dio"></label>
+        <label class="f">Destino<select id="f-destino">
           <option>Sin definir</option><option>San José</option><option>Gómez Farías</option><option>Camping</option><option>Tours</option>
         </select></label>
-        <label>Personas<input id="f-personas" type="number" min="1" placeholder="4"></label>
-        <label>Noches<input id="f-noches" type="number" min="1" placeholder="1"></label>
-        <label>Mes del viaje<input id="f-mes" placeholder="Octubre"></label>
-        <label>Origen<select id="f-origen">
+        <label class="f">Personas<input id="f-personas" type="number" min="1" placeholder="4"></label>
+        <label class="f">Noches<input id="f-noches" type="number" min="1" placeholder="1"></label>
+        <label class="f">Mes del viaje<input id="f-mes" placeholder="Octubre"></label>
+        <label class="f">Origen<select id="f-origen">
           <option>Anuncio Meta</option><option>Facebook / Instagram</option><option>Sitio web</option><option>Google</option><option>Recomendación</option><option>Airbnb</option><option>Otro</option>
         </select></label>
-        <div style="display:flex;gap:8px"><button class="btn primary" type="submit">Registrar</button><button class="btn ghost" type="button" id="btn-cancelar-reg">Cerrar</button></div>
+        <div class="botones"><button class="btn primary" type="submit">Registrar</button><button class="btn ghost" type="button" id="btn-cancelar-reg">Cerrar</button></div>
       </form>
     </div>
-
     <div id="hoy-lista"></div>
   </section>
 
@@ -249,9 +310,53 @@
       <select id="filtro-destino" aria-label="Destino">
         <option value="">Todos los destinos</option><option>San José</option><option>Gómez Farías</option><option>Camping</option><option>Tours</option><option>Sin definir</option>
       </select>
+      <span style="color:var(--ink-2);font-size:12px">Marca varios para actuar en lote</span>
     </div>
+    <div class="lote" id="lote" hidden></div>
     <div class="tabla-wrap"><table id="tabla-leads">
-      <thead><tr><th>Lead</th><th>Destino</th><th>Viaje</th><th class="r">Monto</th><th>Paso</th><th>Estado</th><th>Próxima</th><th>Origen</th></tr></thead>
+      <thead><tr><th><input type="checkbox" id="sel-todos" aria-label="Seleccionar todos"></th><th>Lead</th><th>Destino</th><th>Viaje</th><th class="r">Monto</th><th>Paso</th><th>Estado</th><th>Próxima</th><th>Origen</th><th></th></tr></thead>
+      <tbody></tbody>
+    </table></div>
+  </section>
+
+  <!-- ================= EVENTOS ================= -->
+  <section class="vista" id="vista-eventos" role="tabpanel" aria-labelledby="tab-eventos" hidden>
+    <div class="head">
+      <div><h2>Eventos</h2><div class="sub">Cada evento nace con su proceso completo: tareas por fase con fecha límite y responsable, inscritos con pagos, gastos y ganancia.</div></div>
+      <button class="btn primary" id="btn-nuevo-evento" type="button">+ Nuevo evento</button>
+    </div>
+    <div class="panel" id="registro-evento" hidden>
+      <form id="form-evento-nuevo" class="grid" autocomplete="off">
+        <label class="f">Nombre<input id="e-nombre" required placeholder="Yoga en San José"></label>
+        <label class="f">Fecha<input id="e-fecha" type="date" required></label>
+        <label class="f">Lugar<select id="e-lugar"><option>San José</option><option>Gómez Farías</option><option>Alta Cima</option><option>Otro</option></select></label>
+        <label class="f">Precio al público<input id="e-precio" type="number" min="0" placeholder="2500"></label>
+        <label class="f">Costo por persona<input id="e-costo" type="number" min="0" placeholder="900"></label>
+        <label class="f">Cupo<input id="e-cupo" type="number" min="1" placeholder="15"></label>
+        <label class="f full">Qué incluye<input id="e-incluye" placeholder="Transporte 4x4, guía, comida, fogata"></label>
+        <div class="botones"><button class="btn primary" type="submit">Crear evento con su proceso</button><button class="btn ghost" type="button" id="btn-cancelar-evento">Cerrar</button></div>
+      </form>
+    </div>
+    <div class="eventos-grid" id="eventos-lista"></div>
+  </section>
+
+  <!-- ================= METAS ================= -->
+  <section class="vista" id="vista-metas" role="tabpanel" aria-labelledby="tab-metas" hidden>
+    <div class="head">
+      <div><h2>Metas</h2><div class="sub">Las metas SMART de la hoja 7, con el avance calculado desde reservaciones, eventos y leads. Las reseñas se capturan a mano hasta conectar Google.</div></div>
+      <button class="btn primary" id="btn-nueva-meta" type="button">+ Agregar meta</button>
+    </div>
+    <div class="panel" id="registro-meta" hidden>
+      <form id="form-meta-nueva" class="grid" autocomplete="off">
+        <label class="f">Objetivo<input id="m-objetivo" required placeholder="Generar ingresos sostenibles"></label>
+        <label class="f">Indicador<select id="m-indicador"><option value="reservas">Reservas</option><option value="ingresos">Ingresos ($)</option><option value="leads">Leads nuevos</option><option value="eventos">Eventos realizados</option><option value="resenas">Reseñas en Google</option></select></label>
+        <label class="f">Mes<input id="m-mes" type="month" required></label>
+        <label class="f">Meta<input id="m-meta" type="number" min="1" required placeholder="10"></label>
+        <div class="botones"><button class="btn primary" type="submit">Guardar</button><button class="btn ghost" type="button" id="btn-cancelar-meta">Cerrar</button></div>
+      </form>
+    </div>
+    <div class="tabla-wrap"><table id="tabla-metas">
+      <thead><tr><th>Objetivo</th><th>Indicador</th><th>Mes</th><th class="r">Meta</th><th class="r">Avance</th><th>Progreso</th><th></th></tr></thead>
       <tbody></tbody>
     </table></div>
   </section>
@@ -281,6 +386,16 @@
         <div class="hbars" id="hbars-pasos"></div>
         <div class="tabla-wrap" id="tabla-pasos" hidden><table><thead><tr><th>Paso</th><th class="r">Activos</th></tr></thead><tbody></tbody></table></div>
       </div>
+      <div class="chart">
+        <header><h3>Metas del mes</h3></header>
+        <div class="fuente" id="metas-mes-titulo"></div>
+        <div class="metas-mini" id="metas-mini"></div>
+      </div>
+      <div class="chart">
+        <header><h3>Eventos en curso</h3></header>
+        <div class="fuente">Cupo, cobranza y tareas vencidas</div>
+        <div class="metas-mini" id="eventos-mini"></div>
+      </div>
     </div>
   </section>
 </main>
@@ -291,7 +406,7 @@
 </footer>
 
 <div class="backdrop" id="backdrop" hidden></div>
-<aside class="sheet" id="ficha" hidden aria-label="Ficha del lead"></aside>
+<aside class="sheet" id="ficha" hidden aria-label="Detalle"></aside>
 <div id="toast" hidden></div>
 
 <script>
@@ -315,16 +430,49 @@
     ['después', 'Agradecer y pedir reseña en Google'], ['después', 'Revisar la cabaña tras el check-out'],
     ['después', 'Registrar el feedback'], ['después', 'Limpiar para la próxima renta']
   ];
+  const EQUIPO = ['Andrés', 'Yussef', 'Adriana', 'Karla', 'Wicho', 'Oliver'];
+  const FASES = [['planeacion', 'Planeación'], ['difusion', 'Difusión'], ['inscripciones', 'Inscripciones'], ['logistica', 'Logística'], ['evento', 'Día del evento'], ['cierre', 'Cierre']];
+  // fase, tarea, días antes del evento (negativo = después), responsable sugerido
+  const TAREAS_EVENTO = [
+    ['planeacion', 'Definir fecha, lugar y cupo', 30, 'Yussef'],
+    ['planeacion', 'Definir precio, costo por persona y punto de equilibrio', 30, 'Yussef'],
+    ['planeacion', 'Confirmar guía o instructor', 28, 'Yussef'],
+    ['planeacion', 'Confirmar transporte 4x4', 25, 'Oliver'],
+    ['planeacion', 'Tramitar permisos (acampar, acceso a la reserva)', 25, 'Wicho'],
+    ['planeacion', 'Armar itinerario, plan de pagos y política de no reembolso', 24, 'Andrés'],
+    ['difusion', 'Diseñar imagen y texto del evento', 21, 'Adriana'],
+    ['difusion', 'Preparar la respuesta predeterminada de WhatsApp', 21, 'Andrés'],
+    ['difusion', 'Publicar en Facebook e Instagram', 20, 'Adriana'],
+    ['difusion', 'Compartir en la comunidad de WhatsApp', 20, 'Andrés'],
+    ['difusion', 'Lanzar anuncio en Meta', 18, 'Adriana'],
+    ['inscripciones', 'Registrar inscritos y cobrar anticipo', 14, 'Andrés'],
+    ['inscripciones', 'Cobrar liquidación a todos (dos semanas antes)', 14, 'Andrés'],
+    ['inscripciones', 'Confirmar alojamiento de cada inscrito', 10, 'Andrés'],
+    ['inscripciones', 'Cerrar la lista final de asistentes', 7, 'Andrés'],
+    ['logistica', 'Comprar comida, snacks y utensilios', 3, 'Adriana'],
+    ['logistica', 'Preparar el material del taller', 3, 'Adriana'],
+    ['logistica', 'Resolver baños, fogata y bolsas de basura', 2, 'Wicho'],
+    ['logistica', 'Enviar instrucciones a los inscritos: hora, punto de salida, qué llevar', 2, 'Andrés'],
+    ['evento', 'Pasar lista y cobrar pendientes', 0, 'Andrés'],
+    ['evento', 'Tomar fotos y video', 0, 'Adriana'],
+    ['cierre', 'Limpiar el lugar', -1, 'Wicho'],
+    ['cierre', 'Pedir reseñas a los asistentes', -1, 'Andrés'],
+    ['cierre', 'Publicar fotos y agradecer', -2, 'Adriana'],
+    ['cierre', 'Cerrar cuentas: ingresos, gastos y ganancia', -3, 'Yussef'],
+    ['cierre', 'Anotar aprendizajes para el próximo evento', -3, 'Yussef']
+  ];
+  const INDICADORES = { reservas: 'Reservas', ingresos: 'Ingresos', leads: 'Leads nuevos', eventos: 'Eventos realizados', resenas: 'Reseñas en Google' };
   const USUARIO = 'Andrés';
-  const CLAVE = 'cielo-embudo-demo-v1';
+  const CLAVE = 'cielo-embudo-demo-v2';
 
   // ---------- fechas ----------
   const hoy = () => { const d = new Date(); d.setHours(12, 0, 0, 0); return d; };
   const iso = d => d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
-  const parse = s => { const [y, m, d] = s.split('-').map(Number); return new Date(y, m - 1, d, 12); };
+  const parse = s => { const [y, m, d] = s.split('-').map(Number); return new Date(y, m - 1, d || 1, 12); };
   const addDays = (d, n) => { const x = new Date(d.getTime()); x.setDate(x.getDate() + n); return x; };
   const dias = (a, b) => Math.round((parse(a) - parse(b)) / 864e5);
   const HOY = iso(hoy());
+  const MES_ACTUAL = HOY.slice(0, 7);
   function sumarDias(d, n, habiles) {
     if (!habiles) return addDays(d, n);
     let x = new Date(d.getTime()), k = 0;
@@ -332,9 +480,11 @@
     return x;
   }
   const fmtFecha = s => parse(s).toLocaleDateString('es-MX', { day: 'numeric', month: 'short' });
+  const fmtMes = s => parse(s + '-01').toLocaleDateString('es-MX', { month: 'long', year: 'numeric' });
   const fmtLargo = d => d.toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric', month: 'long' });
   const fmtMonto = n => n == null ? '' : '$' + Number(n).toLocaleString('es-MX');
   const fmtTel = (lada, cel) => (lada === '52' ? '' : '+' + lada + ' ') + cel.replace(/(\d{3})(\d{3})(\d{4})/, '$1 $2 $3');
+  const enDias = f => { const n = dias(f, HOY); return n === 0 ? 'hoy' : n > 0 ? 'en ' + n + (n === 1 ? ' día' : ' días') : 'hace ' + (-n) + (n === -1 ? ' día' : ' días'); };
 
   // ---------- reglas del embudo (idénticas a schema.sql) ----------
   function resolver(codigo, destino) {
@@ -347,6 +497,21 @@
 
   // ---------- estado ----------
   let S = null;
+  let sel = new Set();          // leads seleccionados en la tabla
+  let confirmando = null;       // clave de la acción destructiva pendiente de confirmar
+  let fichaEdit = false;        // ficha de lead en modo edición
+  let evEdit = false;           // ficha de evento en modo edición
+  function normalizar(texto) {
+    const d = String(texto || '').replace(/\D/g, '');
+    if (d.length === 13 && d.startsWith('521')) return { lada: '52', cel: d.slice(3) };
+    if (d.length === 12 && d.startsWith('52')) return { lada: '52', cel: d.slice(2) };
+    if (d.length === 11 && d.startsWith('1')) return { lada: '1', cel: d.slice(1) };
+    if (d.length === 10) return { lada: '52', cel: d };
+    return null;
+  }
+  function tareasDesdeCatalogo(fecha) {
+    return TAREAS_EVENTO.map((t, i) => ({ id: 't' + (i + 1), fase: t[0], tarea: t[1], dias_antes: t[2], limite: iso(addDays(parse(fecha), -t[2])), responsable: t[3], hecho: false }));
+  }
   function semilla() {
     const L = [
       ['Mariana Treviño', '8345550101', '52', 'San José', 4, 2, 'Octubre', 8299, 'Anuncio Meta', '6', true, 2, 1],
@@ -386,34 +551,65 @@
       return {
         id: 'l' + (i + 1), nombre, celular: cel, lada, destino, personas, noches, mes, monto, origen, paso, enviado,
         fechaPaso, proxima: retraso == null ? null : iso(addDays(hoy(), -retraso)),
-        estado: estado || 'activo', creado, seguimientos: seg, reserva: null
+        estado: estado || 'activo', creado, comentarios: '', seguimientos: seg, reserva: null
       };
     });
     const res = (idx, cab, ll, sa, total, pagado) => {
       leads[idx].reserva = { cabana: cab, llegada: ll, salida: sa, total, pagado, checklist: CHECKLIST.map(() => false) };
     };
-    res(17, 1, '2026-10-03', '2026-10-05', 8299, 4150);
-    res(18, 2, '2026-09-19', '2026-09-20', 2500, 2500);
-    res(22, 3, '2026-08-29', '2026-08-30', 5599, 5599);
+    res(17, 1, iso(addDays(hoy(), 20)), iso(addDays(hoy(), 22)), 8299, 4150);
+    res(18, 2, iso(addDays(hoy(), 6)), iso(addDays(hoy(), 7)), 2500, 2500);
+    res(22, 3, iso(addDays(hoy(), -15)), iso(addDays(hoy(), -14)), 5599, 5599);
     leads[22].reserva.checklist = CHECKLIST.map(() => true);
-    return { leads, sig: leads.length + 1 };
+
+    // eventos
+    const mkEvento = (id, nombre, enDias, lugar, precio, costo, cupo, estado, incluye, tareasHechas, inscritos, gastos) => {
+      const fecha = iso(addDays(hoy(), enDias));
+      const tareas = tareasDesdeCatalogo(fecha).map((t, i) => Object.assign(t, { hecho: i < tareasHechas }));
+      return { id, nombre, fecha, lugar, precio, costo, cupo, estado, incluye, publicacion: iso(addDays(parse(fecha), -20)),
+        respuesta: '🌿 ' + nombre + ' 🌿\nUn día para desconectar en El Cielo, Tamaulipas.\n📅 ' + fmtFecha(fecha) + ' · 📍 ' + lugar + '\n💵 ' + fmtMonto(precio) + ' por persona\n✨ Incluye: ' + incluye + '\nAparta tu lugar con ' + fmtMonto(Math.round(precio / 5)) + ' y liquida dos semanas antes. No hay reembolsos.',
+        tareas, inscritos: inscritos.map((x, i) => ({ id: id + 'i' + (i + 1), nombre: x[0], celular: x[1], lada: '52', alojamiento: x[2], precio: x[3], pagado: x[4] })),
+        gastos: gastos.map((g, i) => ({ id: id + 'g' + (i + 1), concepto: g[0], monto: g[1] })), notas: '' };
+    };
+    const eventos = [
+      mkEvento('e1', 'Yoga en San José', 18, 'San José', 2500, 900, 15, 'publicado', 'Transporte 4x4, instructora, comidas, fogata y meditación', 12,
+        [['Gisela Gómez', '8345550201', 'Cabaña', 2500, 2500], ['Dalia Torres', '8345550202', 'Casa de campaña', 2500, 500], ['Oscar Carrillo', '8345550203', 'Casa de campaña', 2500, 500],
+         ['Sindy Garza', '8345550204', 'Cabaña', 2500, 1250], ['Ana Salazar', '8345550205', 'Casa de campaña', 2500, 500], ['Marcela Ruiz', '8345550206', 'Casa de campaña', 2500, 2500],
+         ['Iván Medina', '8345550207', 'Camping', 2500, 0], ['Renata Sosa', '8345550208', 'Casa de campaña', 2500, 500]],
+        [['Instructora de yoga', 2000], ['Camioneta 4x4', 3500], ['Permiso para acampar', 500]]),
+      mkEvento('e2', 'Senderismo a Alta Cima + comida', 45, 'Alta Cima', 650, 300, 20, 'planeado', 'Guía local, comida en la comunidad y transporte 4x4', 2, [], []),
+      mkEvento('e3', 'Ruta Celestial', -20, 'San José', 1800, 700, 12, 'realizado', 'Transporte, guía, avistamiento de aves y comida', 26,
+        [['Karina Villarreal', '8345550301', 'Cabaña', 1800, 1800], ['Tomás Reyes', '8345550302', 'Camping', 1800, 1800], ['Lucía Herrera', '8345550303', 'Cabaña', 1800, 1800],
+         ['Diego Morales', '8345550304', 'Camping', 1800, 1800], ['Sofía Lira', '8345550305', 'Cabaña', 1800, 1800], ['Emilio Cantú', '8345550306', 'Camping', 1800, 1800],
+         ['Paulina Garza', '8345550307', 'Cabaña', 1800, 1800], ['Mauricio Ortiz', '8345550308', 'Camping', 1800, 1800], ['Regina Salas', '8345550309', 'Cabaña', 1800, 1800]],
+        [['Guía', 2000], ['Camioneta 4x4', 3500], ['Comidas', 3000], ['Bolsas y consumibles', 300]])
+    ];
+    const m0 = parse(HOY); const mes = k => iso(new Date(m0.getFullYear(), m0.getMonth() + k, 1)).slice(0, 7);
+    const metas = [
+      ['Generar ingresos sostenibles mediante hospedaje y experiencias', 'reservas', mes(0), 6], ['Generar ingresos sostenibles mediante hospedaje y experiencias', 'reservas', mes(1), 8],
+      ['Generar ingresos sostenibles mediante hospedaje y experiencias', 'reservas', mes(2), 10],
+      ['Posicionar Glamping El Cielo Adventures como referente de El Cielo', 'resenas', mes(0), 10], ['Posicionar Glamping El Cielo Adventures como referente de El Cielo', 'resenas', mes(1), 15],
+      ['Posicionar Glamping El Cielo Adventures como referente de El Cielo', 'resenas', mes(2), 20],
+      ['Realizar mínimo una experiencia o evento al mes', 'eventos', mes(0), 1], ['Realizar mínimo una experiencia o evento al mes', 'eventos', mes(1), 1], ['Realizar mínimo una experiencia o evento al mes', 'eventos', mes(2), 1],
+      ['Mantener el flujo de leads de temporada', 'leads', mes(0), 150]
+    ].map((m, i) => ({ id: 'm' + (i + 1), objetivo: m[0], indicador: m[1], mes: m[2], meta: m[3], avance: m[1] === 'resenas' && m[2] === mes(0) ? 4 : 0 }));
+    return { leads, eventos, metas, sig: leads.length + 1, sigE: 4, sigM: metas.length + 1 };
   }
   function cargar() {
-    try { const s = localStorage.getItem(CLAVE); if (s) { const o = JSON.parse(s); if (o && o.leads) return o; } } catch (e) { /* sin almacenamiento */ }
+    try { const s = localStorage.getItem(CLAVE); if (s) { const o = JSON.parse(s); if (o && o.leads && o.eventos && o.metas) return o; } } catch (e) { /* sin almacenamiento */ }
     return semilla();
   }
   function guardar() { try { localStorage.setItem(CLAVE, JSON.stringify(S)); } catch (e) { /* sin almacenamiento */ } }
   const porId = id => S.leads.find(l => l.id === id);
+  const evId = id => S.eventos.find(e => e.id === id);
 
-  // ---------- acciones (espejo de las funciones SQL) ----------
+  // ---------- acciones sobre leads (espejo de las funciones SQL) ----------
   function log(lead, s) { lead.seguimientos.push(Object.assign({ fecha: HOY, usuario: USUARIO }, s)); }
-  function waLink(lead, texto) {
-    return 'https://wa.me/' + lead.lada + lead.celular + (texto ? '?text=' + encodeURIComponent(texto) : '');
-  }
+  const waLink = (lada, cel, texto) => 'https://wa.me/' + lada + cel + (texto ? '?text=' + encodeURIComponent(texto) : '');
   function abrirWA(lead, codigo) {
     const p = P[codigo];
-    if (p && p.plantilla && p.plantilla.trim() !== '/') window.open(waLink(lead, p.plantilla), '_blank', 'noopener');
-    else window.open(waLink(lead, ''), '_blank', 'noopener');
+    const txt = p && p.plantilla && p.plantilla.trim() !== '/' ? p.plantilla : '';
+    window.open(waLink(lead.lada, lead.celular, txt), '_blank', 'noopener');
   }
   function enviar(lead) {
     const p = P[lead.paso];
@@ -443,14 +639,9 @@
     guardar(); render();
   }
   function registrar(datos) {
-    const d = datos.celular.replace(/\D/g, '');
-    let lada = '52', cel = null;
-    if (d.length === 13 && d.startsWith('521')) cel = d.slice(3);
-    else if (d.length === 12 && d.startsWith('52')) cel = d.slice(2);
-    else if (d.length === 11 && d.startsWith('1')) { lada = '1'; cel = d.slice(1); }
-    else if (d.length === 10) cel = d;
-    if (!cel) { toast('El celular debe tener 10 dígitos.'); return null; }
-    let lead = S.leads.find(l => l.celular === cel && l.lada === lada);
+    const t = normalizar(datos.celular);
+    if (!t) { toast('El celular debe tener 10 dígitos.'); return null; }
+    let lead = S.leads.find(l => l.celular === t.cel && l.lada === t.lada);
     if (lead) {
       if (lead.estado === 'archivado' || lead.estado === 'cancelado') {
         Object.assign(lead, { estado: 'activo', paso: '1', enviado: false, fechaPaso: HOY, proxima: HOY });
@@ -462,8 +653,8 @@
         toast('Ese celular ya está en el embudo (paso ' + lead.paso + ').');
       }
     } else {
-      lead = { id: 'l' + (S.sig++), nombre: datos.nombre, celular: cel, lada, destino: datos.destino, personas: datos.personas, noches: datos.noches,
-        mes: datos.mes, monto: null, origen: datos.origen, paso: '1', enviado: false, fechaPaso: HOY, proxima: HOY, estado: 'activo', creado: HOY,
+      lead = { id: 'l' + (S.sig++), nombre: datos.nombre, celular: t.cel, lada: t.lada, destino: datos.destino, personas: datos.personas, noches: datos.noches,
+        mes: datos.mes, monto: null, origen: datos.origen, paso: '1', enviado: false, fechaPaso: HOY, proxima: HOY, estado: 'activo', creado: HOY, comentarios: '',
         seguimientos: [{ fecha: HOY, tipo: 'cambio', paso: '1', nota: 'Lead registrado', usuario: USUARIO }], reserva: null };
       S.leads.unshift(lead);
       toast('Lead registrado en el paso 1. Ya aparece en la lista de hoy.');
@@ -471,16 +662,35 @@
     guardar(); render();
     return lead;
   }
+  function editarLead(lead, d) {
+    const cambios = [];
+    ['nombre', 'destino', 'personas', 'noches', 'mes', 'monto', 'origen', 'comentarios'].forEach(k => {
+      if ((lead[k] || '') !== (d[k] || '')) { cambios.push(k); lead[k] = d[k]; }
+    });
+    if (d.celular) {
+      const t = normalizar(d.celular);
+      if (!t) { toast('El celular debe tener 10 dígitos.'); return false; }
+      if (S.leads.some(o => o !== lead && o.celular === t.cel && o.lada === t.lada)) { toast('Ese celular ya pertenece a otro lead.'); return false; }
+      if (t.cel !== lead.celular || t.lada !== lead.lada) { lead.celular = t.cel; lead.lada = t.lada; cambios.push('celular'); }
+    }
+    if (cambios.length) log(lead, { tipo: 'nota', nota: 'Editó: ' + cambios.join(', ') });
+    guardar(); render(); toast(cambios.length ? 'Lead actualizado.' : 'Sin cambios.');
+    return true;
+  }
+  function borrarLead(lead) {
+    S.leads = S.leads.filter(l => l !== lead); sel.delete(lead.id);
+    guardar(); cerrarFicha(); render(); toast('Lead borrado.');
+  }
   function mover(lead, codigo) {
     const sp = P[codigo];
     Object.assign(lead, { paso: codigo, enviado: false, fechaPaso: HOY, proxima: sp.es_final ? null : HOY, estado: sp.es_final ? sp.cierra_como : 'activo' });
     log(lead, { tipo: 'cambio', paso: codigo, nota: 'Movido a mano al paso ' + codigo });
     guardar(); render(); toast('Movido al paso ' + codigo + ' · ' + sp.nombre + '.');
   }
-  function cerrar(lead, estado) {
+  function cerrar(lead, estado, silencioso) {
     lead.estado = estado; lead.proxima = null;
     log(lead, { tipo: 'cambio', paso: lead.paso, nota: 'Cerrado como ' + estado });
-    guardar(); render(); toast('Lead ' + estado + '.');
+    if (!silencioso) { guardar(); render(); toast('Lead ' + estado + '.'); }
   }
   function reservar(lead, r) {
     const choque = S.leads.some(o => o.reserva && o !== lead && o.reserva.cabana === r.cabana && o.reserva.llegada < r.salida && r.llegada < o.reserva.salida);
@@ -492,16 +702,52 @@
     return true;
   }
 
+  // ---------- eventos ----------
+  const ingresosEv = e => e.inscritos.reduce((a, i) => a + (i.pagado || 0), 0);
+  const esperadoEv = e => e.inscritos.reduce((a, i) => a + (i.precio || 0), 0);
+  const gastosEv = e => e.gastos.reduce((a, g) => a + (g.monto || 0), 0) + (e.costo || 0) * e.inscritos.length;
+  const tareasPend = e => e.tareas.filter(t => !t.hecho);
+  const tareasVenc = e => (e.estado === 'realizado' || e.estado === 'cancelado') ? [] : e.tareas.filter(t => !t.hecho && t.limite < HOY);
+  function crearEvento(d) {
+    const e = { id: 'e' + (S.sigE++), nombre: d.nombre, fecha: d.fecha, lugar: d.lugar, precio: d.precio, costo: d.costo, cupo: d.cupo, estado: 'planeado', incluye: d.incluye,
+      publicacion: iso(addDays(parse(d.fecha), -20)), respuesta: '', tareas: tareasDesdeCatalogo(d.fecha), inscritos: [], gastos: [], notas: '' };
+    S.eventos.unshift(e); guardar(); render();
+    toast('Evento creado con ' + e.tareas.length + ' tareas programadas desde ' + fmtFecha(e.tareas[0].limite) + '.');
+    return e;
+  }
+  function editarEvento(e, d) {
+    const fechaCambio = d.fecha !== e.fecha;
+    Object.assign(e, d);
+    if (fechaCambio) e.tareas.forEach(t => { t.limite = iso(addDays(parse(e.fecha), -t.dias_antes)); });
+    guardar(); render(); toast('Evento actualizado' + (fechaCambio ? ' y fechas límite recalculadas.' : '.'));
+  }
+  function borrarEvento(e) { S.eventos = S.eventos.filter(x => x !== e); guardar(); cerrarFicha(); render(); toast('Evento borrado.'); }
+
+  // ---------- metas ----------
+  function avanceMeta(m) {
+    const enMes = f => f && f.slice(0, 7) === m.mes;
+    switch (m.indicador) {
+      case 'reservas': return S.leads.filter(l => l.reserva && enMes(l.reserva.llegada)).length;
+      case 'ingresos': return S.leads.filter(l => l.reserva && enMes(l.reserva.llegada)).reduce((a, l) => a + l.reserva.total, 0) + S.eventos.filter(e => enMes(e.fecha) && e.estado !== 'cancelado').reduce((a, e) => a + ingresosEv(e), 0);
+      case 'leads': return S.leads.filter(l => enMes(l.creado)).length;
+      case 'eventos': return S.eventos.filter(e => enMes(e.fecha) && e.estado === 'realizado').length;
+      default: return m.avance || 0;
+    }
+  }
+
   // ---------- render ----------
   const $ = s => document.querySelector(s);
   const h = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const WA_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 12 12 0 0 0 4.6 4 5.3 5.3 0 0 0 3.2.7 2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg>';
   const nombreDe = l => l.nombre || 'Sin nombre aún';
   const pendientesHoy = () => S.leads.filter(l => l.estado === 'activo' && l.proxima && l.proxima <= HOY);
+  const EST = { activo: 'Activo', reservo: 'Reservó', cancelado: 'Cancelado', archivado: 'Archivado', idea: 'Idea', planeado: 'Planeado', publicado: 'Publicado', realizado: 'Realizado' };
+  const btnConfirm = (clave, etiqueta, pregunta) => confirmando === clave
+    ? '<span class="confirm">' + h(pregunta) + ' <button class="btn tiny danger solid" data-act="confirmar" data-clave="' + h(clave) + '">Sí, ' + h(etiqueta.toLowerCase()) + '</button><button class="btn tiny ghost" data-act="no-confirmar">No</button></span>'
+    : '<button class="btn small ghost danger" data-act="pedir" data-clave="' + h(clave) + '">' + h(etiqueta) + '</button>';
 
   function chips(l) {
-    const c = [];
-    c.push('<span class="chip dest">' + h(l.destino) + '</span>');
+    const c = ['<span class="chip dest">' + h(l.destino) + '</span>'];
     if (l.personas || l.noches) c.push('<span class="chip">' + (l.personas ? l.personas + ' pers' : '') + (l.personas && l.noches ? ' · ' : '') + (l.noches ? l.noches + (l.noches === 1 ? ' noche' : ' noches') : '') + '</span>');
     if (l.mes) c.push('<span class="chip">' + h(l.mes) + '</span>');
     if (l.monto) c.push('<span class="chip num">' + fmtMonto(l.monto) + '</span>');
@@ -544,22 +790,69 @@
           '<div class="who"><button class="name" data-act="ficha" data-id="' + l.id + '">' + h(nombreDe(l)) + '</button><div class="tel num">' + fmtTel(l.lada, l.celular) + '</div></div>' +
           '<div class="chips">' + chips(l) + '</div>' +
           '<div class="state">' + retrasoBadge(l) + (l.enviado ? '<span>enviado el ' + fmtFecha(l.fechaPaso) + '</span>' : '<span>registrado el ' + fmtFecha(l.creado) + '</span>') + '</div>' +
-          '<div class="actions">' + acciones(l) + '</div></article>').join('') + '</section>';
+          '<div class="actions">' + acciones(l) + '<button class="btn small ghost" data-act="ficha" data-id="' + l.id + '" title="Ver ficha y editar">✎</button></div></article>').join('') + '</section>';
     }).join('');
   }
-  function renderLeads() {
+  function leadsFiltrados() {
     const q = ($('#buscar').value || '').toLowerCase().replace(/\s/g, '');
     const fe = $('#filtro-estado').value, fd = $('#filtro-destino').value;
-    const ls = S.leads.filter(l => (!fe || l.estado === fe) && (!fd || l.destino === fd) &&
+    return S.leads.filter(l => (!fe || l.estado === fe) && (!fd || l.destino === fd) &&
       (!q || l.celular.includes(q) || (l.nombre || '').toLowerCase().replace(/\s/g, '').includes(q)));
+  }
+  function renderLeads() {
+    const ls = leadsFiltrados();
     $('#leads-sub').textContent = ls.length + ' de ' + S.leads.length + ' leads';
-    const est = { activo: 'Activo', reservo: 'Reservó', cancelado: 'Cancelado', archivado: 'Archivado' };
     $('#tabla-leads tbody').innerHTML = ls.map(l => '<tr>' +
-      '<td><button class="name" data-act="ficha" data-id="' + l.id + '" style="border:0;background:none;padding:0;font-weight:600;cursor:pointer;color:inherit">' + h(nombreDe(l)) + '</button><div class="tel num">' + fmtTel(l.lada, l.celular) + '</div></td>' +
+      '<td><input type="checkbox" data-sel="' + l.id + '" aria-label="Seleccionar"' + (sel.has(l.id) ? ' checked' : '') + '></td>' +
+      '<td><button class="name" data-act="ficha" data-id="' + l.id + '">' + h(nombreDe(l)) + '</button><div class="tel num">' + fmtTel(l.lada, l.celular) + '</div></td>' +
       '<td>' + h(l.destino) + '</td><td>' + (l.personas ? l.personas + ' pers' : '') + (l.noches ? ' · ' + l.noches + ' n' : '') + (l.mes ? '<br><small>' + h(l.mes) + '</small>' : '') + '</td>' +
       '<td class="r num">' + fmtMonto(l.monto) + '</td><td>' + h(l.paso) + ' · ' + h(P[l.paso].nombre) + '</td>' +
-      '<td><span class="est ' + l.estado + '">' + est[l.estado] + '</span></td><td>' + (l.proxima ? fmtFecha(l.proxima) : '') + '</td><td>' + h(l.origen) + '</td></tr>').join('') ||
-      '<tr><td colspan="8">Ningún lead coincide.</td></tr>';
+      '<td><span class="est ' + l.estado + '">' + EST[l.estado] + '</span></td><td>' + (l.proxima ? fmtFecha(l.proxima) : '') + '</td><td>' + h(l.origen) + '</td>' +
+      '<td class="acc"><button class="btn tiny" data-act="editar" data-id="' + l.id + '">Editar</button>' + btnConfirm('lead:' + l.id, 'Borrar', '¿Borrar?').replace('btn small', 'btn tiny') + '</td></tr>').join('') ||
+      '<tr><td colspan="10">Ningún lead coincide.</td></tr>';
+    const n = sel.size;
+    $('#lote').hidden = !n;
+    if (n) $('#lote').innerHTML = n + ' seleccionado' + (n === 1 ? '' : 's') + ': ' +
+      '<button class="btn small" data-act="lote-archivar">Archivar</button><button class="btn small" data-act="lote-cancelar">Cancelar</button>' +
+      btnConfirm('lote', 'Borrar', '¿Borrar ' + n + '?') + '<button class="btn small ghost" data-act="lote-limpiar">Quitar selección</button>';
+    $('#sel-todos').checked = n > 0 && ls.every(l => sel.has(l.id));
+  }
+  function renderEventos() {
+    const evs = [...S.eventos].sort((a, b) => a.fecha.localeCompare(b.fecha));
+    const activos = evs.filter(e => e.estado === 'planeado' || e.estado === 'publicado');
+    $('#cnt-eventos').textContent = activos.length;
+    const venc = activos.reduce((a, e) => a + tareasVenc(e).length, 0);
+    $('#cnt-eventos').className = 'cnt' + (venc ? '' : ' ok');
+    $('#eventos-lista').innerHTML = evs.map(e => {
+      const ins = e.inscritos.length, pag = ingresosEv(e), esp = esperadoEv(e), pend = tareasPend(e).length, vc = tareasVenc(e).length;
+      return '<article class="evento">' +
+        '<div><span class="est ' + e.estado + '">' + EST[e.estado] + '</span></div>' +
+        '<h3><button class="name" data-act="ev-abrir" data-id="' + e.id + '" style="font-family:inherit;font-size:inherit;font-weight:inherit">' + h(e.nombre) + '</button></h3>' +
+        '<div class="fecha">' + fmtFecha(e.fecha) + ' · ' + enDias(e.fecha) + ' · ' + h(e.lugar) + '</div>' +
+        '<div class="fila"><span>Cupo</span><b class="num">' + ins + ' / ' + (e.cupo || '—') + '</b></div><div class="cupo"><b style="width:' + (e.cupo ? Math.min(100, 100 * ins / e.cupo) : 0) + '%"></b></div>' +
+        '<div class="fila"><span>Cobrado</span><b class="num">' + fmtMonto(pag) + ' <small style="font-weight:400;color:var(--ink-2)">de ' + fmtMonto(esp) + '</small></b></div>' +
+        '<div class="pie"><span class="' + (vc ? 'alerta' : 'ok') + '">' + (e.estado === 'realizado' ? 'Cerrado' : pend + ' tareas pendientes' + (vc ? ' · ' + vc + ' vencidas' : '')) + '</span><button class="btn small" data-act="ev-abrir" data-id="' + e.id + '">Abrir</button></div>' +
+        '</article>';
+    }).join('') || '<div class="vacio">Sin eventos. Crea el primero.</div>';
+  }
+  function renderMetas() {
+    const ms = [...S.metas].sort((a, b) => a.mes.localeCompare(b.mes) || a.indicador.localeCompare(b.indicador));
+    $('#tabla-metas tbody').innerHTML = ms.map(m => {
+      const av = avanceMeta(m), pct = Math.min(100, Math.round(100 * av / m.meta));
+      if (confirmando === 'meta-edit:' + m.id) {
+        return '<tr><td colspan="7"><form class="inline" id="form-meta-edit" data-id="' + m.id + '">' +
+          '<label class="f">Objetivo<input id="me-objetivo" value="' + h(m.objetivo) + '" required></label>' +
+          '<label class="f">Indicador<select id="me-indicador">' + Object.keys(INDICADORES).map(k => '<option value="' + k + '"' + (k === m.indicador ? ' selected' : '') + '>' + INDICADORES[k] + '</option>').join('') + '</select></label>' +
+          '<label class="f">Mes<input id="me-mes" type="month" value="' + m.mes + '" required></label>' +
+          '<label class="f">Meta<input id="me-meta" type="number" min="1" value="' + m.meta + '" required></label>' +
+          (m.indicador === 'resenas' ? '<label class="f">Avance<input id="me-avance" type="number" min="0" value="' + (m.avance || 0) + '"></label>' : '<span></span>') +
+          '<span style="display:flex;gap:6px"><button class="btn small primary" type="submit">Guardar</button><button class="btn small ghost" type="button" data-act="no-confirmar">Cancelar</button></span></form></td></tr>';
+      }
+      return '<tr><td>' + h(m.objetivo) + '</td><td>' + INDICADORES[m.indicador] + (m.indicador === 'resenas' ? ' <small style="color:var(--ink-2)">(manual)</small>' : '') + '</td><td>' + fmtMes(m.mes) + '</td>' +
+        '<td class="r num">' + (m.indicador === 'ingresos' ? fmtMonto(m.meta) : m.meta) + '</td><td class="r num">' + (m.indicador === 'ingresos' ? fmtMonto(av) : av) + '</td>' +
+        '<td><div class="prog' + (pct >= 100 ? ' done' : '') + '" title="' + pct + ' %"><b style="width:' + pct + '%"></b></div><small style="color:var(--ink-2)">' + pct + ' %</small></td>' +
+        '<td class="acc"><button class="btn tiny" data-act="meta-editar" data-id="' + m.id + '">Editar</button>' + btnConfirm('meta:' + m.id, 'Borrar', '¿Borrar?').replace('btn small', 'btn tiny') + '</td></tr>';
+    }).join('') || '<tr><td colspan="7">Sin metas. Agrega la primera.</td></tr>';
   }
   function renderEmbudo() {
     const activos = {};
@@ -582,28 +875,38 @@
     const cerrados = reservaron + cancelados;
     const conv = cerrados ? Math.round(100 * reservaron / cerrados) : 0;
     const montoRes = S.leads.filter(l => l.reserva && l.reserva.llegada >= desde).reduce((a, l) => a + l.reserva.total, 0);
+    const proximo = [...S.eventos].filter(e => e.fecha >= HOY && e.estado !== 'cancelado').sort((a, b) => a.fecha.localeCompare(b.fecha))[0];
     $('#tiles').innerHTML = [
       ['Por atender hoy', pendientesHoy().length, 'en la lista de hoy'],
       ['Activos en el embudo', activos.length, 'sin cerrar'],
       ['Reservaron', reservaron, 'últimos 30 días · ' + fmtMonto(montoRes)],
-      ['Conversión', conv + ' %', 'reservó entre los cerrados, 30 días']
-    ].map(t => '<div class="tile"><div class="lbl">' + t[0] + '</div><div class="val num">' + t[1] + '</div><div class="sub">' + t[2] + '</div></div>').join('');
+      ['Conversión', conv + ' %', 'reservó entre los cerrados, 30 días'],
+      ['Próximo evento', proximo ? enDias(proximo.fecha).replace('en ', '') : '—', proximo ? proximo.nombre + ' · ' + proximo.inscritos.length + '/' + (proximo.cupo || '—') + ' inscritos' : 'sin eventos programados']
+    ].map(t => '<div class="tile"><div class="lbl">' + h(t[0]) + '</div><div class="val num">' + h(t[1]) + '</div><div class="sub">' + h(t[2]) + '</div></div>').join('');
 
-    // semanas (reales)
     const max = 60, ticks = [0, 20, 40, 60];
     $('#barras-semanas').innerHTML = '<div class="grid">' + ticks.map(t => '<i style="bottom:' + (100 * t / max) + '%"><span>' + t + '</span></i>').join('') + '</div>' +
       SEMANAS.map((s, i) => '<div class="bar' + (i === SEMANAS.length - 1 ? ' ultimo' : '') + '" tabindex="0"><span class="tip">' + s.leads + '</span><b style="height:' + (100 * s.leads / max) + '%"></b></div>').join('');
     $('#ejex-semanas').innerHTML = SEMANAS.map((s, i) => '<span>' + (i % 2 === 0 ? fmtFecha(s.semana) : '') + '</span>').join('');
     $('#tabla-semanas tbody').innerHTML = SEMANAS.map(s => '<tr><td>' + fmtFecha(s.semana) + '</td><td class="r num">' + s.leads + '</td></tr>').join('');
 
-    // pasos (demo)
     const porPaso = PASOS.filter(p => !p.es_final).map(p => ({ p, n: activos.filter(l => l.paso === p.codigo).length }));
     const mx = Math.max(1, ...porPaso.map(x => x.n));
     $('#hbars-pasos').innerHTML = porPaso.map(x => '<div class="lab"><b>' + h(x.p.codigo) + '</b> <small>' + h(x.p.nombre) + '</small></div><div class="track" title="' + x.n + '"><b style="width:' + (100 * x.n / mx) + '%"></b></div><div class="v num">' + x.n + '</div>').join('');
     $('#tabla-pasos tbody').innerHTML = porPaso.map(x => '<tr><td>' + h(x.p.codigo) + ' · ' + h(x.p.nombre) + '</td><td class="r num">' + x.n + '</td></tr>').join('');
+
+    const mm = S.metas.filter(m => m.mes === MES_ACTUAL);
+    $('#metas-mes-titulo').textContent = fmtMes(MES_ACTUAL);
+    $('#metas-mini').innerHTML = mm.map(m => { const av = avanceMeta(m), pct = Math.min(100, Math.round(100 * av / m.meta));
+      return '<div class="m"><span>' + INDICADORES[m.indicador] + '</span><b class="num">' + (m.indicador === 'ingresos' ? fmtMonto(av) + ' / ' + fmtMonto(m.meta) : av + ' / ' + m.meta) + '</b><div class="prog' + (pct >= 100 ? ' done' : '') + '"><b style="width:' + pct + '%"></b></div></div>'; }).join('') || '<div style="color:var(--ink-2)">Sin metas para este mes.</div>';
+    const evs = S.eventos.filter(e => e.estado === 'planeado' || e.estado === 'publicado').sort((a, b) => a.fecha.localeCompare(b.fecha));
+    $('#eventos-mini').innerHTML = evs.map(e => { const vc = tareasVenc(e).length, pct = e.cupo ? Math.min(100, Math.round(100 * e.inscritos.length / e.cupo)) : 0;
+      return '<div class="m"><span><b>' + h(e.nombre) + '</b> · ' + fmtFecha(e.fecha) + (vc ? ' · <span class="alerta">' + vc + ' tareas vencidas</span>' : '') + '</span><b class="num">' + e.inscritos.length + '/' + (e.cupo || '—') + ' · ' + fmtMonto(ingresosEv(e)) + '</b><div class="prog"><b style="width:' + pct + '%"></b></div></div>'; }).join('') || '<div style="color:var(--ink-2)">Sin eventos en curso.</div>';
   }
+
+  // ---------- ficha de lead ----------
   function renderFicha(id) {
-    const l = porId(id); if (!l) return;
+    const l = porId(id); if (!l) { cerrarFicha(); return; }
     const p = P[l.paso];
     const hist = [...l.seguimientos].reverse().map(s => {
       const cls = s.tipo + (s.tipo === 'respuesta' ? (s.contesto ? ' si' : ' no') : '');
@@ -614,47 +917,150 @@
       return '<li class="' + cls + '">' + h(t) + '<small>' + fmtFecha(s.fecha) + ' · ' + h(s.usuario || '') + '</small></li>';
     }).join('');
     const opciones = PASOS.map(x => '<option value="' + x.codigo + '"' + (x.codigo === l.paso ? ' selected' : '') + '>' + x.codigo + ' · ' + h(x.nombre) + '</option>').join('');
+    let datos;
+    if (fichaEdit) {
+      const opt = (lista, v) => lista.map(x => '<option' + (x === v ? ' selected' : '') + '>' + h(x) + '</option>').join('');
+      datos = '<section class="caja"><h3>Editar lead</h3><form id="form-lead-edit" class="grid" data-id="' + l.id + '">' +
+        '<label class="f">Nombre<input id="le-nombre" value="' + h(l.nombre) + '"></label>' +
+        '<label class="f">Celular<input id="le-celular" value="' + h((l.lada === '52' ? '' : '+' + l.lada + ' ') + l.celular) + '" inputmode="tel"></label>' +
+        '<label class="f">Destino<select id="le-destino">' + opt(['Sin definir', 'San José', 'Gómez Farías', 'Camping', 'Tours'], l.destino) + '</select></label>' +
+        '<label class="f">Origen<select id="le-origen">' + opt(['Anuncio Meta', 'Facebook / Instagram', 'Sitio web', 'Google', 'Recomendación', 'Airbnb', 'Otro'], l.origen) + '</select></label>' +
+        '<label class="f">Personas<input id="le-personas" type="number" min="1" value="' + (l.personas || '') + '"></label>' +
+        '<label class="f">Noches<input id="le-noches" type="number" min="1" value="' + (l.noches || '') + '"></label>' +
+        '<label class="f">Mes del viaje<input id="le-mes" value="' + h(l.mes) + '"></label>' +
+        '<label class="f">Monto cotizado<input id="le-monto" type="number" min="0" value="' + (l.monto || '') + '"></label>' +
+        '<label class="f full">Comentarios<textarea id="le-comentarios">' + h(l.comentarios) + '</textarea></label>' +
+        '<div class="botones full"><button class="btn primary" type="submit">Guardar cambios</button><button class="btn ghost" type="button" data-act="editar-cancelar">Cancelar</button></div></form></section>';
+    } else {
+      datos = '<div class="datos">' +
+        '<div><span class="lbl">Estado</span><span class="est ' + l.estado + '" style="display:inline-block">' + EST[l.estado] + '</span></div>' +
+        '<div><span class="lbl">Paso actual</span>' + h(l.paso) + ' · ' + h(p.nombre) + '</div>' +
+        '<div><span class="lbl">Destino</span>' + h(l.destino) + '</div><div><span class="lbl">Origen</span>' + h(l.origen) + '</div>' +
+        '<div><span class="lbl">Viaje</span>' + (l.personas ? l.personas + ' personas' : '—') + (l.noches ? ', ' + l.noches + ' noches' : '') + (l.mes ? ', ' + h(l.mes) : '') + '</div>' +
+        '<div><span class="lbl">Cotizado</span>' + (fmtMonto(l.monto) || '—') + '</div>' +
+        '<div><span class="lbl">Próxima acción</span>' + (l.proxima ? fmtFecha(l.proxima) : '—') + '</div><div><span class="lbl">Registrado</span>' + fmtFecha(l.creado) + '</div>' +
+        (l.comentarios ? '<div style="grid-column:1/-1"><span class="lbl">Comentarios</span>' + h(l.comentarios) + '</div>' : '') + '</div>';
+    }
     let reserva = '';
     if (l.reserva) {
       const r = l.reserva, cab = CABANAS.find(c => c.id === r.cabana);
       reserva = '<section><h3>Reservación</h3><div class="datos">' +
-        '<div><span>Cabaña</span>' + h(cab ? cab.nombre : '') + '</div><div><span>Fechas</span>' + fmtFecha(r.llegada) + ' → ' + fmtFecha(r.salida) + '</div>' +
-        '<div><span>Total</span><span class="num" style="all:unset">' + fmtMonto(r.total) + '</span></div><div><span>Pagado / saldo</span>' + fmtMonto(r.pagado) + ' / ' + fmtMonto(r.total - r.pagado) + '</div></div>' +
+        '<div><span class="lbl">Cabaña</span>' + h(cab ? cab.nombre : '') + '</div><div><span class="lbl">Fechas</span>' + fmtFecha(r.llegada) + ' → ' + fmtFecha(r.salida) + '</div>' +
+        '<div><span class="lbl">Total</span>' + fmtMonto(r.total) + '</div><div><span class="lbl">Pagado / saldo</span>' + fmtMonto(r.pagado) + ' / ' + fmtMonto(r.total - r.pagado) + '</div></div>' +
         (r.pagado < r.total ? '<p style="margin:10px 0 0"><button class="btn small" data-act="liquidar" data-id="' + l.id + '">Registrar liquidación de ' + fmtMonto(r.total - r.pagado) + '</button></p>' : '') +
         '<h3 style="margin-top:14px">Checklist de estancia · ' + r.checklist.filter(Boolean).length + ' de ' + r.checklist.length + '</h3><ul class="check">' +
         CHECKLIST.map((c, i) => '<li class="' + (r.checklist[i] ? 'hecho' : '') + '"><input type="checkbox" id="chk-' + l.id + '-' + i + '" data-act="chk" data-id="' + l.id + '" data-i="' + i + '"' + (r.checklist[i] ? ' checked' : '') + '><span class="m">' + c[0] + '</span><label for="chk-' + l.id + '-' + i + '">' + h(c[1]) + '</label></li>').join('') + '</ul></section>';
     } else if (l.estado === 'activo') {
-      reserva = '<section class="reservar"><h3>Convertir en reservación</h3><form id="form-reserva" data-id="' + l.id + '">' +
-        '<label class="full">Cabaña<select id="r-cabana">' + CABANAS.map(c => '<option value="' + c.id + '"' + ((l.destino === 'Gómez Farías' ? 2 : 1) === c.id ? ' selected' : '') + '>' + h(c.nombre) + '</option>').join('') + '</select></label>' +
-        '<label>Llegada<input type="date" id="r-llegada" required value="' + iso(addDays(hoy(), 7)) + '"></label><label>Salida<input type="date" id="r-salida" required value="' + iso(addDays(hoy(), 8)) + '"></label>' +
-        '<label>Total<input type="number" id="r-total" required min="1" value="' + (l.monto || (l.destino === 'Gómez Farías' ? 2500 : 8299)) + '"></label><label>Anticipo (50 %)<input type="number" id="r-anticipo" min="0" value="' + Math.round((l.monto || (l.destino === 'Gómez Farías' ? 2500 : 8299)) / 2) + '"></label>' +
+      const precio = l.monto || (l.destino === 'Gómez Farías' ? 2500 : 8299);
+      reserva = '<section class="caja"><h3>Convertir en reservación</h3><form id="form-reserva" class="grid" data-id="' + l.id + '">' +
+        '<label class="f full">Cabaña<select id="r-cabana">' + CABANAS.map(c => '<option value="' + c.id + '"' + ((l.destino === 'Gómez Farías' ? 2 : 1) === c.id ? ' selected' : '') + '>' + h(c.nombre) + '</option>').join('') + '</select></label>' +
+        '<label class="f">Llegada<input type="date" id="r-llegada" required value="' + iso(addDays(hoy(), 7)) + '"></label><label class="f">Salida<input type="date" id="r-salida" required value="' + iso(addDays(hoy(), 8)) + '"></label>' +
+        '<label class="f">Total<input type="number" id="r-total" required min="1" value="' + precio + '"></label><label class="f">Anticipo (50 %)<input type="number" id="r-anticipo" min="0" value="' + Math.round(precio / 2) + '"></label>' +
         '<div class="full"><button class="btn primary" type="submit">Reservar</button></div></form></section>';
     }
-    const est = { activo: 'Activo', reservo: 'Reservó', cancelado: 'Cancelado', archivado: 'Archivado' };
+    $('#ficha').className = 'sheet';
     $('#ficha').innerHTML = '<button class="btn small ghost close" data-act="cerrar-ficha" aria-label="Cerrar">✕</button>' +
-      '<div><h2>' + h(nombreDe(l)) + '</h2><div class="tel num">' + fmtTel(l.lada, l.celular) + ' · <a href="' + waLink(l, '') + '" target="_blank" rel="noopener">abrir WhatsApp</a></div></div>' +
-      '<div class="datos">' +
-      '<div><span>Estado</span><span class="est ' + l.estado + '" style="display:inline-block">' + est[l.estado] + '</span></div>' +
-      '<div><span>Paso actual</span>' + h(l.paso) + ' · ' + h(p.nombre) + '</div>' +
-      '<div><span>Destino</span>' + h(l.destino) + '</div><div><span>Origen</span>' + h(l.origen) + '</div>' +
-      '<div><span>Viaje</span>' + (l.personas ? l.personas + ' personas' : '—') + (l.noches ? ', ' + l.noches + ' noches' : '') + (l.mes ? ', ' + h(l.mes) : '') + '</div>' +
-      '<div><span>Cotizado</span>' + (fmtMonto(l.monto) || '—') + '</div>' +
-      '<div><span>Próxima acción</span>' + (l.proxima ? fmtFecha(l.proxima) : '—') + '</div><div><span>Registrado</span>' + fmtFecha(l.creado) + '</div>' +
-      '</div>' +
-      (l.estado === 'activo' ? '<section><h3>Mensaje del paso ' + h(l.paso) + '</h3><div class="plantilla-prev">' + h(p.plantilla && p.plantilla.trim() !== '/' ? p.plantilla : '(sin plantilla todavía)') + '</div></section>' : '') +
+      '<div><h2>' + h(nombreDe(l)) + '</h2><div class="tel num">' + fmtTel(l.lada, l.celular) + ' · <a href="' + waLink(l.lada, l.celular, '') + '" target="_blank" rel="noopener">abrir WhatsApp</a></div></div>' +
+      datos +
+      (!fichaEdit && l.estado === 'activo' ? '<section><h3>Mensaje del paso ' + h(l.paso) + '</h3><div class="plantilla-prev">' + h(p.plantilla && p.plantilla.trim() !== '/' ? p.plantilla : '(sin plantilla todavía)') + '</div></section>' : '') +
       '<section><h3>Acciones</h3><div class="acciones-ficha">' +
       (l.estado === 'activo' ? acciones(l) : '') +
+      '<button class="btn" data-act="editar" data-id="' + l.id + '">Editar</button>' +
       '<select id="mover-sel" aria-label="Mover a paso">' + opciones + '</select><button class="btn" data-act="mover" data-id="' + l.id + '">Mover</button>' +
       (l.estado === 'activo' ? '<button class="btn ghost danger" data-act="cancelar" data-id="' + l.id + '">Cancelar</button><button class="btn ghost" data-act="archivar" data-id="' + l.id + '">Archivar</button>' : '') +
+      btnConfirm('lead:' + l.id, 'Borrar', '¿Borrar este lead y su historial?') +
       '</div></section>' + reserva +
+      '<section><h3>Agregar nota</h3><form id="form-nota" data-id="' + l.id + '" style="display:flex;gap:8px"><input id="nota-txt" placeholder="Llamó, pidió fotos, viaja con mascota…" required><button class="btn" type="submit">Guardar</button></form></section>' +
       '<section><h3>Historial</h3><ul class="hist">' + hist + '</ul></section>';
-    $('#ficha').hidden = false; $('#backdrop').hidden = false;
-    $('#ficha').dataset.id = id;
+    abrirSheet('lead', id);
   }
-  function cerrarFicha() { $('#ficha').hidden = true; $('#backdrop').hidden = true; delete $('#ficha').dataset.id; }
+
+  // ---------- ficha de evento ----------
+  function renderEvento(id) {
+    const e = evId(id); if (!e) { cerrarFicha(); return; }
+    const ins = e.inscritos.length, pag = ingresosEv(e), esp = esperadoEv(e), gas = gastosEv(e);
+    const pend = tareasPend(e).length, vc = tareasVenc(e).length;
+    const equilibrio = e.precio > (e.costo || 0) ? Math.ceil(e.gastos.reduce((a, g) => a + g.monto, 0) / (e.precio - (e.costo || 0))) : null;
+    let datos;
+    if (evEdit) {
+      datos = '<section class="caja"><h3>Editar evento</h3><form id="form-evento-edit" class="grid" data-id="' + e.id + '">' +
+        '<label class="f full">Nombre<input id="ee-nombre" value="' + h(e.nombre) + '" required></label>' +
+        '<label class="f">Fecha<input id="ee-fecha" type="date" value="' + e.fecha + '" required></label>' +
+        '<label class="f">Lugar<select id="ee-lugar">' + ['San José', 'Gómez Farías', 'Alta Cima', 'Otro'].map(x => '<option' + (x === e.lugar ? ' selected' : '') + '>' + x + '</option>').join('') + '</select></label>' +
+        '<label class="f">Precio al público<input id="ee-precio" type="number" min="0" value="' + (e.precio || '') + '"></label>' +
+        '<label class="f">Costo por persona<input id="ee-costo" type="number" min="0" value="' + (e.costo || '') + '"></label>' +
+        '<label class="f">Cupo<input id="ee-cupo" type="number" min="1" value="' + (e.cupo || '') + '"></label>' +
+        '<label class="f">Publicar el<input id="ee-publicacion" type="date" value="' + (e.publicacion || '') + '"></label>' +
+        '<label class="f full">Qué incluye<input id="ee-incluye" value="' + h(e.incluye) + '"></label>' +
+        '<label class="f full">Respuesta predeterminada de WhatsApp<textarea id="ee-respuesta">' + h(e.respuesta) + '</textarea></label>' +
+        '<label class="f full">Notas<textarea id="ee-notas">' + h(e.notas) + '</textarea></label>' +
+        '<div class="botones full"><button class="btn primary" type="submit">Guardar cambios</button><button class="btn ghost" type="button" data-act="ev-editar-cancelar">Cancelar</button></div></form></section>';
+    } else {
+      datos = '<div class="datos">' +
+        '<div><span class="lbl">Estado</span><span class="est ' + e.estado + '" style="display:inline-block">' + EST[e.estado] + '</span></div>' +
+        '<div><span class="lbl">Fecha</span>' + fmtFecha(e.fecha) + ' · ' + enDias(e.fecha) + '</div>' +
+        '<div><span class="lbl">Lugar</span>' + h(e.lugar) + '</div><div><span class="lbl">Publicar el</span>' + (e.publicacion ? fmtFecha(e.publicacion) : '—') + '</div>' +
+        '<div><span class="lbl">Precio / costo por persona</span>' + fmtMonto(e.precio) + ' / ' + fmtMonto(e.costo || 0) + '</div><div><span class="lbl">Cupo</span>' + ins + ' de ' + (e.cupo || '—') + '</div>' +
+        '<div style="grid-column:1/-1"><span class="lbl">Incluye</span>' + h(e.incluye || '—') + '</div>' +
+        (e.notas ? '<div style="grid-column:1/-1"><span class="lbl">Notas</span>' + h(e.notas) + '</div>' : '') + '</div>' +
+        (e.respuesta ? '<section><h3>Respuesta predeterminada</h3><div class="plantilla-prev">' + h(e.respuesta) + '</div></section>' : '');
+    }
+    const fases = FASES.map(([k, nombre]) => {
+      const ts = e.tareas.filter(t => t.fase === k);
+      if (!ts.length) return '';
+      const hechas = ts.filter(t => t.hecho).length;
+      return '<div class="fase"><h4>' + nombre + ' <small>' + hechas + ' de ' + ts.length + '</small></h4>' + ts.map(t => {
+        const venc = !t.hecho && t.limite < HOY && e.estado !== 'realizado' && e.estado !== 'cancelado';
+        return '<div class="tarea' + (t.hecho ? ' hecha' : '') + '"><input type="checkbox" id="tk-' + t.id + '" data-act="ev-tarea" data-id="' + e.id + '" data-t="' + t.id + '"' + (t.hecho ? ' checked' : '') + '>' +
+          '<label for="tk-' + t.id + '">' + h(t.tarea) + '</label>' +
+          '<span class="lim' + (venc ? ' vencida' : '') + '">' + (venc ? 'venció ' : '') + fmtFecha(t.limite) + '</span>' +
+          '<span style="display:flex;gap:4px;align-items:center"><select data-act="ev-resp" data-id="' + e.id + '" data-t="' + t.id + '" aria-label="Responsable">' + EQUIPO.map(x => '<option' + (x === t.responsable ? ' selected' : '') + '>' + x + '</option>').join('') + '</select><button class="del" data-act="ev-tarea-borrar" data-id="' + e.id + '" data-t="' + t.id + '" title="Quitar tarea">✕</button></span></div>';
+      }).join('') + '</div>';
+    }).join('');
+    const inscritos = e.inscritos.map(i => { const saldo = (i.precio || 0) - (i.pagado || 0);
+      const rec = 'Hola ' + i.nombre.split(' ')[0] + ' 😊 Te recordamos que tu lugar en ' + e.nombre + ' (' + fmtFecha(e.fecha) + ') queda confirmado al liquidar ' + fmtMonto(saldo) + '. ¡Nos vemos en El Cielo! 🌲';
+      return '<div class="inscrito"><div><b>' + h(i.nombre) + '</b><div class="tel num">' + fmtTel(i.lada, i.celular) + (i.alojamiento ? ' · ' + h(i.alojamiento) : '') + '</div></div>' +
+        '<div class="num">' + fmtMonto(i.pagado || 0) + ' de ' + fmtMonto(i.precio) + (saldo > 0 ? ' · <span class="alerta">debe ' + fmtMonto(saldo) + '</span>' : ' · <span class="ok">pagado</span>') + '</div>' +
+        '<div class="pago">' + (saldo > 0 ? '<input type="number" min="1" max="' + saldo + '" value="' + saldo + '" id="pg-' + i.id + '" aria-label="Monto"><button class="btn tiny" data-act="ev-pago" data-id="' + e.id + '" data-i="' + i.id + '">Cobrar</button>' +
+        '<a class="btn tiny wa" href="' + waLink(i.lada, i.celular, rec) + '" target="_blank" rel="noopener" title="Recordatorio de pago por WhatsApp">' + WA_SVG + '</a>' : '<a class="btn tiny wa" href="' + waLink(i.lada, i.celular, '') + '" target="_blank" rel="noopener" title="WhatsApp">' + WA_SVG + '</a>') +
+        '<button class="del" data-act="ev-inscrito-borrar" data-id="' + e.id + '" data-i="' + i.id + '" title="Quitar inscrito">✕</button></div></div>'; }).join('') || '<div style="color:var(--ink-2);font-size:13px">Todavía nadie inscrito.</div>';
+    const gastos = e.gastos.map(g => '<div class="gasto"><span>' + h(g.concepto) + '</span><span class="num">' + fmtMonto(g.monto) + ' <button class="del" data-act="ev-gasto-borrar" data-id="' + e.id + '" data-g="' + g.id + '" title="Quitar">✕</button></span></div>').join('') +
+      (e.costo ? '<div class="gasto"><span>Costo por persona × ' + ins + ' inscritos</span><span class="num">' + fmtMonto((e.costo || 0) * ins) + '</span></div>' : '');
+    const estados = { planeado: ['publicado', 'Marcar publicado'], publicado: ['realizado', 'Marcar realizado'], idea: ['planeado', 'Pasar a planeado'] };
+    $('#ficha').className = 'sheet wide';
+    $('#ficha').innerHTML = '<button class="btn small ghost close" data-act="cerrar-ficha" aria-label="Cerrar">✕</button>' +
+      '<div><span class="lbl">Evento</span><h2>' + h(e.nombre) + '</h2></div>' + datos +
+      '<section><h3>Acciones</h3><div class="acciones-ficha">' +
+      '<button class="btn" data-act="ev-editar" data-id="' + e.id + '">Editar</button>' +
+      (estados[e.estado] ? '<button class="btn primary" data-act="ev-estado" data-id="' + e.id + '" data-estado="' + estados[e.estado][0] + '">' + estados[e.estado][1] + '</button>' : '') +
+      (e.estado !== 'cancelado' && e.estado !== 'realizado' ? '<button class="btn ghost danger" data-act="ev-estado" data-id="' + e.id + '" data-estado="cancelado">Cancelar evento</button>' : '') +
+      btnConfirm('evento:' + e.id, 'Borrar', '¿Borrar el evento con sus inscritos?') + '</div></section>' +
+      '<section><h3>Proceso · ' + (e.tareas.length - pend) + ' de ' + e.tareas.length + ' tareas' + (vc ? ' <span class="alerta">' + vc + ' vencidas</span>' : '') + '</h3>' + fases +
+      '<form id="form-tarea" data-id="' + e.id + '" class="grid" style="grid-template-columns:2fr 1fr 1fr auto;margin-top:8px">' +
+      '<input id="nt-tarea" placeholder="Nueva tarea" required><select id="nt-fase">' + FASES.map(f => '<option value="' + f[0] + '">' + f[1] + '</option>').join('') + '</select><input id="nt-limite" type="date" value="' + HOY + '" required><button class="btn" type="submit">Agregar</button></form></section>' +
+      '<section><h3>Inscritos · ' + ins + (e.cupo ? ' de ' + e.cupo : '') + (e.cupo && ins >= e.cupo ? ' <span class="alerta">cupo lleno</span>' : '') + '</h3>' + inscritos +
+      '<form id="form-inscrito" data-id="' + e.id + '" class="grid" style="grid-template-columns:1.4fr 1.2fr 1fr .8fr .8fr auto;margin-top:8px">' +
+      '<input id="ni-nombre" placeholder="Nombre" required><input id="ni-cel" placeholder="Celular" required inputmode="tel"><select id="ni-aloj"><option>Casa de campaña</option><option>Cabaña</option><option>Camping</option><option>Sin alojamiento</option></select>' +
+      '<input id="ni-precio" type="number" min="0" value="' + (e.precio || 0) + '" aria-label="Precio"><input id="ni-pagado" type="number" min="0" value="' + Math.round((e.precio || 0) / 5) + '" aria-label="Anticipo"><button class="btn" type="submit">Inscribir</button></form></section>' +
+      '<section><h3>Finanzas</h3><div class="fin"><div><span class="lbl">Cobrado</span><b class="num">' + fmtMonto(pag) + '</b><small style="color:var(--ink-2)">esperado ' + fmtMonto(esp) + '</small></div>' +
+      '<div><span class="lbl">Gastos</span><b class="num">' + fmtMonto(gas) + '</b>' + (equilibrio != null ? '<small style="color:var(--ink-2)">equilibrio: ' + equilibrio + ' inscritos</small>' : '') + '</div>' +
+      '<div><span class="lbl">Ganancia' + (e.estado === 'realizado' ? '' : ' proyectada') + '</span><b class="num" style="color:' + ((e.estado === 'realizado' ? pag : esp) - gas >= 0 ? 'var(--accent-ink)' : 'var(--rojo)') + '">' + fmtMonto((e.estado === 'realizado' ? pag : esp) - gas) + '</b></div></div>' +
+      gastos + '<form id="form-gasto" data-id="' + e.id + '" class="grid" style="grid-template-columns:2fr 1fr auto;margin-top:8px"><input id="ng-concepto" placeholder="Concepto" required><input id="ng-monto" type="number" min="1" placeholder="Monto" required><button class="btn" type="submit">Agregar gasto</button></form></section>';
+    abrirSheet('evento', id);
+  }
+  function abrirSheet(tipo, id) {
+    const f = $('#ficha');
+    const mismo = !f.hidden && f.dataset.tipo === tipo && f.dataset.id === id;
+    f.hidden = false; $('#backdrop').hidden = false; f.dataset.tipo = tipo; f.dataset.id = id;
+    f.scrollTop = mismo ? scrollFicha : 0;   // al re-dibujar la misma ficha no se pierde el scroll
+  }
+  let scrollFicha = 0;
+  document.addEventListener('scroll', e => { if (e.target && e.target.id === 'ficha') scrollFicha = e.target.scrollTop; }, true);
+  function cerrarFicha() { $('#ficha').hidden = true; $('#backdrop').hidden = true; delete $('#ficha').dataset.id; delete $('#ficha').dataset.tipo; fichaEdit = false; evEdit = false; }
   function render() {
-    renderHoy(); renderLeads(); renderEmbudo(); renderTablero();
-    if (!$('#ficha').hidden && $('#ficha').dataset.id) renderFicha($('#ficha').dataset.id);
+    renderHoy(); renderLeads(); renderEventos(); renderMetas(); renderEmbudo(); renderTablero();
+    const f = $('#ficha');
+    if (!f.hidden && f.dataset.id) { if (f.dataset.tipo === 'evento') renderEvento(f.dataset.id); else renderFicha(f.dataset.id); }
   }
 
   // ---------- interacción ----------
@@ -666,46 +1072,118 @@
     try { localStorage.setItem(CLAVE + '-vista', v); } catch (e) { /* nada */ }
   }
   document.querySelector('nav.tabs').addEventListener('click', e => { const b = e.target.closest('button[data-vista]'); if (b) verVista(b.dataset.vista); });
+
   document.addEventListener('click', e => {
     const b = e.target.closest('[data-act]'); if (!b) return;
-    const act = b.dataset.act, l = b.dataset.id ? porId(b.dataset.id) : null;
+    if (b.tagName === 'INPUT' || b.tagName === 'SELECT') return; // los checkbox y select se atienden en "change"
+    const act = b.dataset.act, l = b.dataset.id ? porId(b.dataset.id) : null, ev = b.dataset.id ? evId(b.dataset.id) : null;
+    // confirmaciones de borrado
+    if (act === 'pedir') { confirmando = b.dataset.clave; render(); return; }
+    if (act === 'no-confirmar') { confirmando = null; render(); return; }
+    if (act === 'confirmar') {
+      const [tipo, id] = b.dataset.clave.split(':'); confirmando = null;
+      if (tipo === 'lead') borrarLead(porId(id));
+      else if (tipo === 'evento') borrarEvento(evId(id));
+      else if (tipo === 'meta') { S.metas = S.metas.filter(m => m.id !== id); guardar(); render(); toast('Meta borrada.'); }
+      else if (tipo === 'lote') { const n = sel.size; S.leads = S.leads.filter(x => !sel.has(x.id)); sel.clear(); guardar(); render(); toast(n + ' leads borrados.'); }
+      return;
+    }
     if (act === 'enviar') enviar(l);
     else if (act === 'si') responder(l, true);
     else if (act === 'no') responder(l, false);
-    else if (act === 'ficha') renderFicha(b.dataset.id);
+    else if (act === 'ficha') { fichaEdit = false; renderFicha(b.dataset.id); }
+    else if (act === 'editar') { fichaEdit = true; renderFicha(b.dataset.id); }
+    else if (act === 'editar-cancelar') { fichaEdit = false; render(); }
     else if (act === 'cerrar-ficha') cerrarFicha();
     else if (act === 'mover') mover(l, $('#mover-sel').value);
     else if (act === 'cancelar') cerrar(l, 'cancelado');
     else if (act === 'archivar') cerrar(l, 'archivado');
     else if (act === 'liquidar') { l.reserva.pagado = l.reserva.total; log(l, { tipo: 'nota', nota: 'Liquidó ' + fmtMonto(l.reserva.total) }); guardar(); render(); toast('Reservación liquidada.'); }
-    else if (act === 'chk') { l.reserva.checklist[+b.dataset.i] = b.checked; guardar(); render(); }
+    else if (act === 'lote-archivar' || act === 'lote-cancelar') { const est = act === 'lote-archivar' ? 'archivado' : 'cancelado'; let n = 0; S.leads.forEach(x => { if (sel.has(x.id) && x.estado === 'activo') { cerrar(x, est, true); n++; } }); sel.clear(); guardar(); render(); toast(n + ' leads ' + est + 's.'); }
+    else if (act === 'lote-limpiar') { sel.clear(); render(); }
+    else if (act === 'ev-abrir') { evEdit = false; renderEvento(b.dataset.id); }
+    else if (act === 'ev-editar') { evEdit = true; renderEvento(b.dataset.id); }
+    else if (act === 'ev-editar-cancelar') { evEdit = false; render(); }
+    else if (act === 'ev-estado') { ev.estado = b.dataset.estado; if (ev.estado === 'realizado') ev.tareas.forEach(t => { if (t.fase !== 'cierre') t.hecho = true; }); guardar(); render(); toast('Evento ' + ev.estado + '.'); }
+    else if (act === 'ev-tarea-borrar') { ev.tareas = ev.tareas.filter(t => t.id !== b.dataset.t); guardar(); render(); }
+    else if (act === 'ev-inscrito-borrar') { ev.inscritos = ev.inscritos.filter(i => i.id !== b.dataset.i); guardar(); render(); toast('Inscrito quitado.'); }
+    else if (act === 'ev-gasto-borrar') { ev.gastos = ev.gastos.filter(g => g.id !== b.dataset.g); guardar(); render(); }
+    else if (act === 'ev-pago') { const i = ev.inscritos.find(x => x.id === b.dataset.i); const m = +document.getElementById('pg-' + i.id).value; if (m > 0) { i.pagado = (i.pagado || 0) + m; guardar(); render(); toast('Pago de ' + fmtMonto(m) + ' registrado.'); } }
+    else if (act === 'meta-editar') { confirmando = 'meta-edit:' + b.dataset.id; render(); }
+  });
+  document.addEventListener('change', e => {
+    const b = e.target.closest('[data-act]');
+    if (e.target.matches('[data-sel]')) { if (e.target.checked) sel.add(e.target.dataset.sel); else sel.delete(e.target.dataset.sel); renderLeads(); return; }
+    if (e.target.id === 'sel-todos') { const ls = leadsFiltrados(); if (e.target.checked) ls.forEach(l => sel.add(l.id)); else ls.forEach(l => sel.delete(l.id)); renderLeads(); return; }
+    if (!b) return;
+    const act = b.dataset.act, l = b.dataset.id ? porId(b.dataset.id) : null, ev = b.dataset.id ? evId(b.dataset.id) : null;
+    if (act === 'chk') { l.reserva.checklist[+b.dataset.i] = b.checked; guardar(); render(); }
+    else if (act === 'ev-tarea') { const t = ev.tareas.find(x => x.id === b.dataset.t); t.hecho = b.checked; guardar(); render(); }
+    else if (act === 'ev-resp') { const t = ev.tareas.find(x => x.id === b.dataset.t); t.responsable = b.value; guardar(); }
   });
   document.querySelectorAll('[data-toggle]').forEach(b => b.addEventListener('click', () => {
     const t = document.getElementById(b.dataset.toggle); t.hidden = !t.hidden; b.textContent = t.hidden ? 'Ver tabla' : 'Ocultar tabla';
   }));
   $('#backdrop').addEventListener('click', cerrarFicha);
   document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarFicha(); });
-  $('#btn-nuevo').addEventListener('click', () => { $('#registro').hidden = !$('#registro').hidden; if (!$('#registro').hidden) $('#f-cel').focus(); });
-  $('#btn-cancelar-reg').addEventListener('click', () => { $('#registro').hidden = true; });
-  $('#form-lead').addEventListener('submit', e => {
-    e.preventDefault();
-    const lead = registrar({ celular: $('#f-cel').value, nombre: $('#f-nombre').value.trim(), destino: $('#f-destino').value,
-      personas: +$('#f-personas').value || null, noches: +$('#f-noches').value || null, mes: $('#f-mes').value.trim(), origen: $('#f-origen').value });
-    if (lead) { e.target.reset(); $('#registro').hidden = true; }
-  });
+  const togglePanel = (btn, panel, foco, cancel) => {
+    $(btn).addEventListener('click', () => { $(panel).hidden = !$(panel).hidden; if (!$(panel).hidden) $(foco).focus(); });
+    $(cancel).addEventListener('click', () => { $(panel).hidden = true; });
+  };
+  togglePanel('#btn-nuevo', '#registro', '#f-cel', '#btn-cancelar-reg');
+  togglePanel('#btn-nuevo-evento', '#registro-evento', '#e-nombre', '#btn-cancelar-evento');
+  togglePanel('#btn-nueva-meta', '#registro-meta', '#m-objetivo', '#btn-cancelar-meta');
+  $('#e-fecha').value = iso(addDays(hoy(), 35));
+  $('#m-mes').value = MES_ACTUAL;
+
   document.addEventListener('submit', e => {
-    if (e.target.id !== 'form-reserva') return;
-    e.preventDefault();
-    const l = porId(e.target.dataset.id);
-    const ll = $('#r-llegada').value, sa = $('#r-salida').value;
-    if (!ll || !sa || sa <= ll) { toast('La salida debe ser después de la llegada.'); return; }
-    reservar(l, { cabana: +$('#r-cabana').value, llegada: ll, salida: sa, total: +$('#r-total').value, anticipo: +$('#r-anticipo').value });
+    const f = e.target; e.preventDefault();
+    const l = f.dataset.id ? porId(f.dataset.id) : null, ev = f.dataset.id ? evId(f.dataset.id) : null;
+    const v = id => { const el = document.getElementById(id); return el ? el.value.trim() : ''; };
+    const n = id => +v(id) || null;
+    if (f.id === 'form-lead') {
+      const lead = registrar({ celular: v('f-cel'), nombre: v('f-nombre'), destino: v('f-destino'), personas: n('f-personas'), noches: n('f-noches'), mes: v('f-mes'), origen: v('f-origen') });
+      if (lead) { f.reset(); $('#registro').hidden = true; }
+    } else if (f.id === 'form-lead-edit') {
+      if (editarLead(l, { nombre: v('le-nombre'), celular: v('le-celular'), destino: v('le-destino'), origen: v('le-origen'), personas: n('le-personas'), noches: n('le-noches'), mes: v('le-mes'), monto: n('le-monto'), comentarios: v('le-comentarios') })) { fichaEdit = false; render(); }
+    } else if (f.id === 'form-nota') {
+      log(l, { tipo: 'nota', nota: v('nota-txt') }); guardar(); render(); toast('Nota guardada.');
+    } else if (f.id === 'form-reserva') {
+      const ll = v('r-llegada'), sa = v('r-salida');
+      if (!ll || !sa || sa <= ll) { toast('La salida debe ser después de la llegada.'); return; }
+      reservar(l, { cabana: +v('r-cabana'), llegada: ll, salida: sa, total: +v('r-total'), anticipo: +v('r-anticipo') });
+    } else if (f.id === 'form-evento-nuevo') {
+      crearEvento({ nombre: v('e-nombre'), fecha: v('e-fecha'), lugar: v('e-lugar'), precio: n('e-precio') || 0, costo: n('e-costo') || 0, cupo: n('e-cupo'), incluye: v('e-incluye') });
+      f.reset(); $('#e-fecha').value = iso(addDays(hoy(), 35)); $('#registro-evento').hidden = true;
+    } else if (f.id === 'form-evento-edit') {
+      editarEvento(ev, { nombre: v('ee-nombre'), fecha: v('ee-fecha'), lugar: v('ee-lugar'), precio: n('ee-precio') || 0, costo: n('ee-costo') || 0, cupo: n('ee-cupo'), publicacion: v('ee-publicacion'), incluye: v('ee-incluye'), respuesta: v('ee-respuesta'), notas: v('ee-notas') });
+      evEdit = false; render();
+    } else if (f.id === 'form-tarea') {
+      const lim = v('nt-limite');
+      ev.tareas.push({ id: 't' + Date.now(), fase: v('nt-fase'), tarea: v('nt-tarea'), dias_antes: dias(ev.fecha, lim), limite: lim, responsable: USUARIO, hecho: false });
+      guardar(); render(); toast('Tarea agregada.');
+    } else if (f.id === 'form-inscrito') {
+      const t = normalizar(v('ni-cel')); if (!t) { toast('El celular debe tener 10 dígitos.'); return; }
+      if (ev.cupo && ev.inscritos.length >= ev.cupo) { toast('El cupo está lleno.'); return; }
+      ev.inscritos.push({ id: ev.id + 'i' + Date.now(), nombre: v('ni-nombre'), celular: t.cel, lada: t.lada, alojamiento: v('ni-aloj'), precio: n('ni-precio') || 0, pagado: n('ni-pagado') || 0 });
+      guardar(); render(); toast('Inscrito registrado.');
+    } else if (f.id === 'form-gasto') {
+      ev.gastos.push({ id: 'g' + Date.now(), concepto: v('ng-concepto'), monto: n('ng-monto') || 0 }); guardar(); render();
+    } else if (f.id === 'form-meta-nueva') {
+      S.metas.push({ id: 'm' + (S.sigM++), objetivo: v('m-objetivo'), indicador: v('m-indicador'), mes: v('m-mes'), meta: n('m-meta') || 1, avance: 0 });
+      guardar(); render(); f.reset(); $('#m-mes').value = MES_ACTUAL; $('#registro-meta').hidden = true; toast('Meta guardada.');
+    } else if (f.id === 'form-meta-edit') {
+      const m = S.metas.find(x => x.id === f.dataset.id);
+      Object.assign(m, { objetivo: v('me-objetivo'), indicador: v('me-indicador'), mes: v('me-mes'), meta: n('me-meta') || 1 });
+      if (document.getElementById('me-avance')) m.avance = n('me-avance') || 0;
+      confirmando = null; guardar(); render(); toast('Meta actualizada.');
+    }
   });
   ['buscar', 'filtro-estado', 'filtro-destino'].forEach(id => $('#' + id).addEventListener('input', renderLeads));
-  $('#reiniciar').addEventListener('click', () => { S = semilla(); guardar(); render(); toast('Demo reiniciada.'); });
+  $('#reiniciar').addEventListener('click', () => { S = semilla(); sel.clear(); confirmando = null; guardar(); render(); toast('Demo reiniciada.'); });
 
   function start(data) {
-    S = (data && data.leads) ? data : cargar();
+    S = (data && data.leads && data.eventos && data.metas) ? data : cargar();
     render();
     let v = 'hoy'; try { v = localStorage.getItem(CLAVE + '-vista') || 'hoy'; } catch (e) { /* nada */ }
     verVista(v);

@@ -7,7 +7,7 @@
 begin;
 
 do $$
-declare l leads; r reservaciones; n int;
+declare l leads; r reservaciones; n int; ev_id int; ins_id bigint;
 begin
   -- Registrar un lead nuevo: queda en paso 1, para hoy, sin enviar.
   l := registrar_lead('834 000 0001', 'San José', 'Prueba Uno', 'Anuncio Meta', 4, 1, 'Octubre');
@@ -91,6 +91,24 @@ begin
   assert exists (select 1 from v_lista_hoy where id = l.id and si_contesta = '2' and si_no_contesta = '2.1'), 'aparece en la lista de hoy con sus siguientes pasos';
   l := avanzar_lead(l.id, null);
   assert not exists (select 1 from v_lista_hoy where id = l.id), 'ya no aparece hasta mañana';
+
+  -- Evento: nace con su proceso completo y recorre las fechas si cambia la fecha.
+  insert into eventos (nombre, fecha, lugar, precio_publico, costo, cupo)
+  values ('Prueba de yoga', current_date + 30, 'San José', 2500, 900, 15) returning id into ev_id;
+  assert (select count(*) from evento_tareas where evento_id = ev_id) = (select count(*) from evento_tareas_catalogo where activo),
+         'el evento nace con todas las tareas del catálogo';
+  assert (select fecha_limite from evento_tareas where evento_id = ev_id and tarea like 'Definir fecha%') = current_date,
+         'la primera tarea vence hoy (30 días antes)';
+  update eventos set fecha = current_date + 40 where id = ev_id;
+  assert (select fecha_limite from evento_tareas where evento_id = ev_id and tarea like 'Definir fecha%') = current_date + 10,
+         'las fechas límite se recorren con el evento';
+  insert into inscripciones (evento_id, nombre, celular, precio) values (ev_id, 'Inscrita Uno', '8340000009', 2500) returning id into ins_id;
+  perform registrar_pago_inscripcion(ins_id, 500);
+  insert into gastos_evento (evento_id, concepto, monto) values (ev_id, 'Instructora', 2000);
+  assert (select cobrado from v_evento_resumen where id = ev_id) = 500, 'cobrado del evento';
+  assert (select gastos from v_evento_resumen where id = ev_id) = 2900, 'gastos = 2000 fijos + 900 por inscrito';
+  assert (select estado_pago from v_inscripcion_resumen where id = ins_id) = 'anticipo', 'inscripción con anticipo';
+  assert (select tareas_pendientes from v_evento_resumen where id = ev_id) = (select count(*) from evento_tareas_catalogo where activo);
 
   raise notice 'Todas las pruebas pasaron';
 end $$;
