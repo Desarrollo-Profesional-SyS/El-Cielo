@@ -8,6 +8,7 @@ navegable de la pantalla principal.
 ```
 sistema/
 ├── README.md                 este documento
+├── PUESTA-EN-MARCHA.md       qué se necesita para usarlo de verdad
 ├── db/
 │   ├── schema.sql            tablas, funciones (motor de embudo) y vistas
 │   ├── pruebas.sql           pruebas del motor; corren y se revierten solas
