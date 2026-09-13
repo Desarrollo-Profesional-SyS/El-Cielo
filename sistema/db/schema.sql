@@ -693,3 +693,267 @@ insert into evento_tareas_catalogo (fase, tarea, dias_antes, responsable, orden)
   ('cierre',        'Publicar fotos y agradecer', -2, 'Marketing', 24),
   ('cierre',        'Cerrar cuentas: ingresos, gastos y ganancia', -3, 'Dirección', 25),
   ('cierre',        'Anotar aprendizajes para el próximo evento', -3, 'Dirección', 26);
+
+-- =============================================================================
+-- Cotizador: catálogo de tarifas, temporadas y servicios
+-- =============================================================================
+alter table cabanas add column if not exists personas_incluidas int not null default 2;
+alter table cabanas add column if not exists extra_persona numeric(10,2) not null default 0;
+alter table cabanas add column if not exists capacidad int;
+
+create table temporadas (
+  id     serial primary key,
+  nombre text not null,
+  desde  text not null check (desde ~ '^\d{2}-\d{2}$'),   -- MM-DD
+  hasta  text not null check (hasta ~ '^\d{2}-\d{2}$'),   -- puede cruzar el año (12-15 a 01-06)
+  factor numeric(4,2) not null default 1 check (factor > 0),
+  activa boolean not null default true
+);
+
+create type tipo_servicio_t as enum ('transporte', 'actividad');
+create type cobro_t as enum ('viaje', 'persona', 'grupo');
+
+create table servicios (
+  id     serial primary key,
+  tipo   tipo_servicio_t not null,
+  nombre text not null,
+  precio numeric(10,2) not null default 0 check (precio >= 0),
+  cobro  cobro_t not null default 'persona',
+  activo boolean not null default true
+);
+
+create table cotizaciones (
+  id         bigserial primary key,
+  lead_id    uuid references leads (id) on delete set null,
+  cabana_id  int references cabanas (id),
+  llegada    date not null,
+  salida     date not null check (salida > llegada),
+  personas   int not null check (personas > 0),
+  descuento  numeric(5,2) not null default 0,
+  total      numeric(10,2) not null,
+  anticipo   numeric(10,2) not null,
+  mensaje    text,
+  creada_en  timestamptz not null default now(),
+  creada_por text
+);
+
+create table cotizacion_servicios (
+  cotizacion_id bigint not null references cotizaciones (id) on delete cascade,
+  servicio_id   int not null references servicios (id),
+  monto         numeric(10,2) not null,
+  primary key (cotizacion_id, servicio_id)
+);
+
+-- Factor de temporada para una fecha (1 si no cae en ninguna).
+create or replace function factor_temporada(p_fecha date)
+returns numeric language sql stable as $$
+  select coalesce(max(t.factor), 1) from temporadas t
+  where t.activa and (
+    case when t.desde <= t.hasta
+      then to_char(p_fecha, 'MM-DD') between t.desde and t.hasta
+      else to_char(p_fecha, 'MM-DD') >= t.desde or to_char(p_fecha, 'MM-DD') <= t.hasta
+    end)
+$$;
+
+-- Hospedaje de una estancia: noches, personas extra y temporada de la llegada.
+create or replace function cotizar_hospedaje(p_cabana int, p_llegada date, p_salida date, p_personas int)
+returns numeric language sql stable as $$
+  select round((c.precio_base * (p_salida - p_llegada)
+    + greatest(0, p_personas - c.personas_incluidas) * c.extra_persona * (p_salida - p_llegada))
+    * factor_temporada(p_llegada))
+  from cabanas c where c.id = p_cabana
+$$;
+
+-- =============================================================================
+-- Calendario: bloqueos, actividades agendadas y publicaciones
+-- =============================================================================
+create table bloqueos (
+  id        bigserial primary key,
+  cabana_id int not null references cabanas (id) on delete cascade,
+  desde     date not null,
+  hasta     date not null check (hasta > desde),
+  motivo    text not null default 'Mantenimiento',
+  nota      text,
+  creado_en timestamptz not null default now()
+);
+create index bloqueos_idx on bloqueos (cabana_id, desde, hasta);
+
+alter table reservaciones add column if not exists origen text not null default 'Embudo';
+
+create table agenda_actividades (
+  id          bigserial primary key,
+  fecha       date not null,
+  hora        time,
+  servicio_id int references servicios (id),
+  nombre      text not null,
+  personas    int not null default 1 check (personas > 0),
+  para        text,
+  lead_id     uuid references leads (id) on delete set null,
+  nota        text
+);
+create index agenda_fecha_idx on agenda_actividades (fecha);
+
+create table publicaciones (
+  id        bigserial primary key,
+  fecha     date not null,
+  tipo      text not null default 'Post' check (tipo in ('Post', 'Reel', 'Historia', 'Mensaje')),
+  tema      text not null,
+  canal     text not null default 'Facebook / Instagram',
+  evento_id int references eventos (id) on delete set null,
+  estado    text not null default 'pendiente' check (estado in ('pendiente', 'publicada')),
+  liga      text,
+  unique (fecha, tema)
+);
+create index publicaciones_fecha_idx on publicaciones (fecha, estado);
+
+-- Disponibilidad: ahora también respeta los bloqueos de mantenimiento.
+create or replace function cabana_disponible(p_cabana int, p_llegada date, p_salida date, p_excluir uuid default null)
+returns boolean language sql stable as $$
+  select not exists (
+    select 1 from reservaciones r
+    where r.cabana_id = p_cabana and r.estado <> 'cancelada'
+      and r.fecha_llegada is not null and r.fecha_salida is not null
+      and (p_excluir is null or r.id <> p_excluir)
+      and daterange(r.fecha_llegada, r.fecha_salida, '[)') && daterange(p_llegada, p_salida, '[)')
+  ) and not exists (
+    select 1 from bloqueos b
+    where b.cabana_id = p_cabana
+      and daterange(b.desde, b.hasta, '[)') && daterange(p_llegada, p_salida, '[)')
+  )
+$$;
+
+-- Qué hay cada día: alimenta el calendario del equipo y el del sitio.
+create view v_calendario as
+select r.fecha_llegada as desde, r.fecha_salida as hasta, 'reserva'::text as tipo, r.cabana_id,
+       coalesce(r.nombre, '') || ' · ' || r.origen as titulo, r.id::text as ref
+from reservaciones r where r.estado <> 'cancelada' and r.fecha_llegada is not null and r.fecha_salida is not null
+union all
+select b.desde, b.hasta, 'bloqueo', b.cabana_id, b.motivo, b.id::text from bloqueos b
+union all
+select e.fecha, e.fecha + 1, 'evento', null, e.nombre, e.id::text from eventos e where e.estado <> 'cancelado' and e.fecha is not null
+union all
+select a.fecha, a.fecha + 1, 'actividad', null, coalesce(to_char(a.hora, 'HH24:MI') || ' ', '') || a.nombre, a.id::text from agenda_actividades a
+union all
+select p.fecha, p.fecha + 1, 'publicacion', null, p.tipo || ': ' || p.tema, p.id::text from publicaciones p;
+
+-- Disponibilidad por cabaña y día, para publicar en el sitio (sin nombres ni montos).
+create or replace function disponibilidad(p_desde date, p_hasta date)
+returns table (dia date, cabana_id int, cabana text, libre boolean) language sql stable as $$
+  select d::date, c.id, c.nombre, cabana_disponible(c.id, d::date, d::date + 1)
+  from generate_series(p_desde, p_hasta, interval '1 day') d
+  cross join cabanas c where c.activa
+$$;
+
+-- =============================================================================
+-- Plan de trabajo diario: rutina, bitácora y evidencia
+-- =============================================================================
+create table rutina_tareas (
+  id      serial primary key,
+  tarea   text not null,
+  dia     int check (dia between 0 and 6),   -- null = todos los días; 0 domingo … 6 sábado
+  orden   int not null default 0,
+  activa  boolean not null default true
+);
+
+create table plan_dia (
+  fecha            date not null,
+  clave            text not null,            -- r-<rutina_id> | p-<publicacion_id> | e-<evento_tarea_id>
+  hecho            boolean not null default false,
+  hecho_en         timestamptz,
+  hecho_por        text,
+  evidencia_texto  text,
+  evidencia_url    text,
+  primary key (fecha, clave)
+);
+
+-- Lo que toca hoy: rutina del día, publicaciones programadas y tareas de eventos
+-- que vencen o vienen vencidas, con su marca y evidencia si ya se hizo.
+create or replace function plan_del_dia(p_fecha date)
+returns table (clave text, grupo text, tarea text, responsable text, limite date,
+               hecho boolean, hecho_en timestamptz, hecho_por text, evidencia_texto text, evidencia_url text)
+language sql stable as $$
+  with items as (
+    select 'r-' || r.id as clave,
+           case when r.dia is null then 'Rutina diaria' else 'Cada ' || lower(to_char(p_fecha, 'TMday')) end as grupo,
+           r.tarea, null::text as responsable, p_fecha as limite, r.orden
+    from rutina_tareas r
+    where r.activa and (r.dia is null or r.dia = extract(dow from p_fecha))
+    union all
+    select 'p-' || p.id, 'Publicaciones del día', p.tipo || ': ' || p.tema || ' · ' || p.canal, null, p.fecha, 100
+    from publicaciones p where p.fecha = p_fecha
+    union all
+    select 'e-' || t.id, 'Tareas de eventos', t.tarea || ' · ' || e.nombre, t.responsable, t.fecha_limite, 200
+    from evento_tareas t join eventos e on e.id = t.evento_id
+    where e.estado not in ('realizado', 'cancelado')
+      and (case when p_fecha = current_date then (not t.hecho and t.fecha_limite <= p_fecha) else t.fecha_limite = p_fecha end)
+  )
+  select i.clave, i.grupo, i.tarea, i.responsable, i.limite,
+         coalesce(d.hecho, false), d.hecho_en, d.hecho_por, d.evidencia_texto, d.evidencia_url
+  from items i left join plan_dia d on d.fecha = p_fecha and d.clave = i.clave
+  order by i.orden, i.tarea
+$$;
+
+-- Marca una tarea del plan y propaga el estado a su origen (publicación o tarea de evento).
+create or replace function marcar_plan(p_fecha date, p_clave text, p_hecho boolean,
+                                       p_usuario text default null, p_evidencia text default null, p_url text default null)
+returns plan_dia language plpgsql as $$
+declare d plan_dia;
+begin
+  insert into plan_dia (fecha, clave, hecho, hecho_en, hecho_por, evidencia_texto, evidencia_url)
+  values (p_fecha, p_clave, p_hecho, case when p_hecho then now() end, case when p_hecho then p_usuario end, p_evidencia, p_url)
+  on conflict (fecha, clave) do update set hecho = excluded.hecho, hecho_en = excluded.hecho_en, hecho_por = excluded.hecho_por,
+    evidencia_texto = coalesce(excluded.evidencia_texto, plan_dia.evidencia_texto),
+    evidencia_url = coalesce(excluded.evidencia_url, plan_dia.evidencia_url)
+  returning * into d;
+  if p_clave like 'p-%' then
+    update publicaciones set estado = case when p_hecho then 'publicada' else 'pendiente' end
+    where id = substring(p_clave from 3)::bigint;
+  elsif p_clave like 'e-%' then
+    update evento_tareas set hecho = p_hecho, hecho_en = case when p_hecho then now() end, hecho_por = case when p_hecho then p_usuario end
+    where id = substring(p_clave from 3)::bigint;
+  end if;
+  return d;
+end $$;
+
+-- Cumplimiento del plan por día, para el tablero.
+create view v_plan_cumplimiento as
+select d.fecha, count(*) as marcadas, count(*) filter (where d.hecho) as hechas,
+       count(*) filter (where d.evidencia_texto is not null or d.evidencia_url is not null) as con_evidencia
+from plan_dia d group by d.fecha order by d.fecha desc;
+
+-- -----------------------------------------------------------------------------
+-- Datos fijos de las tres pantallas nuevas
+-- -----------------------------------------------------------------------------
+insert into temporadas (nombre, desde, hasta, factor) values
+  ('Semana Santa', '03-28', '04-12', 1.2), ('Verano', '07-01', '08-20', 1.1), ('Navidad y Año Nuevo', '12-15', '01-06', 1.2);
+
+insert into servicios (tipo, nombre, precio, cobro) values
+  ('transporte', 'Llegan en su propio 4x4', 0, 'viaje'),
+  ('transporte', '4x4 desde Gómez Farías, ida y vuelta', 1500, 'viaje'),
+  ('transporte', '4x4 desde Ciudad Mante, ida y vuelta', 2500, 'viaje'),
+  ('actividad', 'Paseo a caballo', 350, 'persona'),
+  ('actividad', 'Tour a la Cueva del Agua', 250, 'persona'),
+  ('actividad', 'Senderismo guiado a Alta Cima', 300, 'persona'),
+  ('actividad', 'Avistamiento de aves al amanecer', 400, 'persona'),
+  ('actividad', 'Fogata con leña', 200, 'grupo'),
+  ('actividad', 'Bicicletas de montaña', 150, 'persona');
+
+insert into rutina_tareas (tarea, dia, orden) values
+  ('Mandar los buenos días al grupo', null, 1),
+  ('Contestar mensajes de WhatsApp', null, 2),
+  ('Registrar los leads nuevos que llegaron', null, 3),
+  ('Seguimiento del embudo (lista de hoy)', null, 4),
+  ('Contestar mensajes y comentarios de Facebook e Instagram', null, 5),
+  ('Barrer y limpieza rápida', null, 6),
+  ('Enviar el registro diario de leads al grupo', null, 7),
+  ('Limpieza profunda de baños y áreas comunes', 1, 10),
+  ('Compartir en la comunidad de WhatsApp', 1, 11),
+  ('Revisar anticipos por liquidar de la semana', 4, 12),
+  ('Confirmar llegadas del fin de semana', 5, 13),
+  ('Compartir fotos de las cabañas en grupos', 6, 14),
+  ('Limpiar senderos y zona de entrada', 6, 15),
+  ('Junta con Dirección', 6, 16),
+  ('Revisar la semana: leads, reservas y pendientes', 0, 17);
+
+update cabanas set personas_incluidas = 6, extra_persona = 600, capacidad = 8 where nombre = 'Cabaña San José';
+update cabanas set personas_incluidas = 2, extra_persona = 400, capacidad = 4 where nombre = 'Cabaña Alpina Gómez Farías';

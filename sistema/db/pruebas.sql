@@ -7,7 +7,7 @@
 begin;
 
 do $$
-declare l leads; r reservaciones; n int; ev_id int; ins_id bigint;
+declare l leads; r reservaciones; n int; ev_id int; ins_id bigint; cab int; pub_id bigint; tar_id bigint;
 begin
   -- Registrar un lead nuevo: queda en paso 1, para hoy, sin enviar.
   l := registrar_lead('834 000 0001', 'San José', 'Prueba Uno', 'Anuncio Meta', 4, 1, 'Octubre');
@@ -109,6 +109,40 @@ begin
   assert (select gastos from v_evento_resumen where id = ev_id) = 2900, 'gastos = 2000 fijos + 900 por inscrito';
   assert (select estado_pago from v_inscripcion_resumen where id = ins_id) = 'anticipo', 'inscripción con anticipo';
   assert (select tareas_pendientes from v_evento_resumen where id = ev_id) = (select count(*) from evento_tareas_catalogo where activo);
+
+  -- Cotizador: temporada, noches y personas extra.
+  select id into cab from cabanas where nombre = 'Cabaña San José';
+  assert factor_temporada(date '2026-07-15') = 1.1, 'julio cae en temporada de verano';
+  assert factor_temporada(date '2026-12-28') = 1.2, 'la temporada navideña cruza el año';
+  assert factor_temporada(date '2026-02-10') = 1, 'febrero no tiene factor';
+  assert cotizar_hospedaje(cab, date '2026-02-10', date '2026-02-12', 6) = 8299 * 2, 'dos noches sin extras';
+  assert cotizar_hospedaje(cab, date '2026-02-10', date '2026-02-12', 8) = 8299 * 2 + 2 * 600 * 2, 'dos personas extra por noche';
+  assert cotizar_hospedaje(cab, date '2026-07-10', date '2026-07-11', 6) = round(8299 * 1.1), 'verano sube 10 %';
+
+  -- Calendario: un bloqueo ocupa la cabaña aunque no haya reservación.
+  insert into bloqueos (cabana_id, desde, hasta, motivo) values (cab, date '2026-02-20', date '2026-02-22', 'Mantenimiento');
+  assert not cabana_disponible(cab, date '2026-02-21', date '2026-02-23'), 'el bloqueo ocupa la cabaña';
+  assert cabana_disponible(cab, date '2026-02-22', date '2026-02-24'), 'libre al terminar el bloqueo';
+  assert (select count(*) from v_calendario where tipo = 'bloqueo') >= 1, 'el bloqueo sale en el calendario';
+  assert (select count(*) from disponibilidad(date '2026-02-20', date '2026-02-21') where not libre) = 2,
+         'la disponibilidad del sitio marca ocupados los dos días del bloqueo';
+
+  -- Plan del día: rutina, publicación y tarea de evento vencida, con evidencia.
+  insert into publicaciones (fecha, tipo, tema) values (current_date, 'Post', 'Prueba de publicación') returning id into pub_id;
+  update evento_tareas set fecha_limite = current_date - 2 where evento_id = ev_id and tarea like 'Definir fecha%' returning id into tar_id;
+  assert (select count(*) from plan_del_dia(current_date) where grupo = 'Rutina diaria') =
+         (select count(*) from rutina_tareas where activa and dia is null), 'la rutina diaria completa sale en el plan';
+  assert exists (select 1 from plan_del_dia(current_date) where clave = 'p-' || pub_id), 'la publicación del día sale en el plan';
+  assert exists (select 1 from plan_del_dia(current_date) where clave = 'e-' || tar_id and limite < current_date), 'la tarea vencida se arrastra a hoy';
+
+  perform marcar_plan(current_date, 'p-' || pub_id, true, 'Andrés', 'Publicado a las 9:05');
+  assert (select estado from publicaciones where id = pub_id) = 'publicada', 'marcar el plan publica la publicación';
+  perform marcar_plan(current_date, 'e-' || tar_id, true, 'Andrés');
+  assert (select hecho from evento_tareas where id = tar_id), 'marcar el plan cierra la tarea del evento';
+  assert (select hecho_por from plan_del_dia(current_date) where clave = 'p-' || pub_id) = 'Andrés', 'queda quién la hizo';
+  assert (select con_evidencia from v_plan_cumplimiento where fecha = current_date) = 1, 'se contabiliza la evidencia';
+  perform marcar_plan(current_date, 'p-' || pub_id, false, 'Andrés');
+  assert (select estado from publicaciones where id = pub_id) = 'pendiente', 'desmarcar regresa la publicación a pendiente';
 
   raise notice 'Todas las pruebas pasaron';
 end $$;

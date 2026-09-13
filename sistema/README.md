@@ -29,9 +29,10 @@ sistema/
 | Feedback Diario de Leads | vista `v_semana`, se calcula sola |
 | Reservaciones | `reservaciones`, `pagos`, `gastos_reserva`, `checklist_reserva` |
 | Reservaciones Eventos, Eventos | `eventos`, `evento_tareas` (proceso por fases), `inscripciones`, `pagos`, `gastos_evento` |
-| Cabañas, Marzo | `cabanas`, vista `v_ocupacion` |
+| Cabañas, Marzo | `cabanas`, `bloqueos`, vistas `v_ocupacion` y `v_calendario` |
 | Hoja 7 (metas SMART) | `metas`, vista `v_mes` |
-| Plan Trabajo | pendiente (fase 4, checklist diario) |
+| Plan Trabajo | `rutina_tareas`, `plan_dia` (con evidencia), `publicaciones` |
+| Cotizaciones que se hacían a mano | `temporadas`, `servicios`, `cotizaciones`, función `cotizar_hospedaje` |
 
 ## Cómo funciona el motor del embudo
 
@@ -125,6 +126,38 @@ Lo que hace la limpieza:
 - Las cabañas anotadas como "Yussef", "Oliver" y "Cristal" se dieron de alta como cabañas
   propias; si son de terceros, marcar `activa = false` o renombrar.
 
+## Cotizador
+
+El precio sale de tres catálogos editables: `cabanas` (precio por noche, personas
+incluidas, extra por persona y capacidad), `temporadas` (un factor por rango
+MM-DD, que puede cruzar el año) y `servicios` (transporte y actividades, cobradas
+por viaje, por persona o por grupo). `cotizar_hospedaje` calcula noches, personas
+extra y temporada; la aplicación suma servicios y descuento, arma el mensaje de
+WhatsApp desde una plantilla con variables y lo guarda en `cotizaciones` junto con
+el lead. Antes de cotizar revisa `cabana_disponible`, que ahora también respeta
+los bloqueos.
+
+## Calendario
+
+`v_calendario` junta en una sola lista las reservaciones, los bloqueos, los
+eventos, las actividades agendadas y las publicaciones, cada uno con su rango de
+fechas. `disponibilidad(desde, hasta)` devuelve día por día qué cabaña está libre,
+sin nombres ni montos: es exactamente lo que puede publicarse en
+elcielotamaulipas.org sin exponer datos de clientes. Las reservaciones que no
+vienen del embudo (Airbnb, teléfono, conocidos) se guardan en `reservaciones` con
+`origen` y sin `lead_id`.
+
+## Plan de trabajo diario
+
+`rutina_tareas` guarda lo que se hace todos los días y lo que toca cada día de la
+semana (la hoja Plan Trabajo). `plan_del_dia(fecha)` arma la lista del día
+juntando esa rutina, las publicaciones programadas para ese día y las tareas de
+eventos que vencen o vienen vencidas. `marcar_plan` registra quién la hizo, a qué
+hora y con qué evidencia (texto o liga a una foto), y propaga el estado a su
+origen: marcar una publicación la pasa a publicada, marcar una tarea de evento la
+cierra en `evento_tareas`. `v_plan_cumplimiento` resume por día cuántas tareas se
+hicieron y cuántas traen evidencia.
+
 ## Arquitectura propuesta
 
 - **Base de datos:** Supabase (PostgreSQL, login, permisos por fila). Este esquema corre tal cual.
@@ -151,12 +184,15 @@ Lo que hace la limpieza:
 | Calendario de ocupación | `v_ocupacion`, `cabana_disponible` |
 | Reservación | `v_reserva_resumen`, `checklist_reserva`, `registrar_pago_reserva`, `gastos_reserva` |
 | Eventos | `v_evento_resumen`, `evento_tareas`, `v_inscripcion_resumen`, `gastos_evento` |
+| Cotizador | `cabanas`, `temporadas`, `servicios`, `cotizar_hospedaje`, `cabana_disponible`, `cotizaciones` |
+| Calendario | `v_calendario`, `bloqueos`, `agenda_actividades`, `publicaciones`, `disponibilidad` |
+| Plan del día | `plan_del_dia`, `marcar_plan`, `rutina_tareas`, `v_plan_cumplimiento` |
 | Metas | `metas` (avance calculado desde reservaciones, eventos y leads) |
 | Tablero | `v_semana`, `v_mes`, `v_embudo`, `metas`, `v_evento_resumen` |
 
 ## Fases
 
-1. **Hecho:** modelo de datos, motor de embudo con pruebas, proceso de eventos, migración del Excel, prototipo.
+1. **Hecho:** modelo de datos, motor de embudo con pruebas, proceso de eventos, cotizador, calendario, plan de trabajo diario, migración del Excel y prototipo navegable.
 2. Lista de hoy, registro y edición de leads, ficha e historial, tablero básico, login.
 3. Calendario, reservaciones con pagos y checklist, gastos y ganancia.
 4. Eventos con proceso e inscritos, metas, checklist diario del plan de trabajo, API de WhatsApp.
@@ -167,9 +203,9 @@ Por orden de impacto sobre la operación diaria:
 
 1. **Captura automática desde WhatsApp.** Con la API de WhatsApp Cloud cada mensaje entrante crea el lead solo, con el anuncio de Meta como origen, y el paso 1 se responde en segundos aunque sea de madrugada.
 2. **Aviso diario al equipo.** A las 9:00 llega al grupo la lista de hoy (cuántos leads, cuáles con retraso, tareas de eventos vencidas, anticipos por liquidar). Sustituye los screenshots del plan de trabajo.
-3. **Cotizador.** Precio automático por cabaña, personas, noches, temporada, transporte 4x4 y tours; genera el mensaje de cotización con fotos. Elimina errores de monto y acelera el paso 5 y 6.
+3. ~~**Cotizador.**~~ **Hecho en el prototipo.** Precio automático por cabaña, personas, noches, temporada, transporte 4x4 y tours; genera el mensaje de cotización con fotos. Elimina errores de monto y acelera el paso 5 y 6.
 4. **Plantillas con variables.** `{nombre}`, `{personas}`, `{fecha}`, `{monto}` en cada paso para que el mensaje llegue personalizado sin editarlo a mano.
-5. **Calendario de disponibilidad en el sitio** y sincronización con Airbnb por iCal, para evitar dobles reservas y vender sin pedir fechas por chat.
+5. ~~**Calendario de disponibilidad en el sitio**~~ **Hecho en el prototipo, falta publicarlo en el sitio.** Calendario y sincronización con Airbnb por iCal, para evitar dobles reservas y vender sin pedir fechas por chat.
 6. **Formulario de reserva en la web** que registre el lead o la reservación directo en la base, con el sitio que ya existe.
 7. **Links de pago** (Mercado Pago, Clip o Stripe) en el paso 8 y conciliación automática de anticipos y liquidaciones.
 8. **Motivo de cancelación estructurado** (precio, fechas, sin 4x4, distancia, no contestó) para saber por qué se pierden leads y ajustar oferta y anuncios.
@@ -180,4 +216,4 @@ Por orden de impacto sobre la operación diaria:
 13. **Reporte semanal automático** por correo o WhatsApp: leads, cotizaciones, conversión, ingresos, avance de metas y eventos.
 14. **Roles y permisos.** Quién ve teléfonos completos, quién edita precios y plantillas, quién borra.
 15. **Respaldo y exportación** a Excel o Google Sheets con un clic, para quien prefiera analizar ahí.
-16. **Plan de trabajo diario** como checklist con evidencia (la hoja Plan Trabajo), ligado a las tareas de eventos y al calendario de publicaciones.
+16. ~~**Plan de trabajo diario**~~ **Hecho en el prototipo.** Checklist con evidencia, ligado a las tareas de eventos y al calendario de publicaciones.
